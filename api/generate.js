@@ -118,8 +118,7 @@ async function generateWithDallE(prompt, size, apiKey) {
       prompt: prompt,
       n: 1,
       size: size,
-      quality: "standard",
-      response_format: "url"
+      quality: "standard"
     })
   });
 
