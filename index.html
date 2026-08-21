@@ -2,356 +2,1739 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
+<title>Mémo WP·WD — Maison Reveal Impact</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Moodboard IA — Maison Reveal Impact</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;600;700&display=swap">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#FDFCFA;--card:#F5F3EF;--card-hover:#EDEAE4;
-  --ink:#2B2926;--ink-soft:#4A4641;--muted:#8C8880;
-  --accent:#5C7A6B;--accent-soft:#E2EBE6;--accent-text:#4A6558;
-  --gold:#B8956A;--gold-soft:#F0E6D8;
-  --border:#E0DDD7;--shadow:rgba(43,41,38,0.06);--radius:12px;
+:root {
+  --surface: #FDFCFA;
+  --surface-card: #F5F3EF;
+  --surface-hover: #EDEAE4;
+  --ink: #2B2926;
+  --ink-soft: #4A4641;
+  --muted: #8C8880;
+  --accent: #5C7A6B;
+  --accent-soft: #E2EBE6;
+  --accent-text: #4A6558;
+  --gold: #B8956A;
+  --gold-soft: #F0E6D8;
+  --border: #E0DDD7;
+  --shadow: rgba(43,41,38,0.06);
+  --radius: 10px;
 }
-@media(prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#1A1917;--card:#262421;--card-hover:#302D2A;
-    --ink:#E8E5E0;--ink-soft:#C4C0BA;--muted:#8C8880;
-    --accent:#7FA08E;--accent-soft:#2D3832;--accent-text:#9BC0AA;
-    --gold:#C8A57A;--gold-soft:#3A3020;
-    --border:#3A3733;--shadow:rgba(0,0,0,0.3);
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #1A1917;
+    --surface-card: #262421;
+    --surface-hover: #302D2A;
+    --ink: #E8E5E0;
+    --ink-soft: #C4C0BA;
+    --muted: #8C8880;
+    --accent: #7FA08E;
+    --accent-soft: #2D3832;
+    --accent-text: #9ABFAB;
+    --gold: #C4A475;
+    --gold-soft: #3A3228;
+    --border: #3A3734;
+    --shadow: rgba(0,0,0,0.2);
   }
 }
-:root[data-theme="dark"]{
-  --bg:#1A1917;--card:#262421;--card-hover:#302D2A;
-  --ink:#E8E5E0;--ink-soft:#C4C0BA;--muted:#8C8880;
-  --accent:#7FA08E;--accent-soft:#2D3832;--accent-text:#9BC0AA;
-  --gold:#C8A57A;--gold-soft:#3A3020;
-  --border:#3A3733;--shadow:rgba(0,0,0,0.3);
+:root[data-theme="dark"] {
+  --surface: #1A1917;
+  --surface-card: #262421;
+  --surface-hover: #302D2A;
+  --ink: #E8E5E0;
+  --ink-soft: #C4C0BA;
+  --muted: #8C8880;
+  --accent: #7FA08E;
+  --accent-soft: #2D3832;
+  --accent-text: #9ABFAB;
+  --gold: #C4A475;
+  --gold-soft: #3A3228;
+  --border: #3A3734;
+  --shadow: rgba(0,0,0,0.2);
 }
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
-.container{max-width:720px;margin:0 auto;padding:24px 16px}
-
-header{text-align:center;padding:32px 0 24px}
-header h1{font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;color:var(--ink);margin-bottom:4px}
-header .tagline{font-size:13px;color:var(--gold);font-weight:500;letter-spacing:0.08em;text-transform:uppercase}
-header .subtitle{font-size:14px;color:var(--muted);margin-top:8px}
-
-.form-section{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:24px;border:1px solid var(--border)}
-.form-section h2{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;margin-bottom:16px;color:var(--ink)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.form-group{display:flex;flex-direction:column;gap:4px}
-.form-group.full{grid-column:1/-1}
-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted)}
-select,input[type="text"],input[type="date"]{
-  width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;
-  background:var(--bg);color:var(--ink);font-family:inherit;font-size:14px;
-  transition:border-color .2s;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
-select:focus,input:focus{outline:none;border-color:var(--accent)}
-
-.mood-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-.mood-chip{
-  padding:6px 12px;border-radius:20px;border:1px solid var(--border);
-  background:var(--bg);color:var(--ink-soft);font-size:12px;cursor:pointer;
-  transition:all .2s;user-select:none;
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px 0;
 }
-.mood-chip.selected{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-text);font-weight:600}
-
-.btn-generate{
-  width:100%;padding:14px;border:none;border-radius:var(--radius);
-  background:var(--accent);color:#fff;font-family:inherit;font-size:15px;font-weight:700;
-  cursor:pointer;transition:all .3s;letter-spacing:0.02em;margin-top:8px;
+.app-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.btn-generate:hover{opacity:0.9;transform:translateY(-1px)}
-.btn-generate:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-
-.loading{display:none;text-align:center;padding:48px 0}
-.loading.active{display:block}
-.loading .spinner{
-  width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);
-  border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;
+.app-title span { color: var(--accent); font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+.search-wrap {
+  position: relative;
+  margin-bottom: 10px;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading p{color:var(--muted);font-size:14px}
-.loading .step{font-weight:600;color:var(--accent-text);margin-bottom:4px}
-
-.result{display:none;margin-top:24px}
-.result.active{display:block}
-.result-header{text-align:center;margin-bottom:24px}
-.result-header h2{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;margin-bottom:4px}
-.result-header .couple{font-size:16px;color:var(--gold);font-weight:500}
-.result-header .date{font-size:13px;color:var(--muted);margin-top:4px}
-
-.image-grid{display:grid;gap:16px;margin-bottom:24px}
-.image-card{
-  border-radius:var(--radius);overflow:hidden;background:var(--card);
-  border:1px solid var(--border);box-shadow:0 2px 8px var(--shadow);
+.search-wrap svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  width: 16px;
+  height: 16px;
 }
-.image-card img{width:100%;display:block;object-fit:cover}
-.image-card .caption{
-  padding:10px 14px;font-size:12px;font-weight:600;
-  text-transform:uppercase;letter-spacing:0.05em;color:var(--muted);text-align:center;
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-card);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
 }
-.image-card.landscape{grid-column:1/-1}
+.search-input::placeholder { color: var(--muted); }
+.search-input:focus { border-color: var(--accent); }
+.cat-pills {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.cat-pills::-webkit-scrollbar { display: none; }
+.cat-pill {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.cat-pill:hover { border-color: var(--accent); color: var(--accent-text); }
+.cat-pill.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.content { padding: 12px 16px 80px; }
+.cat-section { margin-bottom: 24px; }
+.cat-section.hidden { display: none; }
+.cat-header {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--accent-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--gold-soft);
+  color: var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--accent); }
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  user-select: none;
+}
+.card-header:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.card-chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+  transition: transform 0.25s;
+  flex-shrink: 0;
+}
+.card.open .card-chevron { transform: rotate(90deg); }
+.card-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink);
+  flex: 1;
+}
+.card-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  flex-shrink: 0;
+}
+.card-body {
+  display: none;
+  padding: 0 14px 14px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.card.open .card-body { display: block; }
+.card-body h4 {
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-text);
+  margin: 12px 0 6px;
+}
+.card-body h4:first-child { margin-top: 4px; }
+.card-body p { margin-bottom: 8px; }
+.card-body ul, .card-body ol { padding-left: 18px; margin-bottom: 8px; }
+.card-body li { margin-bottom: 3px; }
+.card-body strong { color: var(--ink); font-weight: 600; }
+.memo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.memo-table-wrap { overflow-x: auto; }
+.memo-table th {
+  text-align: left;
+  padding: 6px 8px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.memo-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.memo-table tr:last-child td { border-bottom: none; }
+.alert-box {
+  background: var(--gold-soft);
+  border-left: 3px solid var(--gold);
+  padding: 8px 10px;
+  border-radius: 0 6px 6px 0;
+  margin: 8px 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--muted);
+  font-size: 14px;
+  display: none;
+}
+.stats-bar {
+  display: flex;
+  gap: 12px;
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-card);
+}
+.stats-bar strong { color: var(--accent-text); font-weight: 600; }
 
-.moodboard-info{
-  background:var(--card);border-radius:var(--radius);padding:20px;
-  border:1px solid var(--border);margin-bottom:16px;
+/* Moodboard Builder */
+.mb-section { display: none; padding: 12px 16px 80px; }
+.mb-section.visible { display: block; }
+.mb-form { background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.mb-form label { display: block; font-weight: 600; font-size: 12px; color: var(--accent-text); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; margin-top: 12px; }
+.mb-form label:first-child { margin-top: 0; }
+.mb-form select, .mb-form input[type="text"], .mb-form input[type="date"] {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px;
+  background: var(--surface); color: var(--ink); font-family: inherit; font-size: 13px; outline: none;
 }
-.moodboard-info h3{font-family:'Playfair Display',Georgia,serif;font-size:14px;margin-bottom:8px;color:var(--accent-text)}
-.info-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
-.info-tag{
-  padding:4px 10px;border-radius:14px;font-size:11px;font-weight:600;
-  background:var(--accent-soft);color:var(--accent-text);
+.mb-form select:focus, .mb-form input:focus { border-color: var(--accent); }
+.mb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.mb-extras { margin-top: 12px; }
+.mb-extras summary { cursor: pointer; font-weight: 600; font-size: 12px; color: var(--accent-text); text-transform: uppercase; letter-spacing: 0.04em; }
+.mb-extras-body { padding-top: 8px; }
+.mb-chip-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.mb-chip { padding: 4px 10px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface);
+  font-size: 12px; cursor: pointer; color: var(--ink-soft); transition: all 0.2s; }
+.mb-chip:hover { border-color: var(--accent); }
+.mb-chip.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+.mb-generate {
+  display: block; width: 100%; margin-top: 16px; padding: 12px;
+  background: var(--accent); color: #fff; border: none; border-radius: 8px;
+  font-family: 'Playfair Display', Georgia, serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: opacity 0.2s; letter-spacing: 0.02em;
 }
+.mb-generate:hover { opacity: 0.9; }
+.mb-output { display: none; }
+.mb-output.visible { display: block; }
+.mb-board {
+  background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; margin-bottom: 16px;
+}
+.mb-board-header {
+  padding: 24px 20px 16px; text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.mb-board-header h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.mb-board-header p { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.mb-board-header .mb-theme-label { display: inline-block; margin-top: 8px; padding: 3px 12px; border-radius: 16px; background: var(--accent-soft); color: var(--accent-text); font-size: 11px; font-weight: 600; }
+.mb-palette-row { display: flex; height: 80px; }
+.mb-palette-swatch { flex: 1; position: relative; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; }
+.mb-palette-swatch span { font-size: 9px; font-weight: 600; letter-spacing: 0.05em; padding: 2px 5px; border-radius: 3px; }
+.mb-board-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+.mb-board-cell { background: var(--surface-card); padding: 16px; }
+.mb-board-cell h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.mb-board-cell ul { list-style: none; padding: 0; }
+.mb-board-cell li { font-size: 12px; color: var(--ink-soft); padding: 3px 0; padding-left: 14px; position: relative; }
+.mb-board-cell li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.mb-texture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mb-texture-chip { height: 48px; border-radius: 6px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px; font-size: 9px; font-weight: 600; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); letter-spacing: 0.04em; }
+.mb-mood-quote { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 15px; color: var(--ink); text-align: center; padding: 20px; line-height: 1.6; }
+.mb-board-footer { text-align: center; padding: 12px; font-size: 10px; color: var(--muted); border-top: 1px solid var(--border); letter-spacing: 0.06em; text-transform: uppercase; }
+.mb-ai-section { padding: 16px; border-top: 1px solid var(--border); }
+.mb-ai-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--gold)); color: #fff; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 0.02em; transition: opacity 0.2s; }
+.mb-ai-btn:hover { opacity: 0.9; }
+.mb-ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.mb-ai-loading { text-align: center; padding: 24px 0; color: var(--muted); font-size: 12px; }
+.mb-ai-spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: mbspin 1s linear infinite; margin: 0 auto 8px; }
+@keyframes mbspin { to { transform: rotate(360deg); } }
+.mb-ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.mb-ai-card { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--surface-card); }
+.mb-ai-card.wide { grid-column: 1 / -1; }
+.mb-ai-card img { width: 100%; display: block; object-fit: cover; }
+.mb-ai-card .caption { padding: 6px 10px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); text-align: center; }
+.mb-rule-row { display: flex; align-items: center; gap: 8px; margin: 12px 0; }
+.mb-rule-block { flex: 1; height: 24px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.mb-elements-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.mb-el-tag { padding: 5px 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); font-size: 11px; color: var(--ink-soft); text-align: center; }
 
-.footer-brand{
-  text-align:center;padding:20px 0;font-size:11px;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);
-}
-
-.error-msg{
-  background:#FFF0F0;border:1px solid #E8C4C4;border-radius:8px;padding:14px;
-  color:#8B2020;font-size:13px;margin-top:16px;display:none;
-}
-.error-msg.active{display:block}
-
-@media(max-width:480px){
-  .form-row{grid-template-columns:1fr}
-  header h1{font-size:24px}
+@media (min-width: 640px) {
+  .content { max-width: 680px; margin: 0 auto; padding: 20px 24px 80px; }
+  .mb-section { max-width: 680px; margin: 0 auto; padding: 20px 24px 80px; }
+  .app-header { padding: 16px 24px 0; }
+  .app-header > * { max-width: 680px; margin-left: auto; margin-right: auto; }
+  .stats-bar { justify-content: center; }
 }
 </style>
-</head>
-<body>
-<div class="container">
-  <header>
-    <h1>Moodboard IA</h1>
-    <div class="tagline">Maison Reveal Impact</div>
-    <div class="subtitle">Générez un moodboard personnalisé grâce à l'intelligence artificielle</div>
-  </header>
 
-  <div class="form-section">
-    <h2>Votre projet</h2>
-    <div class="form-row">
-      <div class="form-group full">
-        <label>Thème de mariage</label>
-        <select id="theme">
-          <option value="Romantique classique">Romantique classique</option>
-          <option value="Vintage / Rétro">Vintage / Rétro</option>
-          <option value="Shabby Chic">Shabby Chic</option>
-          <option value="Champêtre">Champêtre</option>
-          <option value="Rustique">Rustique</option>
-          <option value="Bohème / Boho">Bohème / Boho</option>
-          <option value="Tropical / Exotique">Tropical / Exotique</option>
-          <option value="Minimaliste">Minimaliste</option>
-          <option value="Industriel / Urbain">Industriel / Urbain</option>
-          <option value="Art Déco / Gatsby">Art Déco / Gatsby</option>
-          <option value="Glamour / Luxe">Glamour / Luxe</option>
-          <option value="Provençal">Provençal</option>
-          <option value="Bord de mer / Nautique">Bord de mer / Nautique</option>
-          <option value="Jardin anglais">Jardin anglais</option>
-          <option value="Médiéval / Château">Médiéval / Château</option>
-          <option value="Bridgerton / Régence">Bridgerton / Régence</option>
-          <option value="Créole / Antillais">Créole / Antillais</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Prénom de la mariée</label>
-        <input type="text" id="bride" placeholder="Ex : Amina">
-      </div>
-      <div class="form-group">
-        <label>Prénom du marié</label>
-        <input type="text" id="groom" placeholder="Ex : David">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Date du mariage</label>
-        <input type="date" id="wdate">
-      </div>
-      <div class="form-group">
-        <label>Saison</label>
-        <select id="season">
-          <option value="">— Automatique —</option>
-          <option value="spring">Printemps</option>
-          <option value="summer">Été</option>
-          <option value="autumn">Automne</option>
-          <option value="winter">Hiver</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group full" style="margin-bottom:12px">
-      <label>Ambiance souhaitée</label>
-      <div class="mood-chips" id="moods">
-        <span class="mood-chip" data-v="intimate">Intimiste</span>
-        <span class="mood-chip" data-v="festive">Festif</span>
-        <span class="mood-chip" data-v="elegant">Élégant</span>
-        <span class="mood-chip" data-v="whimsical">Poétique</span>
-        <span class="mood-chip" data-v="dramatic">Dramatique</span>
-        <span class="mood-chip" data-v="joyful">Joyeux</span>
-      </div>
-    </div>
-    <button class="btn-generate" id="btnGen">Générer le Moodboard IA</button>
-    <div class="error-msg" id="error"></div>
+<header class="app-header">
+  <div class="app-title">Mémo WP·WD <span>Fiches de révision</span></div>
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" class="search-input" placeholder="Rechercher une fiche, un mot-clé..." id="searchInput">
   </div>
+  <div class="cat-pills" id="catPills"></div>
+</header>
 
-  <div class="loading" id="loading">
-    <div class="spinner"></div>
-    <p class="step" id="loadStep">Connexion à DALL·E 3...</p>
-    <p>La génération prend environ 30 secondes</p>
-  </div>
+<div class="stats-bar" id="statsBar"></div>
 
-  <div class="result" id="result">
-    <div class="result-header">
-      <h2 id="resTheme"></h2>
-      <div class="couple" id="resCouple"></div>
-      <div class="date" id="resDate"></div>
+<main class="content" id="content"></main>
+
+<section class="mb-section" id="moodboardSection">
+  <div class="cat-header"><span class="cat-badge" style="background:var(--gold-soft);color:var(--gold);">MB</span>Moodboard — Générateur</div>
+  <div class="mb-form">
+    <label>Thème de mariage</label>
+    <select id="mbTheme"></select>
+    <div class="mb-row">
+      <div><label>Nom de la mariée</label><input type="text" id="mbBride" placeholder="Prénom"></div>
+      <div><label>Nom du marié</label><input type="text" id="mbGroom" placeholder="Prénom"></div>
     </div>
-    <div class="image-grid" id="imageGrid"></div>
-    <div class="moodboard-info" id="resInfo"></div>
-    <div class="footer-brand">Moodboard IA — Maison Reveal Impact</div>
-    <button class="btn-generate" onclick="resetForm()" style="background:var(--gold);margin-top:16px">Générer un autre moodboard</button>
+    <label>Date du mariage</label>
+    <input type="date" id="mbDate">
+    <details class="mb-extras">
+      <summary>Personnalisation avancée</summary>
+      <div class="mb-extras-body">
+        <label>Ambiance souhaitée</label>
+        <div class="mb-chip-group" id="mbMoodChips"></div>
+        <label>Saison florale</label>
+        <div class="mb-chip-group" id="mbSeasonChips"></div>
+      </div>
+    </details>
+    <button class="mb-generate" id="mbGenerate">Générer le Moodboard</button>
   </div>
-</div>
+  <div class="mb-output" id="mbOutput"></div>
+</section>
+
+<div class="no-results" id="noResults">Aucune fiche ne correspond à ta recherche.</div>
 
 <script>
-document.querySelectorAll('.mood-chip').forEach(c => {
-  c.addEventListener('click', () => c.classList.toggle('selected'));
+const DATA = [
+  {
+    cat: "Arts de la table",
+    icon: "1",
+    cards: [
+      {
+        title: "Placement des couverts — règle générale",
+        tag: "Essentiel",
+        body: `<h4>Principe de base</h4>
+<p>Les couverts se placent <strong>dans l'ordre d'utilisation, de l'extérieur vers l'assiette</strong>. On commence par les couverts du premier plat (les plus éloignés) et on avance vers l'assiette au fil des plats.</p>
+<h4>Côté gauche (fourchettes)</h4>
+<ul>
+<li><strong>Fourchette à poisson / entrée</strong> — la plus à l'extérieur</li>
+<li><strong>Fourchette à viande / plat</strong> — la plus proche de l'assiette</li>
+<li>Dents vers le haut (style français) ou vers le bas (style anglais)</li>
+</ul>
+<h4>Côté droit (couteaux et cuillères)</h4>
+<ul>
+<li><strong>Cuillère à soupe</strong> — la plus à l'extérieur (si potage prévu)</li>
+<li><strong>Couteau à poisson / entrée</strong> — au milieu</li>
+<li><strong>Couteau à viande / plat</strong> — le plus proche de l'assiette, <strong>lame vers l'assiette</strong></li>
+</ul>
+<h4>Au-dessus de l'assiette (couverts à dessert)</h4>
+<ul>
+<li><strong>Cuillère à dessert</strong> — manche vers la droite</li>
+<li><strong>Fourchette à dessert</strong> — manche vers la gauche (en dessous de la cuillère)</li>
+<li>Parfois remplacés par un couteau à fromage</li>
+</ul>
+<div class="alert-box"><strong>Astuce examen :</strong> « Les fourchettes à gauche comme Fourchette commence par F comme gauche (Fourche → Fork → côté du cœur). Les couteaux à droite, lame tournée vers l'assiette par politesse. »</div>`
+      },
+      {
+        title: "Placement des verres",
+        tag: "Essentiel",
+        body: `<h4>Disposition</h4>
+<p>Les verres se placent <strong>en diagonale ou en triangle</strong> au-dessus des couteaux (côté droit), du plus grand au plus petit, de gauche à droite :</p>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Position</th><th>Verre</th><th>Taille</th></tr>
+<tr><td>1 (gauche, le + grand)</td><td><strong>Verre à eau</strong></td><td>Le plus grand</td></tr>
+<tr><td>2 (milieu)</td><td><strong>Verre à vin rouge</strong></td><td>Moyen</td></tr>
+<tr><td>3 (droite, le + petit)</td><td><strong>Verre à vin blanc</strong></td><td>Le plus petit</td></tr>
+</table></div>
+<h4>Variantes</h4>
+<ul>
+<li><strong>Flûte à champagne</strong> : en retrait, derrière les 3 verres principaux</li>
+<li><strong>Mariage haut de gamme</strong> : possibilité d'ajouter un verre à digestif</li>
+<li>Jamais plus de <strong>4 verres</strong> sur la table (5 maximum en gastronomique)</li>
+</ul>
+<div class="alert-box"><strong>Mnémotechnique :</strong> « Du plus grand au plus petit = E.R.B. = Eau, Rouge, Blanc » — dans l'ordre de gauche à droite.</div>`
+      },
+      {
+        title: "Dresser une table de mariage complète",
+        tag: "Checklist",
+        body: `<h4>Éléments par couvert</h4>
+<ol>
+<li><strong>Assiette de présentation</strong> (sous-assiette) — reste en place pendant tout le repas</li>
+<li><strong>Assiette à pain</strong> — en haut à gauche, avec couteau à beurre posé dessus</li>
+<li><strong>Serviette</strong> — sur l'assiette ou à gauche des fourchettes</li>
+<li><strong>Couverts</strong> — selon la règle de placement</li>
+<li><strong>Verres</strong> — en diagonale au-dessus des couteaux</li>
+<li><strong>Menu</strong> — sur la serviette ou posé contre un verre</li>
+<li><strong>Marque-place</strong> — au-dessus de l'assiette ou sur l'assiette</li>
+<li><strong>Nom de table</strong> — au centre, visible de tous</li>
+<li><strong>Cadeau invité</strong> — à côté ou sur l'assiette</li>
+</ol>
+<h4>Espacement</h4>
+<ul>
+<li><strong>60 à 80 cm</strong> entre chaque couvert (minimum confort)</li>
+<li><strong>Table ronde de 150 cm</strong> : 8 personnes maximum</li>
+<li><strong>Table ronde de 180 cm</strong> : 10 personnes maximum</li>
+<li><strong>Table rectangulaire</strong> : 60 cm de largeur par personne</li>
+</ul>`
+      },
+      {
+        title: "Types de disposition des tables",
+        tag: "Config",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Disposition</th><th>Idéal pour</th><th>Avantages</th><th>Inconvénients</th></tr>
+<tr><td><strong>Tables rondes</strong></td><td>Réceptions classiques</td><td>Convivialité, tous se voient</td><td>Prend de la place</td></tr>
+<tr><td><strong>Table impériale</strong> (1 longue table)</td><td>Petit comité (&lt;40)</td><td>Élégance, unité</td><td>Bouts de table isolés</td></tr>
+<tr><td><strong>Table en U</strong></td><td>Mariages traditionnels</td><td>Mariés vus de tous</td><td>Distances entre convives</td></tr>
+<tr><td><strong>Table en T</strong></td><td>Réceptions familiales</td><td>Table d'honneur mise en valeur</td><td>Même souci de distance</td></tr>
+<tr><td><strong>Mix rondes + impériale</strong></td><td>Mariages modernes</td><td>TH en impériale, invités en rondes</td><td>Gestion espace</td></tr>
+</table></div>
+<div class="alert-box"><strong>Table d'honneur :</strong> toujours face à l'entrée ou à la piste de danse. Les mariés au centre, dos au mur ou à la vue. Pas de dos aux invités.</div>`
+      },
+      {
+        title: "Nappage et pliage de serviettes",
+        tag: "Déco",
+        body: `<h4>Nappage</h4>
+<ul>
+<li><strong>Nappe</strong> : retombée de 30 cm minimum de chaque côté (idéal : 40 cm)</li>
+<li><strong>Molleton</strong> (sous-nappe) : protège la table, amortit le bruit, donne un tombé plus élégant</li>
+<li><strong>Chemin de table</strong> : 30-40 cm de large, retombe de 20 cm de chaque côté</li>
+<li><strong>Set de table</strong> : alternative moderne pour les tables en bois brut</li>
+</ul>
+<h4>Pliages de serviettes courants</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Pliage</th><th>Style</th><th>Difficulté</th></tr>
+<tr><td>Éventail</td><td>Classique / élégant</td><td>Facile</td></tr>
+<tr><td>Pochette (pour menu)</td><td>Moderne / pratique</td><td>Facile</td></tr>
+<tr><td>Rose</td><td>Romantique</td><td>Moyen</td></tr>
+<tr><td>Nœud de serviette</td><td>Tous styles</td><td>Facile</td></tr>
+<tr><td>Roulée + ruban</td><td>Champêtre / bohème</td><td>Très facile</td></tr>
+</table></div>`
+      },
+      {
+        title: "Distances et espacements — normes à respecter",
+        tag: "Essentiel",
+        body: `<h4>Espace par convive à table</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Zone</th><th>Distance</th><th>Détail</th></tr>
+<tr><td><strong>Largeur par couvert</strong></td><td><strong>60 à 80 cm</strong></td><td>Distance entre l'axe de deux assiettes voisines (minimum confort : 60 cm, idéal : 70-80 cm)</td></tr>
+<tr><td><strong>Profondeur par couvert</strong></td><td><strong>40 à 50 cm</strong></td><td>Profondeur occupée par un couvert complet (assiette + couverts + verres)</td></tr>
+<tr><td><strong>Centre de table</strong></td><td><strong>30 à 40 cm</strong></td><td>Largeur libre au centre pour les compositions florales, bougies, chemin de table</td></tr>
+<tr><td><strong>Assiette au bord de table</strong></td><td><strong>2 cm</strong></td><td>Distance entre le bord de l'assiette de présentation et le bord de la table</td></tr>
+</table></div>
+<h4>Espacement entre couverts (sur le couvert)</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Élément</th><th>Distance</th></tr>
+<tr><td>Entre chaque couvert (fourchette-fourchette, couteau-cuillère)</td><td><strong>1 à 1,5 cm</strong></td></tr>
+<tr><td>Premier couvert — bord de l'assiette</td><td><strong>1 cm</strong></td></tr>
+<tr><td>Assiette à pain — au-dessus de la fourchette la plus à gauche</td><td><strong>~10 cm au-dessus</strong></td></tr>
+<tr><td>Verres — au-dessus de la pointe du couteau principal</td><td><strong>~2 cm au-dessus</strong></td></tr>
+</table></div>
+<h4>Espacement entre tables et chaises</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Zone</th><th>Distance minimum</th><th>Recommandé</th></tr>
+<tr><td><strong>Entre deux tables</strong> (dos à dos des chaises)</td><td><strong>60 cm</strong></td><td><strong>80 à 100 cm</strong> (passage serveur)</td></tr>
+<tr><td><strong>Passage de service</strong> (allée principale)</td><td><strong>120 cm</strong></td><td><strong>150 cm</strong> (passage plateau)</td></tr>
+<tr><td><strong>Chaise — table</strong> (recul pour s'asseoir)</td><td><strong>45 à 50 cm</strong></td><td>Du dossier de chaise au bord de table</td></tr>
+<tr><td><strong>Table — mur</strong></td><td><strong>90 cm</strong></td><td>Permettre de tirer la chaise + passer</td></tr>
+<tr><td><strong>Accès PMR</strong> (fauteuil roulant)</td><td><strong>90 cm</strong></td><td><strong>120 cm</strong> idéal</td></tr>
+</table></div>
+<h4>Capacité selon la taille de table</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Type de table</th><th>Dimension</th><th>Capacité confort</th><th>Capacité max</th></tr>
+<tr><td><strong>Ronde</strong></td><td>120 cm (4 pieds)</td><td>6 personnes</td><td>8 (serré)</td></tr>
+<tr><td><strong>Ronde</strong></td><td>150 cm</td><td>8 personnes</td><td>10 (serré)</td></tr>
+<tr><td><strong>Ronde</strong></td><td>180 cm</td><td>10 personnes</td><td>12 (serré)</td></tr>
+<tr><td><strong>Rectangulaire</strong></td><td>180 × 75 cm</td><td>6 personnes</td><td>8</td></tr>
+<tr><td><strong>Rectangulaire</strong></td><td>240 × 75 cm</td><td>8 personnes</td><td>10</td></tr>
+<tr><td><strong>Rectangulaire</strong></td><td>300 × 75 cm</td><td>10 personnes</td><td>12</td></tr>
+</table></div>
+<h4>Surface par invité pour calculer la capacité d'une salle</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Configuration</th><th>Surface par personne</th></tr>
+<tr><td><strong>Repas assis</strong> (tables + chaises + circulation)</td><td><strong>1,5 à 2 m²</strong> par invité</td></tr>
+<tr><td><strong>Cocktail debout</strong></td><td><strong>0,8 à 1 m²</strong> par invité</td></tr>
+<tr><td><strong>Cérémonie assise</strong> (chaises seules, rangs)</td><td><strong>0,5 à 0,7 m²</strong> par invité</td></tr>
+<tr><td><strong>Piste de danse</strong></td><td><strong>0,5 m²</strong> par danseur (prévoir ~40% des invités)</td></tr>
+<tr><td><strong>Buffet</strong> (table de 6m linéaires pour 80-100 pers.)</td><td>Prévoir <strong>10 m²</strong> pour le buffet + file d'attente</td></tr>
+</table></div>
+<div class="alert-box"><strong>Calcul rapide :</strong> Pour 100 invités en repas assis → prévoir 150 à 200 m² de salle exploitable (hors cuisine, sanitaires, vestiaire). Ajouter ~40 m² pour la piste de danse.</div>`
+      }
+    ]
+  },
+  {
+    cat: "Cérémonies",
+    icon: "2",
+    cards: [
+      {
+        title: "Cérémonie civile — déroulement type",
+        tag: "Protocole",
+        body: `<h4>Documents nécessaires</h4>
+<ul>
+<li>Pièces d'identité des mariés</li>
+<li>Actes de naissance de moins de 3 mois</li>
+<li>Justificatifs de domicile</li>
+<li>Attestations de témoins (2 minimum, 4 maximum)</li>
+<li>Certificat du notaire si contrat de mariage</li>
+<li>Dossier déposé en mairie minimum <strong>1 mois avant</strong></li>
+</ul>
+<h4>Déroulement</h4>
+<ol>
+<li>Entrée des invités puis des mariés</li>
+<li>Lecture des articles du Code civil (art. 212, 213, 214, 215)</li>
+<li>Échange des consentements (« Oui »)</li>
+<li>Échange des alliances</li>
+<li>Signature des registres (mariés puis témoins)</li>
+<li>Prononciation du mariage par l'officier d'état civil</li>
+<li>Sortie des mariés sous les applaudissements</li>
+</ol>
+<div class="alert-box"><strong>Durée moyenne :</strong> 20 à 30 minutes. Prévoir la coordination du photographe pour la sortie.</div>`
+      },
+      {
+        title: "Cérémonie religieuse (catholique) — déroulement",
+        tag: "Protocole",
+        body: `<h4>Préparation en amont</h4>
+<ul>
+<li><strong>Dossier de mariage</strong> : à déposer 6 à 12 mois avant auprès de la paroisse</li>
+<li><strong>Préparation au mariage</strong> : 3 à 5 séances avec le prêtre</li>
+<li><strong>Choix des lectures et chants</strong> : avec le prêtre (1re lecture, psaume, 2e lecture, Évangile)</li>
+<li><strong>Livret de messe</strong> : à faire imprimer (voir fiche papeterie)</li>
+</ul>
+<h4>Déroulement type (avec messe) — ~1h</h4>
+<ol>
+<li><strong>Entrée du cortège</strong> — musique d'entrée</li>
+<li><strong>Mot d'accueil</strong> du prêtre</li>
+<li><strong>Liturgie de la Parole</strong> — lectures, psaume, Évangile, homélie</li>
+<li><strong>Échange des consentements</strong></li>
+<li><strong>Bénédiction et échange des alliances</strong></li>
+<li><strong>Prière universelle</strong></li>
+<li><strong>Liturgie eucharistique</strong> (si messe complète)</li>
+<li><strong>Bénédiction nuptiale</strong></li>
+<li><strong>Signature des registres</strong></li>
+<li><strong>Sortie</strong> — musique de sortie</li>
+</ol>
+<h4>Cortège d'entrée (ordre)</h4>
+<ol>
+<li>Le marié au bras de sa mère</li>
+<li>La mère de la mariée au bras du père du marié</li>
+<li>Les demoiselles d'honneur / enfants d'honneur</li>
+<li><strong>La mariée au bras de son père</strong> (en dernier)</li>
+</ol>
+<h4>Placement dans l'église</h4>
+<ul>
+<li><strong>Côté gauche</strong> (en entrant) : famille et amis de la mariée</li>
+<li><strong>Côté droit</strong> (en entrant) : famille et amis du marié</li>
+<li>Premiers rangs : famille proche et témoins</li>
+</ul>`
+      },
+      {
+        title: "Décoration d'église — règles",
+        tag: "Déco",
+        body: `<h4>Ce qui est autorisé</h4>
+<ul>
+<li><strong>Bords de banc</strong> : compositions florales (utiliser des <strong>pipettes</strong> pour maintenir les fleurs dans l'eau)</li>
+<li><strong>Autel</strong> : arrangements floraux (vérifier avec le prêtre)</li>
+<li><strong>Allée centrale</strong> : pétales, tapis, lanternes</li>
+<li><strong>Entrée</strong> : arche florale, guirlandes</li>
+</ul>
+<h4>Ce qui est souvent interdit ou réglementé</h4>
+<ul>
+<li><strong>Bougies à flamme nue</strong> : souvent interdites (préférer les bougies LED)</li>
+<li><strong>Confettis / riz</strong> : interdits à l'intérieur (salissure)</li>
+<li><strong>Fixation aux murs/colonnes</strong> : pas de clous, de scotch ni de punaises</li>
+<li><strong>Modification du mobilier liturgique</strong> : interdit</li>
+</ul>
+<div class="alert-box"><strong>Toujours :</strong> prendre RDV avec le curé/sacristain pour valider la déco. Demander les contraintes spécifiques du lieu (certaines églises ont leurs propres règles).</div>`
+      },
+      {
+        title: "Cérémonie laïque — organisation",
+        tag: "Protocole",
+        body: `<h4>Principes</h4>
+<ul>
+<li>Pas de valeur légale — <strong>toujours après la mairie</strong></li>
+<li>Totale liberté de format, lieu et contenu</li>
+<li>Officiant : ami(e), famille, ou <strong>officiant professionnel</strong></li>
+</ul>
+<h4>Déroulement type — 30 à 45 min</h4>
+<ol>
+<li>Installation des invités + musique d'ambiance</li>
+<li>Entrée du marié (avec sa mère ou seul)</li>
+<li>Entrée de la mariée (avec son père)</li>
+<li>Mot de bienvenue de l'officiant</li>
+<li>Lectures / discours des proches</li>
+<li>Rituel symbolique (sable, vin, bougie, arbre, etc.)</li>
+<li>Échange des vœux personnels</li>
+<li>Échange des alliances</li>
+<li>Déclaration de l'officiant</li>
+<li>Sortie des mariés</li>
+</ol>
+<h4>Rituels symboliques courants</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Rituel</th><th>Symbolique</th></tr>
+<tr><td>Cérémonie du sable</td><td>Deux sables de couleur mélangés = union inséparable</td></tr>
+<tr><td>Rituel de la bougie</td><td>Deux bougies allument une grande = union des familles</td></tr>
+<tr><td>Plantation d'arbre</td><td>Enracinement de l'amour, croissance commune</td></tr>
+<tr><td>Rituel du vin</td><td>Mélange de deux vins = partage de vie</td></tr>
+<tr><td>Boîte à lettres</td><td>Lettres scellées, ouvertes à un anniversaire</td></tr>
+<tr><td>Handfasting (rubans)</td><td>Tradition celte — liens tissés autour des mains</td></tr>
+</table></div>`
+      }
+    ]
+  },
+  {
+    cat: "Art floral",
+    icon: "3",
+    cards: [
+      {
+        title: "Fleurs par saison — tableau de référence",
+        tag: "Essentiel",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Saison</th><th>Fleurs principales</th><th>Notes</th></tr>
+<tr><td><strong>Printemps</strong></td><td>Pivoine, anémone, renoncule</td><td>Pivoine = MAI-JUIN uniquement, star absolue</td></tr>
+<tr><td><strong>Été</strong></td><td>Hortensia, dahlia, agapanthe, lavande, gladiolus</td><td>Saison la plus riche en variétés</td></tr>
+<tr><td><strong>Automne</strong></td><td>Dahlia, renoncule</td><td>Transition vers les fleurs d'hiver</td></tr>
+<tr><td><strong>Hiver</strong></td><td>Renoncule, anémone</td><td>Fleurs délicates et chic</td></tr>
+<tr><td><strong>Toute l'année</strong></td><td>Rose, gypsophile, lisianthus, solidago, euphraise</td><td>Socle permanent des compositions</td></tr>
+</table></div>
+<h4>Top 5 à connaître absolument</h4>
+<ul>
+<li><strong>Pivoine</strong> : n°1 demandée, mai-juin uniquement, très chère hors saison</li>
+<li><strong>Hortensia</strong> : grosse boule volumineuse, cher à l'unité mais rentable (peu de tiges nécessaires)</li>
+<li><strong>Rose Équateur</strong> : tige forte, gros bouton, jusqu'à 10 jours en vase</li>
+<li><strong>Gypsophile</strong> : toutes saisons, très peu coûteux, comble les volumes</li>
+<li><strong>Lisianthus</strong> : similaire à la rose mais bien moins cher</li>
+</ul>`
+      },
+      {
+        title: "Fleurs à ÉVITER en mariage",
+        tag: "Attention",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Fleur</th><th>Raison</th></tr>
+<tr><td><strong>Œillets</strong></td><td>Associés au deuil et au cimetière — portent malheur</td></tr>
+<tr><td><strong>Chrysanthèmes</strong></td><td>Associés au deuil et au cimetière</td></tr>
+<tr><td><strong>Glaïeuls</strong></td><td>Associés au deuil (sauf usage spécifique pour la hauteur)</td></tr>
+</table></div>
+<div class="alert-box"><strong>Arômes :</strong> déconseillées seules dans les bouquets de mariée (poignée trop large, fleur pas assez volumineuse). À utiliser en cocktail ou cérémonie.</div>`
+      },
+      {
+        title: "Matériel de base du fleuriste",
+        tag: "Kit",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Matériel</th><th>Usage</th></tr>
+<tr><td><strong>Mousse Oasis</strong></td><td>Support de toutes les compositions — laisser couler jusqu'au fond (cœur imbibé)</td></tr>
+<tr><td><strong>Pinholder</strong></td><td>Maintient la mousse dans la coupe plastique (collé avec gomme verte)</td></tr>
+<tr><td><strong>Serpette</strong></td><td>Coupe en biseau prononcé — l'outil de prédilection (+ la tige est biseautée, + la fleur boit)</td></tr>
+<tr><td><strong>Floratap</strong></td><td>Scotch élastique pour boutonnières et bouquets de mariée</td></tr>
+<tr><td><strong>Pipettes</strong></td><td>Bords de banc d'église — maintiennent les fleurs dans l'eau</td></tr>
+<tr><td><strong>Fil bonsaï</strong></td><td>Bracelets demoiselle d'honneur, entoure les soliflores</td></tr>
+<tr><td><strong>Fils d'ange</strong></td><td>Prolonger une tige trop courte (traverse le cœur de la fleur)</td></tr>
+<tr><td><strong>T (boutonnières)</strong></td><td>Épingle à nourrice avec T plastique pour revers de veste</td></tr>
+</table></div>`
+      },
+      {
+        title: "TVA et coûts floraux",
+        tag: "Budget",
+        body: `<h4>TVA chez les fleuristes (France métro)</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Type d'achat</th><th>Taux TVA</th></tr>
+<tr><td>Fleurs en vrac</td><td><strong>9 %</strong> (taux réduit)</td></tr>
+<tr><td>Compositions finies (bouquets, boutonnières)</td><td><strong>20 %</strong></td></tr>
+</table></div>
+<h4>Échelle de coûts relatifs</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Niveau</th><th>Fleurs</th></tr>
+<tr><td><strong>Très cher</strong></td><td>Orchidée, pivoine (+ rare)</td></tr>
+<tr><td><strong>Cher</strong></td><td>Rose Équateur, hortensia (rentable en volume)</td></tr>
+<tr><td><strong>Modéré</strong></td><td>Lisianthus, dahlia</td></tr>
+<tr><td><strong>Peu coûteux</strong></td><td>Gypsophile, solidago</td></tr>
+<tr><td><strong>Très peu coûteux</strong></td><td>Gerbera (4-5× moins cher que la rose), euphraise</td></tr>
+</table></div>
+<h4>Feuillages incontournables</h4>
+<ul>
+<li><strong>Eucalyptus</strong> (Populus, Parviflora, Cinerea) — classique</li>
+<li><strong>Ruscus</strong> — incontournable</li>
+<li><strong>Monstera</strong> — mariages exotiques, arches, marque-places</li>
+<li><strong>Lierre</strong> — champêtre / ferme</li>
+</ul>`
+      }
+    ]
+  },
+  {
+    cat: "Papeterie",
+    icon: "4",
+    cards: [
+      {
+        title: "Les 14 éléments de la papeterie mariage",
+        tag: "Essentiel",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>#</th><th>Élément</th><th>Rôle</th></tr>
+<tr><td>1</td><td><strong>Save the date</strong></td><td>Envoyé 10 mois avant — date uniquement</td></tr>
+<tr><td>2</td><td><strong>Faire-part</strong></td><td>Annonce officielle (3-6 mois avant)</td></tr>
+<tr><td>3</td><td><strong>Carton d'invitation dîner</strong></td><td>Inséré dans le faire-part</td></tr>
+<tr><td>4</td><td><strong>Carton réponse</strong></td><td>Date limite au 1er ou 15 du mois</td></tr>
+<tr><td>5</td><td><strong>Plan d'accès</strong></td><td>Guide vers les lieux de la journée</td></tr>
+<tr><td>6</td><td><strong>Carton d'hébergement</strong></td><td>Hôtels à proximité</td></tr>
+<tr><td>7</td><td><strong>Carton invitation brunch</strong></td><td>Pour le lendemain</td></tr>
+<tr><td>8</td><td><strong>Livret de messe</strong></td><td>Cérémonie religieuse</td></tr>
+<tr><td>9</td><td><strong>Menus</strong></td><td>Individuels ou collectifs (3-5 par table, chiffres impairs)</td></tr>
+<tr><td>10</td><td><strong>Marque-places</strong></td><td>Nom de chaque invité</td></tr>
+<tr><td>11</td><td><strong>Noms de table</strong></td><td>Identifient chaque table</td></tr>
+<tr><td>12</td><td><strong>Plan de table</strong></td><td>À l'entrée ou au vin d'honneur</td></tr>
+<tr><td>13</td><td><strong>Faire-part de remerciements</strong></td><td>Dans le MOIS suivant (max 2 mois)</td></tr>
+<tr><td>14</td><td><strong>Cadeaux invités</strong></td><td>Inclus dans le budget papeterie</td></tr>
+</table></div>`
+      },
+      {
+        title: "Types de faire-part et délais",
+        tag: "Process",
+        body: `<h4>3 formats papier</h4>
+<ul>
+<li><strong>Simple</strong> : carton recto verso, ne s'ouvre pas</li>
+<li><strong>Double</strong> : pliage central (rainage)</li>
+<li><strong>À pochette</strong> : format américain avec rabat, peut contenir jusqu'à 5 cartons insérés</li>
+</ul>
+<h4>Formats numériques</h4>
+<ul>
+<li><strong>PDF</strong> : haute définition, mail ou impression</li>
+<li><strong>JPEG</strong> : WhatsApp, Messenger, réseaux</li>
+<li><strong>GIF animé</strong> : simule l'ouverture d'une enveloppe</li>
+<li><strong>Mini-vidéo</strong> : met en scène les mariés</li>
+</ul>
+<h4>Délai de fabrication : ~1,5 mois</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Étape</th><th>Délai</th></tr>
+<tr><td>RDV client</td><td>1h30 à 2h</td></tr>
+<tr><td>Réception du texte client</td><td>1 à 7 jours</td></tr>
+<tr><td>Envoi du BAT (PDF)</td><td>Variable</td></tr>
+<tr><td>Validation client</td><td>1 à 5 jours</td></tr>
+<tr><td>Fabrication</td><td>Jusqu'à 3 semaines</td></tr>
+</table></div>
+<div class="alert-box"><strong>Envoi aux invités :</strong> 3 à 6 mois avant le mariage. Prévoir 6 mois si invités à l'étranger.</div>`
+      },
+      {
+        title: "Papiers haut de gamme — types",
+        tag: "Matériaux",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Papier</th><th>Grammage</th><th>Caractéristiques</th></tr>
+<tr><td><strong>Rivé</strong></td><td>250 g</td><td>Blanc/ivoire, texturé, classique</td></tr>
+<tr><td><strong>Curious Metallics</strong></td><td>250 g</td><td>Métallisé, nacré, enveloppes assorties</td></tr>
+<tr><td><strong>Skin</strong></td><td>270 g</td><td>Surface veloutée « peau de pêche », couleurs vives</td></tr>
+<tr><td><strong>Calques chromatiques</strong></td><td>100-200 g</td><td>Calques colorés (fuchsia, turquoise, doré...)</td></tr>
+<tr><td><strong>Pollen (Clairefontaine)</strong></td><td>210 g</td><td>Milieu de gamme, imprimable jet d'encre/laser</td></tr>
+</table></div>
+<p><strong>Papiers haut de gamme</strong> disponibles uniquement chez les imprimeurs/grossistes spécialisés (ex. : Antalis).</p>
+<p><strong>Débutant :</strong> passer par un imprimeur, ne pas investir dans une imprimante numérique au démarrage (5 000-10 000 €).</p>`
+      },
+      {
+        title: "Monogramme et marque-places",
+        tag: "Détails",
+        body: `<h4>Monogramme</h4>
+<p>Initiales entremêlées du couple formant un <strong>blason personnalisé</strong>. Livraison : fichier JPEG + PDF pour utilisation illimitée.</p>
+<ul>
+<li>Placement : couverture, dos du faire-part, intérieur, ou carton découpé + ruban de satin</li>
+<li>Expliquer au client : « une sorte de blason de famille » (terme peu connu en France)</li>
+</ul>
+<h4>Types de marque-places</h4>
+<ul>
+<li><strong>Chevalet</strong> : carton sur support bois</li>
+<li><strong>Cadre</strong> : shabby chic, vintage, exotique</li>
+<li><strong>Gravure sur bois</strong> : esthétique mais budget élevé</li>
+<li><strong>Escarpolette (escort card)</strong> : 2 en 1 = marque-place + plan de table, par ordre alphabétique à l'entrée</li>
+</ul>
+<h4>Installation Jour J</h4>
+<ul>
+<li>95% des cas : pendant le cocktail (~2h disponibles)</li>
+<li>Marque-places seuls, &lt;100 invités : ~45 min pour 1 personne</li>
+<li><strong>Astuce :</strong> classer les marque-places par table dans des enveloppes numérotées</li>
+<li>&gt;100 invités ou nœuds : préparer la veille</li>
+</ul>`
+      }
+    ]
+  },
+  {
+    cat: "Design & Couleurs",
+    icon: "5",
+    cards: [
+      {
+        title: "Les 5 piliers de l'harmonie visuelle",
+        tag: "Fondamental",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Pilier</th><th>Rôle</th><th>Principe clé</th></tr>
+<tr><td><strong>1. Forme</strong></td><td>Structure le regard</td><td>Ne pas mélanger des styles incompatibles (baroque + ultra-moderne)</td></tr>
+<tr><td><strong>2. Couleur</strong></td><td>Langage émotionnel</td><td>3 à 5 teintes max, règle 60/30/10</td></tr>
+<tr><td><strong>3. Matière</strong></td><td>Relief et réalisme</td><td>Dialogue entre les surfaces (velours, bois, verre...)</td></tr>
+<tr><td><strong>4. Volume</strong></td><td>Profondeur et hiérarchie</td><td>Hauteurs variées, espaces respirants, points focaux</td></tr>
+<tr><td><strong>5. Lumière</strong></td><td>Révélateur final</td><td>Sculpte les volumes, colore les matières, dirige l'émotion</td></tr>
+</table></div>`
+      },
+      {
+        title: "Règle des 60/30/10",
+        tag: "Essentiel",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Part</th><th>Rôle</th><th>Application concrète</th></tr>
+<tr><td><strong>60%</strong> — Dominante</td><td>Base, ton principal</td><td>Mur, nappage, mobilier, grand volume floral</td></tr>
+<tr><td><strong>30%</strong> — Secondaire</td><td>Structure le regard</td><td>Chaises, accessoires, compositions intermédiaires</td></tr>
+<tr><td><strong>10%</strong> — Accent</td><td>Attire l'œil</td><td>Fleurs contrastées, rubans, menus, détails de table</td></tr>
+</table></div>
+<div class="alert-box"><strong>Erreur fatale :</strong> le 50/50. Toujours prévoir une couleur dominante + une pour les détails → éviter l'effet kitsch.</div>`
+      },
+      {
+        title: "Psychologie des couleurs",
+        tag: "Référence",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Couleur</th><th>Émotion</th><th>Nuances clés</th></tr>
+<tr><td><strong>Rose</strong></td><td>Douceur, romantisme</td><td>Poudré (vintage), fuchsia (audace), nude (moderne)</td></tr>
+<tr><td><strong>Vert</strong></td><td>Nature, fraîcheur</td><td>Sauge (sérénité), émeraude (prestige), olive (authenticité)</td></tr>
+<tr><td><strong>Violet</strong></td><td>Mystère, luxe</td><td>Lavande (poésie), aubergine (sophistication)</td></tr>
+<tr><td><strong>Rouge</strong></td><td>Passion, énergie</td><td>Bordeaux (élégance), vif (célébration)</td></tr>
+<tr><td><strong>Bleu</strong></td><td>Confiance, sérénité</td><td>Ciel (légèreté), nuit (prestige)</td></tr>
+<tr><td><strong>Or/Métalliques</strong></td><td>Raffinement, fête</td><td>Or, argent, cuivre, champagne, rose gold</td></tr>
+<tr><td><strong>Noir</strong></td><td>Élégance, puissance</td><td>Toujours en accent, jamais dominant</td></tr>
+</table></div>
+<h4>Effet sur l'espace</h4>
+<ul>
+<li><strong>Couleurs chaudes</strong> (rouge, orange, jaune) : <strong>resserrent</strong> l'espace → intimité</li>
+<li><strong>Couleurs froides</strong> (bleu, vert, violet) : <strong>agrandissent</strong> l'espace → ouverture</li>
+</ul>`
+      },
+      {
+        title: "8 harmonies chromatiques",
+        tag: "Technique",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Harmonie</th><th>Principe</th><th>Idéal pour</th></tr>
+<tr><td><strong>Monochrome</strong></td><td>1 teinte déclinée</td><td>Mariages minimalistes</td></tr>
+<tr><td><strong>Analogique</strong></td><td>2-3 couleurs adjacentes</td><td>Bohème, poétique</td></tr>
+<tr><td><strong>Complémentaire</strong></td><td>2 couleurs opposées</td><td>Audacieux, modernes</td></tr>
+<tr><td><strong>Triadique</strong></td><td>3 couleurs équidistantes</td><td>Créatifs, artistiques</td></tr>
+<tr><td><strong>Tétradique</strong></td><td>2 couples complémentaires</td><td>Haut de gamme</td></tr>
+<tr><td><strong>Scission</strong></td><td>1 couleur + 2 autour de sa complémentaire</td><td>Modernes, graphiques</td></tr>
+<tr><td><strong>Métalliques</strong></td><td>Or, argent, cuivre, nacre</td><td>Glamour, prestige</td></tr>
+<tr><td><strong>Contrastées</strong></td><td>Couleurs fortes opposées</td><td>Modernes, identitaires</td></tr>
+</table></div>
+<h4>6 erreurs à éviter</h4>
+<ol>
+<li>Multiplier les teintes sans cohérence</li>
+<li>Choisir selon la tendance seule (sans l'émotion du couple)</li>
+<li>Négliger la lumière du lieu</li>
+<li>Oublier l'équilibre chaud/froid</li>
+<li>Mélanger des intensités incompatibles (pastel + néon)</li>
+<li>Ignorer l'émotion du couple</li>
+</ol>`
+      },
+      {
+        title: "Les 5 styles fondamentaux (formation WD)",
+        tag: "Fondamental",
+        body: `<p>Ces 5 familles de styles vues en formation servent de <strong>point de départ du brief</strong> avec le couple. Chaque thème détaillé (fiche suivante) se rattache à l'une d'elles.</p>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Style</th><th>Émotions</th><th>Implications visuelles</th><th>Thèmes rattachés</th></tr>
+<tr><td><strong>Moderne</strong></td><td>Épure, maîtrise, efficacité</td><td>Lignes droites, palette neutre, matières graphiques</td><td>Minimaliste, Industriel, Art Déco</td></tr>
+<tr><td><strong>Romantique</strong></td><td>Douceur, tendresse, poésie</td><td>Courbes, pastels, fleurs, voilages, chandelles</td><td>Vintage, Shabby Chic, Classique</td></tr>
+<tr><td><strong>Chic</strong></td><td>Prestige, élégance, sophistication</td><td>Métalliques, velours, lignes précises, palette sobre</td><td>Glamour, Baroque, Black & Gold</td></tr>
+<tr><td><strong>Naturel</strong></td><td>Authenticité, simplicité, sérénité</td><td>Bois, lin, vert, textures brutes, lumière naturelle</td><td>Champêtre, Rustique, Bohème, Tropical</td></tr>
+<tr><td><strong>Festif</strong></td><td>Joie, dynamisme, célébration</td><td>Couleurs vives, confettis, lumières, volumes joyeux</td><td>Tropical coloré, Pop, Cirque chic</td></tr>
+</table></div>`
+      },
+      {
+        title: "Thèmes de mariage — catalogue complet",
+        tag: "Référence",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Thème</th><th>Palette type</th><th>Matières clés</th><th>Fleurs / Végétaux</th><th>Éléments signature</th></tr>
+<tr><td><strong>Romantique classique</strong></td><td>Rose poudré, ivoire, champagne</td><td>Satin, tulle, dentelle</td><td>Roses, pivoines, hortensias</td><td>Voilages, bougies hautes, lustres cristal, calligraphie</td></tr>
+<tr><td><strong>Vintage / Rétro</strong></td><td>Vieux rose, crème, doré patiné, sépia</td><td>Dentelle ancienne, vaisselle dépareillée, laiton</td><td>Roses anciennes (David Austin), renoncules, gypsophile</td><td>Cadres dorés, valises anciennes, phonographe, miroirs patinés, napperons</td></tr>
+<tr><td><strong>Shabby Chic</strong></td><td>Rose pâle, blanc cassé, vert d'eau</td><td>Bois patiné, toile de jute, dentelle</td><td>Roses pâles, pivoines, lavande</td><td>Meubles patinés, cages à oiseaux, bougeoirs anciens, étiquettes kraft</td></tr>
+<tr><td><strong>Champêtre</strong></td><td>Vert sauge, blanc, jaune paille, lavande</td><td>Bois brut, toile de jute, lin</td><td>Fleurs des champs, marguerites, blé, lavande</td><td>Bottes de foin, tonneaux, panneaux en bois, pots mason, arrosoirs</td></tr>
+<tr><td><strong>Rustique</strong></td><td>Brun, vert forêt, bordeaux, crème</td><td>Bois massif, cuir, fer forgé, pierre</td><td>Eucalyptus, fougères, chardons, dahlias</td><td>Tables en bois massif, cornes de cerf, lanternes, bougies piliers, écorce</td></tr>
+<tr><td><strong>Bohème / Boho</strong></td><td>Terracotta, ocre, sauge, moutarde, crème</td><td>Macramé, osier, rotin, lin froissé</td><td>Herbes de pampa, fleurs séchées, proteas, craspedia</td><td>Attrape-rêves, tapis persans, coussins sol, arche en macramé, tipi</td></tr>
+<tr><td><strong>Tropical / Exotique</strong></td><td>Vert jungle, fuchsia, corail, or</td><td>Bambou, raphia, feuilles XL</td><td>Monstera, orchidées, strelitzia, anthuriums, frangipaniers</td><td>Fruits tropicaux, flamants, lanternes bambou, imprimés feuillage</td></tr>
+<tr><td><strong>Minimaliste</strong></td><td>Blanc, gris clair, noir, 1 accent</td><td>Verre, béton, acrylique, lin épuré</td><td>Quelques tiges uniques (callas, tulipes), feuillage sobre</td><td>Lignes épurées, espace vide, signalétique typographique, peu de déco</td></tr>
+<tr><td><strong>Industriel / Urbain</strong></td><td>Gris, noir, cuivre, brique</td><td>Métal, béton, verre, ampoules filament</td><td>Verdure simple (eucalyptus), succulentes</td><td>Tuyaux, briques, ampoules Edison, mobilier métal, néons</td></tr>
+<tr><td><strong>Art Déco / Gatsby</strong></td><td>Noir, or, émeraude, ivoire</td><td>Velours, métal doré, marbre, cristal</td><td>Plumes, roses rouges, orchidées blanches</td><td>Motifs géométriques, arches dorées, candélabres, franges, sequins</td></tr>
+<tr><td><strong>Glamour / Luxe</strong></td><td>Or, argent, ivoire, bordeaux profond</td><td>Velours, satin, cristal, miroirs</td><td>Roses Équateur, orchidées, lys</td><td>Lustres imposants, nappage long, centres de table hauts, fleurs en masse</td></tr>
+<tr><td><strong>Provençal</strong></td><td>Lavande, jaune soleil, blanc, vert olive</td><td>Terre cuite, osier, lin, bois clair</td><td>Lavande, oliviers, romarin, tournesols</td><td>Huile d'olive en cadeau, cigales, poteries, nappes vichy</td></tr>
+<tr><td><strong>Bord de mer / Nautique</strong></td><td>Bleu marine, blanc, sable, corail</td><td>Corde, bois flotté, coquillages, lin</td><td>Hortensias bleus, chardons bleus, graminées</td><td>Étoiles de mer, nœuds marins, ancres, lanternes, sable</td></tr>
+<tr><td><strong>Jardin anglais</strong></td><td>Rose tendre, vert tendre, ivoire, pêche</td><td>Fer forgé, porcelaine, lin</td><td>Roses anglaises, pivoines, delphiniums, glycine</td><td>Arches de roses, service à thé, jardins structurés, tonnelles</td></tr>
+<tr><td><strong>Médiéval / Château</strong></td><td>Bordeaux, or, vert forêt, pourpre</td><td>Velours, fer forgé, bois sculpté, pierre</td><td>Lierre, roses rouges, chardons</td><td>Blasons, candélabres, longues tables banquet, tapisseries</td></tr>
+<tr><td><strong>Bridgerton / Régence</strong></td><td>Bleu Wedgwood, lilas, ivoire, or pâle, rose poudré</td><td>Soie, taffetas, porcelaine fine, cristal, velours pastel</td><td>Glycine, roses anglaises, pivoines, delphiniums, hortensias pastels</td><td>Lustres à pampilles, service à thé en porcelaine, calligraphie à la plume, violon/quatuor à cordes, mobilier Louis XVI, arches florales monumentales, diadèmes, gants longs, marque-places cachet de cire</td></tr>
+<tr><td><strong>Créole / Antillais</strong></td><td>Jaune soleil, rouge madras, vert tropical, bleu caraïbe, or</td><td>Madras, bambou, bois local (courbaril, mahogany), raphia, vannerie caraïbe</td><td>Alpinia (rose de porcelaine), héliconia, anthurium, balisier, frangipaniers, feuilles de bananier, cocotier</td><td>Tissu madras (nappage, nœuds de chaise, chemin de table), cases créoles en déco, rhum arrangé en cadeau invité, fruits tropicaux (ananas, mangue, carambole), percussions ka/gwoka, lanternes en bambou, chapeaux bakoua, menu sur feuille de bananier, arche en bois flotté + fleurs tropicales</td></tr>
+</table></div>
+<div class="alert-box"><strong>Conseil brief :</strong> montrer les 5 collections MRI (Élégance Éternelle, Douceur Contemporaine, Terre & Lumière, Passion & Prestige, Signature & Impact) pour orienter le couple, puis affiner vers un thème précis.</div>`
+      },
+      {
+        title: "Matières et leurs émotions",
+        tag: "Sensoriel",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Matière</th><th>Effet visuel & tactile</th><th>Émotion</th><th>Usage</th></tr>
+<tr><td><strong>Velours</strong></td><td>Absorbe la lumière, texture dense</td><td>Intimité, douceur, chaleur</td><td>Ambiance cocooning, décors glamour</td></tr>
+<tr><td><strong>Lin</strong></td><td>Légèrement froissé, naturel</td><td>Authenticité, simplicité</td><td>Bohème, naturel, champêtre</td></tr>
+<tr><td><strong>Bois</strong></td><td>Grain visible, ton chaud</td><td>Nature, stabilité</td><td>Tables, structures, ancrage</td></tr>
+<tr><td><strong>Verre / Cristal</strong></td><td>Réfléchit la lumière</td><td>Élégance, clarté</td><td>Centres de table, accessoires lumineux</td></tr>
+<tr><td><strong>Métal</strong></td><td>Brillance, structure</td><td>Modernité, puissance</td><td>Détails, structures contemporaines</td></tr>
+<tr><td><strong>Satin / Soie</strong></td><td>Surface lisse, brillante</td><td>Raffinement, féminité</td><td>Nappage, rubans, romantique</td></tr>
+<tr><td><strong>Béton / Pierre</strong></td><td>Texture brute</td><td>Solidité, minimalisme</td><td>Design contemporain, urbain</td></tr>
+<tr><td><strong>Dentelle</strong></td><td>Transparence, motifs délicats</td><td>Féminité, nostalgie</td><td>Vintage, romantique, shabby chic</td></tr>
+<tr><td><strong>Macramé</strong></td><td>Nœuds, texture artisanale</td><td>Bohème, fait main</td><td>Arches, suspensions, fonds photo</td></tr>
+<tr><td><strong>Toile de jute</strong></td><td>Rustique, grain visible</td><td>Simplicité, campagne</td><td>Champêtre, rustique, chemins de table</td></tr>
+<tr><td><strong>Osier / Rotin</strong></td><td>Tressé, léger, naturel</td><td>Décontraction, voyage</td><td>Bohème, tropical, méditerranéen</td></tr>
+</table></div>`
+      }
+    ]
+  },
+  {
+    cat: "Coordination Jour J",
+    icon: "6",
+    cards: [
+      {
+        title: "Timeline type d'un mariage",
+        tag: "Planning",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Horaire</th><th>Événement</th><th>Durée</th></tr>
+<tr><td>8h-10h</td><td>Préparatifs mariée (coiffure, maquillage, habillage)</td><td>2-3h</td></tr>
+<tr><td>14h-14h30</td><td>Cérémonie civile (mairie)</td><td>20-30 min</td></tr>
+<tr><td>15h-16h</td><td>Cérémonie religieuse ou laïque</td><td>45-60 min</td></tr>
+<tr><td>16h-16h30</td><td>Photos de groupe</td><td>30 min</td></tr>
+<tr><td>16h30-18h30</td><td>Vin d'honneur / cocktail</td><td>1h30-2h</td></tr>
+<tr><td>18h30-19h</td><td>Installation de la salle (si pas fait avant)</td><td>30 min</td></tr>
+<tr><td>19h-19h30</td><td>Entrée des mariés dans la salle</td><td>—</td></tr>
+<tr><td>19h30-22h</td><td>Dîner</td><td>2h30</td></tr>
+<tr><td>22h-22h30</td><td>Ouverture de bal</td><td>—</td></tr>
+<tr><td>22h30-23h</td><td>Gâteau / pièce montée</td><td>—</td></tr>
+<tr><td>23h+</td><td>Soirée dansante</td><td>—</td></tr>
+</table></div>
+<div class="alert-box"><strong>Marge de sécurité :</strong> toujours prévoir 15-30 min de battement entre chaque étape. Les retards sont la norme, pas l'exception.</div>`
+      },
+      {
+        title: "Checklist matériel Jour J — kit du coordinateur",
+        tag: "Checklist",
+        body: `<h4>Kit de survie</h4>
+<ul>
+<li>Planning imprimé (+ version téléphone)</li>
+<li>Liste des contacts de tous les prestataires</li>
+<li>Épingles à nourrice (ourlet, boutonnière, bretelle)</li>
+<li>Kit couture d'urgence (fil blanc, noir, aiguilles)</li>
+<li>Scotch double face</li>
+<li>Ciseaux</li>
+<li>Fil de fer / fil bonsaï</li>
+<li>Antitaches (détachant textile)</li>
+<li>Mouchoirs en papier</li>
+<li>Talc (traces sur robe blanche)</li>
+<li>Pansements / paracétamol</li>
+<li>Chargeur de téléphone universel</li>
+<li>Talkie-walkie ou oreillettes (grands événements)</li>
+<li>Chiffon microfibre (plexiglas, supports)</li>
+</ul>
+<h4>Documents à avoir sur soi</h4>
+<ul>
+<li>Planning minute par minute</li>
+<li>Plan de table + liste alphabétique des invités</li>
+<li>Coordonnées de tous les prestataires</li>
+<li>Contrats et bons de commande</li>
+<li>Plan du lieu</li>
+</ul>`
+      },
+      {
+        title: "Gestion des prestataires le Jour J",
+        tag: "Process",
+        body: `<h4>Avant le Jour J</h4>
+<ul>
+<li><strong>J-7</strong> : confirmer tous les prestataires par mail/téléphone</li>
+<li><strong>J-3</strong> : envoyer le programme détaillé à chaque prestataire (avec horaires, contacts, plan d'accès)</li>
+<li><strong>J-1</strong> : vérification du lieu, réception des livraisons</li>
+</ul>
+<h4>Le Jour J</h4>
+<ul>
+<li>Accueillir chaque prestataire à son arrivée</li>
+<li>Montrer les emplacements, rappeler les consignes</li>
+<li>Rester le <strong>point de contact unique</strong> : les mariés ne gèrent rien</li>
+<li>Anticiper les enchaînements (prévenir le DJ 10 min avant chaque événement)</li>
+</ul>
+<h4>Filtrage par interlocuteur</h4>
+<p>Chaque prestataire ne reçoit que <strong>la partie du programme qui le concerne</strong> (pas le programme complet). Le DJ n'a pas besoin de savoir à quelle heure arrive le fleuriste.</p>`
+      }
+    ]
+  },
+  {
+    cat: "Prestataires",
+    icon: "7",
+    cards: [
+      {
+        title: "Types de prestataires mariage",
+        tag: "Liste",
+        body: `<h4>Prestataires principaux</h4>
+<ul>
+<li><strong>Lieu de réception</strong> (salle, domaine, château, plein air)</li>
+<li><strong>Traiteur</strong> (repas, cocktail, pièce montée)</li>
+<li><strong>Photographe</strong></li>
+<li><strong>Vidéaste</strong></li>
+<li><strong>DJ / groupe de musique</strong></li>
+<li><strong>Fleuriste / décorateur</strong></li>
+<li><strong>Officiant</strong> (cérémonie laïque)</li>
+<li><strong>Coiffeur / maquilleur</strong></li>
+</ul>
+<h4>Prestataires secondaires</h4>
+<ul>
+<li>Créatrice de robes / costumes</li>
+<li>Location de matériel (vaisselle, mobilier, nappage)</li>
+<li>Animation (photobooth, feu d'artifice, food truck)</li>
+<li>Voiture de collection / transport</li>
+<li>Imprimeur / papetier</li>
+<li>Pâtissier (wedding cake)</li>
+<li>Hébergement pour invités</li>
+</ul>`
+      },
+      {
+        title: "Processus de sélection en 3 étapes",
+        tag: "Process",
+        body: `<h4>Étape 1 — Présélection</h4>
+<ul>
+<li>Vérifier la disponibilité par mail</li>
+<li>Le prestataire reçoit 2 boutons : « Disponible » / « Non disponible »</li>
+<li>Si disponible → passage aux propositions</li>
+</ul>
+<h4>Étape 2 — Propositions</h4>
+<ul>
+<li>Créer des fiches avec documents, devis, tarifs, notes</li>
+<li>Envoyer aux mariés pour avis</li>
+<li>3 boutons mariés : « Intéressé » / « En réflexion » / « Pas intéressé »</li>
+</ul>
+<h4>Étape 3 — Sélection finale</h4>
+<ul>
+<li>Le prestataire validé passe en « sélectionné »</li>
+<li>Signature du contrat / versement de l'acompte</li>
+<li>Intégration au planning et au budget</li>
+</ul>
+<h4>Documents contractuels obligatoires</h4>
+<ul>
+<li><strong>Convention</strong> — shooting + droit à l'image</li>
+<li><strong>Lettre d'engagement</strong> — photographe/vidéaste</li>
+<li><strong>Contrat de prestation</strong> — conditions, acompte, annulation</li>
+</ul>`
+      },
+      {
+        title: "Tableau Excel de suivi prestataires",
+        tag: "Outil",
+        body: `<h4>Colonnes indispensables</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Colonne</th><th>Détail</th></tr>
+<tr><td>Poste</td><td>Fleuriste, photographe, DJ, lieu...</td></tr>
+<tr><td>Nom entreprise</td><td>Raison sociale</td></tr>
+<tr><td>Site web</td><td>URL</td></tr>
+<tr><td>Facebook</td><td>Avec identifiant @</td></tr>
+<tr><td>Instagram</td><td>Avec identifiant @</td></tr>
+<tr><td>Téléphone</td><td>Numéro direct</td></tr>
+<tr><td>Email</td><td>Professionnel</td></tr>
+<tr><td>Confirmation</td><td>Validé ou non</td></tr>
+</table></div>
+<div class="alert-box"><strong>Toujours demander</strong> les identifiants Facebook et Instagram de chaque prestataire dès le premier contact (pour les publications et identifications).</div>`
+      }
+    ]
+  },
+  {
+    cat: "Budget & Tarifs",
+    icon: "8",
+    cards: [
+      {
+        title: "Postes budgétaires d'un mariage — répartition type",
+        tag: "Référence",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Poste</th><th>% du budget</th><th>Inclut</th></tr>
+<tr><td><strong>Lieu de réception</strong></td><td>30-40%</td><td>Location, hébergement, charges</td></tr>
+<tr><td><strong>Traiteur</strong></td><td>25-35%</td><td>Cocktail, repas, boissons, service</td></tr>
+<tr><td><strong>Photo/Vidéo</strong></td><td>8-12%</td><td>Reportage, album, film</td></tr>
+<tr><td><strong>Fleurs/Déco</strong></td><td>8-12%</td><td>Compositions, arche, bouquet mariée</td></tr>
+<tr><td><strong>Musique/Animation</strong></td><td>5-8%</td><td>DJ, groupe, photobooth, feu d'artifice</td></tr>
+<tr><td><strong>Tenues</strong></td><td>5-8%</td><td>Robe, costume, accessoires</td></tr>
+<tr><td><strong>Papeterie</strong></td><td>2-4%</td><td>Faire-part, menus, marque-places, cadeaux</td></tr>
+<tr><td><strong>Wedding planner</strong></td><td>10-15%</td><td>Honoraires</td></tr>
+</table></div>`
+      },
+      {
+        title: "TVA Guadeloupe — taux applicables",
+        tag: "Fiscal",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Situation</th><th>Taux</th></tr>
+<tr><td>TVA Guadeloupe (taux normal)</td><td><strong>8,5%</strong></td></tr>
+<tr><td>TVA métropole (taux normal)</td><td>20%</td></tr>
+<tr><td>TVA fleurs en vrac (métropole)</td><td>9%</td></tr>
+<tr><td>TVA compositions florales (métropole)</td><td>20%</td></tr>
+</table></div>
+<div class="alert-box"><strong>SAS = assujettie TVA.</strong> Les devis doivent toujours distinguer HT et TTC.</div>`
+      },
+      {
+        title: "Forfait création carterie sur mesure",
+        tag: "Tarifs",
+        body: `<h4>Tarifs de référence (formation)</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Prestation</th><th>Fourchette</th></tr>
+<tr><td>Forfait création sur mesure</td><td>150 € à 250 €</td></tr>
+<tr><td>Création plan d'accès (dessin)</td><td>60 € à 100 €</td></tr>
+<tr><td>Imprimante numérique (investissement)</td><td>5 000 € à 10 000 €</td></tr>
+</table></div>
+<p><strong>Conseil :</strong> demander des grilles tarifaires pour 30, 50, 75, 100, 125 et 200 exemplaires à plusieurs imprimeurs (différences de prix énormes).</p>`
+      }
+    ]
+  },
+  {
+    cat: "Post-événement",
+    icon: "9",
+    cards: [
+      {
+        title: "Processus de débrief — les 6 axes de satisfaction",
+        tag: "Process",
+        body: `<h4>Questionnaire satisfaction client (Google Forms)</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Axe</th><th>Question type</th></tr>
+<tr><td><strong>Qualité du service</strong></td><td>Le mariage était-il à la hauteur de vos attentes ?</td></tr>
+<tr><td><strong>Professionnalisme</strong></td><td>Mes conseils vous ont-ils permis de profiter de votre journée ?</td></tr>
+<tr><td><strong>Flexibilité / Adaptation</strong></td><td>La gestion des imprévus vous a-t-elle satisfaits ?</td></tr>
+<tr><td><strong>Disponibilité / Réactivité</strong></td><td>Le temps de réponse à vos demandes était-il satisfaisant ?</td></tr>
+<tr><td><strong>Rapport qualité-prix</strong></td><td>Jugez-vous la prestation cohérente avec l'investissement ?</td></tr>
+<tr><td><strong>Recommandation</strong></td><td>Nous recommanderiez-vous à vos proches ?</td></tr>
+</table></div>
+<p>Réponses simples : <strong>Non satisfait / Satisfait / Très satisfait</strong> + commentaire ouvert.</p>
+<h4>Pourquoi c'est essentiel</h4>
+<ul>
+<li>Avis positifs à partager sur les réseaux</li>
+<li>Mariés qui parlent de vous → bouche-à-oreille</li>
+<li>Proches qui se transforment en clients</li>
+<li>Mariés qui reviennent pour d'autres événements</li>
+</ul>`
+      },
+      {
+        title: "Fiche d'amélioration continue",
+        tag: "Outil",
+        body: `<h4>Structure de la fiche</h4>
+<ol>
+<li><strong>Description</strong> du dysfonctionnement ou de l'aléa</li>
+<li><strong>Traitement immédiat</strong> — ce qui a été fait sur le moment</li>
+<li><strong>Analyse des causes</strong> — pourquoi c'est arrivé</li>
+<li><strong>Action corrective</strong> — ce qui sera mis en place</li>
+<li><strong>Efficacité de l'action</strong> — vérification après mise en œuvre</li>
+</ol>
+<h4>Tableau de suivi des dysfonctionnements</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Colonne</th><th>Contenu</th></tr>
+<tr><td>Mariage de</td><td>Nom du couple</td></tr>
+<tr><td>Objet</td><td>Ce qui a dysfonctionné</td></tr>
+<tr><td>Détails</td><td>Circonstances précises</td></tr>
+<tr><td>Action mise en œuvre</td><td>Réaction immédiate</td></tr>
+<tr><td>Action à anticiper</td><td>Prévention pour le futur</td></tr>
+</table></div>`
+      }
+    ]
+  },
+  {
+    cat: "Shooting",
+    icon: "10",
+    cards: [
+      {
+        title: "Les 14 étapes d'organisation d'un shooting",
+        tag: "Process",
+        body: `<ol>
+<li><strong>Créer le synopsis</strong> — rédiger l'histoire du shooting</li>
+<li><strong>Créer le mood board</strong> — planche d'inspiration visuelle</li>
+<li><strong>Rechercher les prestataires</strong> — photographe, lieu, créatrice de robes, vidéaste, modèles</li>
+<li><strong>Faire signer les documents</strong> — convention shooting, droit à l'image, lettre d'engagement</li>
+<li><strong>Envoyer les infos créatives</strong> — thème, couleurs, ambiance à chaque prestataire</li>
+<li><strong>Conceptualiser le décor</strong></li>
+<li><strong>Écrire la liste des éléments de décoration</strong></li>
+<li><strong>Acheter les consommables</strong></li>
+<li><strong>Définir la liste des scènes</strong> — rédiger le projet de A à Z</li>
+<li><strong>Créer la carte de récit</strong> — indispensable pour les flat lays</li>
+<li><strong>Dessiner le projet</strong> (si WD)</li>
+<li><strong>Remplir le tableau Excel prestataires</strong></li>
+<li><strong>Rédiger le rétroplanning</strong></li>
+<li><strong>Jour J</strong> — installer et coordonner</li>
+</ol>
+<h4>Le Jour J du shooting</h4>
+<ul>
+<li><strong>8h00</strong> : accueil + petit-déjeuner (viennoiseries, café)</li>
+<li><strong>8h30</strong> : début des préparatifs (2 équipes avec rôles définis)</li>
+<li>Codes couleurs par personne dans le planning</li>
+<li><strong>Groupe WhatsApp</strong> : créer un groupe avec tous les intervenants</li>
+</ul>`
+      },
+      {
+        title: "Règles de publication après shooting",
+        tag: "Juridique",
+        body: `<h4>Documents obligatoires</h4>
+<ul>
+<li><strong>Convention shooting + droit à l'image</strong> : tous les participants</li>
+<li><strong>Lettre d'engagement</strong> : photographe et vidéaste spécifiquement</li>
+<li><strong>Autorisation parentale</strong> : si mineurs présents</li>
+</ul>
+<h4>Règles de publication sur les blogs</h4>
+<ul>
+<li>Chaque blog a ses propres critères de sélection</li>
+<li>Soumettre les photos les plus qualitatives uniquement</li>
+<li>Respecter les délais d'exclusivité demandés par le blog</li>
+<li>Toujours créditer TOUS les prestataires impliqués</li>
+<li>Ne jamais publier sur plusieurs blogs simultanément (exclusivité)</li>
+</ul>`
+      }
+    ]
+  },
+  {
+    cat: "Examen",
+    icon: "!",
+    cards: [
+      {
+        title: "Examen de certification WP — modalités",
+        tag: "Important",
+        body: `<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Paramètre</th><th>Détail</th></tr>
+<tr><td><strong>Format</strong></td><td>En ligne, accessible à tout moment</td></tr>
+<tr><td><strong>Durée</strong></td><td>1h30 (chronomètre non extensible)</td></tr>
+<tr><td><strong>Questions</strong></td><td>200 questions</td></tr>
+<tr><td><strong>Score minimum</strong></td><td>10/20</td></tr>
+<tr><td><strong>Réponses</strong></td><td>1 seule bonne réponse par question</td></tr>
+<tr><td><strong>Consultation cours</strong></td><td>INTERDITE pendant l'examen</td></tr>
+</table></div>
+<div class="alert-box"><strong>Conseils :</strong> prévoir 1h30 sans interruption. Les questions sont très précises — les personnes ayant suivi toutes les vidéos ne devraient pas rencontrer de difficultés.</div>`
+      },
+      {
+        title: "Coordination Jour-J — atelier pratique",
+        tag: "Option",
+        body: `<h4>Principe</h4>
+<p>Immersion sur un vrai mariage supervisée par un WP expérimenté (4+ ans d'expérience). Non obligatoire mais vivement recommandé.</p>
+<h4>Modalités</h4>
+<div class="memo-table-wrap"><table class="memo-table">
+<tr><th>Paramètre</th><th>Détail</th></tr>
+<tr><td>Durée</td><td>1 à 4 jours</td></tr>
+<tr><td>Période</td><td>Mai à octobre</td></tr>
+<tr><td>Inscription</td><td>Contacter par mail entre février et mai</td></tr>
+<tr><td>Prix</td><td>100 € (1 atelier) ou 200 € (pack 3)</td></tr>
+</table></div>
+<h4>Règles strictes</h4>
+<ul>
+<li>Discrétion absolue vis-à-vis des mariés et invités</li>
+<li><strong>Interdit :</strong> photographier les mariés/invités, la déco ou le rendu final</li>
+<li><strong>Autorisé :</strong> photos de soi avec l'équipe, coulisses de travail, partager l'expérience (taguer Wedding Academy)</li>
+<li>Non-sollicitation des prestataires exclusifs pendant 2 ans</li>
+</ul>`
+      }
+    ]
+  }
+];
+
+function renderApp() {
+  const pillsEl = document.getElementById('catPills');
+  const contentEl = document.getElementById('content');
+  const statsEl = document.getElementById('statsBar');
+
+  let totalCards = 0;
+  DATA.forEach(c => totalCards += c.cards.length);
+
+  pillsEl.innerHTML = '<button class="cat-pill active" data-cat="all">Toutes</button>' +
+    '<button class="cat-pill" data-cat="moodboard" style="background:var(--gold-soft);color:var(--gold);border-color:var(--gold);font-weight:700;">Moodboard</button>' +
+    DATA.map(c => '<button class="cat-pill" data-cat="' + c.cat + '">' + c.cat + '</button>').join('');
+
+  statsEl.innerHTML = '<strong>' + totalCards + '</strong> fiches &middot; <strong>' + DATA.length + '</strong> rubriques';
+
+  contentEl.innerHTML = DATA.map(c => `
+    <section class="cat-section" data-cat="${c.cat}">
+      <div class="cat-header"><span class="cat-badge">${c.icon}</span>${c.cat}</div>
+      ${c.cards.map((card, i) => `
+        <div class="card" data-search="${(card.title + ' ' + card.body).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')}">
+          <div class="card-header" tabindex="0" role="button" aria-expanded="false" onclick="toggleCard(this)">
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            <span class="card-title">${card.title}</span>
+            <span class="card-tag">${card.tag}</span>
+          </div>
+          <div class="card-body">${card.body}</div>
+        </div>
+      `).join('')}
+    </section>
+  `).join('');
+
+  pillsEl.addEventListener('click', e => {
+    if (!e.target.classList.contains('cat-pill')) return;
+    pillsEl.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    const cat = e.target.dataset.cat;
+    document.querySelectorAll('.cat-section').forEach(s => {
+      s.classList.toggle('hidden', cat !== 'all' && s.dataset.cat !== cat);
+    });
+    document.getElementById('searchInput').value = '';
+    document.getElementById('noResults').style.display = 'none';
+  });
+}
+
+function toggleCard(header) {
+  const card = header.parentElement;
+  const wasOpen = card.classList.contains('open');
+  card.classList.toggle('open');
+  header.setAttribute('aria-expanded', !wasOpen);
+}
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const pills = document.querySelectorAll('.cat-pill');
+  pills.forEach(p => p.classList.remove('active'));
+  pills[0].classList.add('active');
+
+  let visible = 0;
+  document.querySelectorAll('.cat-section').forEach(s => {
+    s.classList.remove('hidden');
+    let sectionVisible = 0;
+    s.querySelectorAll('.card').forEach(c => {
+      const match = !q || c.dataset.search.includes(q);
+      c.style.display = match ? '' : 'none';
+      if (match) sectionVisible++;
+    });
+    if (!sectionVisible) s.classList.add('hidden');
+    visible += sectionVisible;
+  });
+  document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
 });
 
-const THEME_DATA = {
-  "Romantique classique": { palette: ["#F5E6E8","#E8A0B0","#C8A832","#F5F0E8","#B8956A"], flowers: "Roses blanches, pivoines, gypsophile", elements: "Bougies hautes, cristal, voilages, satin" },
-  "Vintage / Rétro": { palette: ["#C4967A","#F2E8D8","#B8956A","#8B7355","#D4C0A8"], flowers: "Roses anciennes, fleurs séchées", elements: "Cadres dorés, valises, miroirs patinés" },
-  "Shabby Chic": { palette: ["#E8C8D0","#F5F0E8","#B8D4D0","#D4C8B8","#C8B8A8"], flowers: "Roses pâles, hortensias, renoncules", elements: "Cages à oiseaux, meubles patinés, dentelle" },
-  "Champêtre": { palette: ["#9CAF88","#F5F0E8","#D4C896","#A8A0D0","#C8B898"], flowers: "Fleurs des champs, lavande, marguerites", elements: "Bottes de foin, tonneaux, mason jars" },
-  "Rustique": { palette: ["#6B4423","#2D5016","#722F37","#F2E8D8","#8B7355"], flowers: "Roses bordeaux, fougères, pommes de pin", elements: "Bois massif, lanternes, bougies piliers" },
-  "Bohème / Boho": { palette: ["#C8704A","#C4956A","#9CAF88","#C8A832","#F2E8D8"], flowers: "Herbes de la pampa, roses, eucalyptus", elements: "Macramé, tapis persans, coussins, attrape-rêves" },
-  "Tropical / Exotique": { palette: ["#1B5E20","#D81B60","#FF7043","#C8A832","#F5F0E8"], flowers: "Orchidées, oiseaux de paradis, monstera", elements: "Bambou, fruits tropicaux, flamants" },
-  "Minimaliste": { palette: ["#FFFFFF","#E0E0E0","#333333","#9CAF88","#F5F5F5"], flowers: "Calla lily, eucalyptus", elements: "Lignes épurées, verre, espace vide" },
-  "Industriel / Urbain": { palette: ["#6E6E6E","#2B2926","#B87333","#A0522D","#F2E8D8"], flowers: "Fleurs sombres, succulentes", elements: "Ampoules Edison, briques, métal, cuivre" },
-  "Art Déco / Gatsby": { palette: ["#2B2926","#C8A832","#006B3C","#F5F0E8","#B8956A"], flowers: "Calla lilies, plumes noires, cristal", elements: "Motifs géométriques, arches dorées, sequins" },
-  "Glamour / Luxe": { palette: ["#C8A832","#C0C0C0","#F5F0E8","#722F37","#B8956A"], flowers: "Roses blanches, orchidées en masse", elements: "Lustres cristal, miroirs, candélabres" },
-  "Provençal": { palette: ["#7B68AE","#D4A017","#FFFFFF","#6B7B3C","#C8704A"], flowers: "Lavande, tournesols, romarin", elements: "Poteries, nappes vichy, herbes aromatiques" },
-  "Bord de mer / Nautique": { palette: ["#1B3A5C","#FFFFFF","#D4C496","#FF7043","#87CEEB"], flowers: "Roses blanches, chardons bleus, corail", elements: "Étoiles de mer, nœuds marins, coquillages" },
-  "Jardin anglais": { palette: ["#E8A0B0","#90C890","#F5F0E8","#E8B888","#B8D0B8"], flowers: "Roses anglaises, hortensias, renoncules", elements: "Service à thé, tonnelles, bancs fer forgé" },
-  "Médiéval / Château": { palette: ["#722F37","#C8A832","#2D5016","#4B0082","#F2E8D8"], flowers: "Roses bordeaux, dahlias pourpres", elements: "Blasons, candélabres, tapisseries, couronnes" },
-  "Bridgerton / Régence": { palette: ["#5B7FA5","#B8A0C8","#F5F0E8","#D4C496","#E8C4C8"], flowers: "Roses lilas, hortensias Wedgwood, pivoines", elements: "Lustres à pampilles, porcelaine, calligraphie à la plume" },
-  "Créole / Antillais": { palette: ["#1B5E20","#C62828","#E8B817","#0277BD","#C8A832"], flowers: "Anthurium, balisier, frangipanier, bananier", elements: "Madras, bambou, raphia, percussions ka/gwoka" }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.classList.contains('card-header')) {
+    toggleCard(e.target);
+  }
+});
+
+renderApp();
+
+/* ======= MOODBOARD ENGINE ======= */
+const THEMES = {
+  "Romantique classique": {
+    palette: [{hex:"#E8C4C8",name:"Rose poudré"},{hex:"#F5F0E8",name:"Ivoire"},{hex:"#D4B896",name:"Champagne"},{hex:"#C9A87C",name:"Or doux"},{hex:"#FFFFFF",name:"Blanc pur"}],
+    textures: [{name:"Satin",bg:"linear-gradient(135deg,#E8C4C8 0%,#F0D4D8 50%,#E8C4C8 100%)"},{name:"Tulle",bg:"linear-gradient(135deg,#F5F0E8 0%,#FFF 30%,#F5F0E8 100%)"},{name:"Dentelle",bg:"repeating-conic-gradient(#F5F0E8 0% 25%, #E8DDD0 0% 50%) 0 0 / 10px 10px"}],
+    fleurs: ["Roses David Austin","Pivoines","Hortensias","Renoncules","Gypsophile"],
+    elements: ["Voilages","Bougies hautes","Lustres cristal","Calligraphie","Rubans de satin","Nappage long"],
+    mood: "Un souffle de douceur, une lumière tamisée, un murmure de pétales.",
+    harmonie: "Monochrome / Analogique",
+    rule60: "Ivoire & blanc", rule30: "Rose poudré", rule10: "Or & champagne"
+  },
+  "Vintage / Rétro": {
+    palette: [{hex:"#C4967A",name:"Vieux rose"},{hex:"#F2E8D8",name:"Crème"},{hex:"#B8956A",name:"Doré patiné"},{hex:"#8B7355",name:"Sépia"},{hex:"#D4C0A8",name:"Sable ancien"}],
+    textures: [{name:"Dentelle ancienne",bg:"repeating-conic-gradient(#F2E8D8 0% 25%, #D4C0A8 0% 50%) 0 0 / 8px 8px"},{name:"Laiton",bg:"linear-gradient(135deg,#B8956A,#D4B896,#B8956A)"},{name:"Lin vieilli",bg:"linear-gradient(180deg,#F2E8D8,#E8DDD0)"}],
+    fleurs: ["Roses anciennes (David Austin)","Renoncules","Gypsophile","Lavande","Astilbe"],
+    elements: ["Cadres dorés","Valises anciennes","Miroirs patinés","Napperons dentelle","Vaisselle dépareillée","Phonographe décoratif"],
+    mood: "Le charme d'un autre temps, une nostalgie élégante, un grain de pellicule argentique.",
+    harmonie: "Analogique",
+    rule60: "Crème & ivoire", rule30: "Vieux rose & sépia", rule10: "Doré patiné"
+  },
+  "Shabby Chic": {
+    palette: [{hex:"#E8C8D0",name:"Rose pâle"},{hex:"#F5F0E8",name:"Blanc cassé"},{hex:"#B8D4D0",name:"Vert d'eau"},{hex:"#D4C8B8",name:"Grège"},{hex:"#C8B8A8",name:"Taupe clair"}],
+    textures: [{name:"Bois patiné",bg:"linear-gradient(90deg,#D4C8B8 0%,#C8B8A8 20%,#D4C8B8 40%,#E0D8C8 60%,#D4C8B8 100%)"},{name:"Toile de jute",bg:"repeating-linear-gradient(0deg,#D4C8B8,#D4C8B8 2px,#C8B8A8 2px,#C8B8A8 4px)"},{name:"Dentelle",bg:"repeating-conic-gradient(#F5F0E8 0% 25%, #E8DDD0 0% 50%) 0 0 / 10px 10px"}],
+    fleurs: ["Roses pâles","Pivoines","Lavande","Gypsophile","Camomille"],
+    elements: ["Meubles patinés","Cages à oiseaux","Bougeoirs anciens","Étiquettes kraft","Rubans de dentelle","Miroirs anciens"],
+    mood: "Une douceur fanée, le charme des choses imparfaites, un jardin endormi.",
+    harmonie: "Analogique",
+    rule60: "Blanc cassé & grège", rule30: "Rose pâle", rule10: "Vert d'eau"
+  },
+  "Champêtre": {
+    palette: [{hex:"#9CAF88",name:"Vert sauge"},{hex:"#F5F0E8",name:"Blanc"},{hex:"#D4C896",name:"Jaune paille"},{hex:"#A8A0D0",name:"Lavande"},{hex:"#C8B898",name:"Lin"}],
+    textures: [{name:"Toile de jute",bg:"repeating-linear-gradient(0deg,#C8B898,#C8B898 2px,#B8A888 2px,#B8A888 4px)"},{name:"Bois brut",bg:"linear-gradient(90deg,#C8B898,#B8A888,#C8B898,#D4C8A8)"},{name:"Lin naturel",bg:"linear-gradient(180deg,#F5F0E8,#E8E0D0)"}],
+    fleurs: ["Fleurs des champs","Marguerites","Blé","Lavande","Tournesols"],
+    elements: ["Bottes de foin","Tonneaux","Panneaux en bois","Pots mason","Arrosoirs","Guirlandes de fanions"],
+    mood: "Le parfum du foin coupé, la simplicité lumineuse d'un pré en été.",
+    harmonie: "Analogique",
+    rule60: "Blanc & lin", rule30: "Vert sauge", rule10: "Jaune paille & lavande"
+  },
+  "Rustique": {
+    palette: [{hex:"#6B4423",name:"Brun"},{hex:"#2D5016",name:"Vert forêt"},{hex:"#722F37",name:"Bordeaux"},{hex:"#F2E8D8",name:"Crème"},{hex:"#8B7355",name:"Bois"}],
+    textures: [{name:"Bois massif",bg:"linear-gradient(90deg,#6B4423,#8B7355,#6B4423,#5B3413)"},{name:"Cuir",bg:"linear-gradient(135deg,#6B4423,#8B6343)"},{name:"Pierre",bg:"linear-gradient(135deg,#A0988C,#B8B0A4,#A0988C)"}],
+    fleurs: ["Eucalyptus","Fougères","Chardons","Dahlias","Lierre"],
+    elements: ["Tables bois massif","Lanternes","Bougies piliers","Écorce","Cornes de cerf","Fer forgé"],
+    mood: "La robustesse de la terre, un feu qui crépite, l'odeur du bois et du cuir.",
+    harmonie: "Complémentaire",
+    rule60: "Crème & bois", rule30: "Vert forêt", rule10: "Bordeaux"
+  },
+  "Bohème / Boho": {
+    palette: [{hex:"#C8704A",name:"Terracotta"},{hex:"#C4956A",name:"Ocre"},{hex:"#9CAF88",name:"Sauge"},{hex:"#C8A832",name:"Moutarde"},{hex:"#F2E8D8",name:"Crème"}],
+    textures: [{name:"Macramé",bg:"repeating-conic-gradient(#F2E8D8 0% 25%, #E0D4C0 0% 50%) 0 0 / 12px 12px"},{name:"Rotin",bg:"linear-gradient(45deg,#C4956A,#D4A87A,#C4956A)"},{name:"Lin froissé",bg:"linear-gradient(180deg,#F2E8D8,#E8DCC8)"}],
+    fleurs: ["Herbes de pampa","Fleurs séchées","Proteas","Craspedia","Eucalyptus"],
+    elements: ["Arche en macramé","Tapis persans","Coussins au sol","Attrape-rêves","Tipi","Lanternes dorées"],
+    mood: "L'âme voyageuse, la liberté du vent dans les herbes hautes, un coucher de soleil ocre.",
+    harmonie: "Analogique / Contrastée",
+    rule60: "Crème & lin", rule30: "Terracotta & ocre", rule10: "Sauge & moutarde"
+  },
+  "Tropical / Exotique": {
+    palette: [{hex:"#1B5E20",name:"Vert jungle"},{hex:"#D81B60",name:"Fuchsia"},{hex:"#FF7043",name:"Corail"},{hex:"#C8A832",name:"Or"},{hex:"#F5F0E8",name:"Crème"}],
+    textures: [{name:"Bambou",bg:"linear-gradient(90deg,#8B7355,#A08855,#8B7355,#7B6345)"},{name:"Raphia",bg:"repeating-linear-gradient(0deg,#D4C496,#D4C496 2px,#C4B486 2px,#C4B486 4px)"},{name:"Feuillage XL",bg:"linear-gradient(135deg,#1B5E20,#2E7D32,#1B5E20)"}],
+    fleurs: ["Monstera","Orchidées","Strelitzia","Anthuriums","Frangipaniers"],
+    elements: ["Fruits tropicaux","Lanternes bambou","Imprimés feuillage","Flamants","Tiki bar","Nappes feuilles"],
+    mood: "L'exubérance de la jungle, un cocktail de couleurs vives sous les palmes.",
+    harmonie: "Complémentaire / Triadique",
+    rule60: "Vert jungle & crème", rule30: "Corail & fuchsia", rule10: "Or"
+  },
+  "Minimaliste": {
+    palette: [{hex:"#FFFFFF",name:"Blanc pur"},{hex:"#E0E0E0",name:"Gris clair"},{hex:"#333333",name:"Noir"},{hex:"#9CAF88",name:"Accent sauge"},{hex:"#F5F5F5",name:"Neige"}],
+    textures: [{name:"Béton",bg:"linear-gradient(135deg,#D0D0D0,#E0E0E0,#D0D0D0)"},{name:"Acrylique",bg:"linear-gradient(135deg,#F5F5F5,#FFF,#F5F5F5)"},{name:"Lin épuré",bg:"linear-gradient(180deg,#F5F5F5,#ECECEC)"}],
+    fleurs: ["Quelques callas","Tulipes blanches","1 branche d'olivier","Feuillage sobre"],
+    elements: ["Lignes épurées","Espace vide","Signalétique typo","Peu de déco","Bougies simples","Verre transparent"],
+    mood: "Le luxe du vide, la puissance du geste unique, le silence éloquent.",
+    harmonie: "Monochrome",
+    rule60: "Blanc & neige", rule30: "Gris clair", rule10: "Accent unique (sauge)"
+  },
+  "Industriel / Urbain": {
+    palette: [{hex:"#6E6E6E",name:"Gris"},{hex:"#2B2926",name:"Noir"},{hex:"#B87333",name:"Cuivre"},{hex:"#A0522D",name:"Brique"},{hex:"#F2E8D8",name:"Crème"}],
+    textures: [{name:"Métal",bg:"linear-gradient(135deg,#6E6E6E,#8E8E8E,#6E6E6E)"},{name:"Béton brut",bg:"linear-gradient(135deg,#A8A8A8,#B8B8B8,#A8A8A8)"},{name:"Brique",bg:"linear-gradient(135deg,#A0522D,#B8633D,#A0522D)"}],
+    fleurs: ["Eucalyptus","Succulentes","Verdure simple","Chardons"],
+    elements: ["Ampoules Edison","Briques apparentes","Néons","Mobilier métal","Tuyaux","Tables en acier"],
+    mood: "L'élégance brute de l'usine sublimée, le cuivre qui chauffe le béton.",
+    harmonie: "Contrastée",
+    rule60: "Gris & béton", rule30: "Noir & brique", rule10: "Cuivre"
+  },
+  "Art Déco / Gatsby": {
+    palette: [{hex:"#2B2926",name:"Noir"},{hex:"#C8A832",name:"Or"},{hex:"#006B3C",name:"Émeraude"},{hex:"#F5F0E8",name:"Ivoire"},{hex:"#B8956A",name:"Champagne"}],
+    textures: [{name:"Velours",bg:"linear-gradient(135deg,#006B3C,#008B4C,#006B3C)"},{name:"Métal doré",bg:"linear-gradient(135deg,#C8A832,#D4B842,#C8A832)"},{name:"Marbre",bg:"linear-gradient(135deg,#F5F0E8,#E8E0D0,#F5F0E8)"}],
+    fleurs: ["Plumes","Roses rouges","Orchidées blanches","Lys"],
+    elements: ["Motifs géométriques","Arches dorées","Candélabres","Franges","Sequins","Coupes de champagne"],
+    mood: "L'ivresse des Années Folles, l'éclat de l'or sur le noir, un jazz envoûtant.",
+    harmonie: "Contrastée / Métalliques",
+    rule60: "Noir & ivoire", rule30: "Or & champagne", rule10: "Émeraude"
+  },
+  "Glamour / Luxe": {
+    palette: [{hex:"#C8A832",name:"Or"},{hex:"#C0C0C0",name:"Argent"},{hex:"#F5F0E8",name:"Ivoire"},{hex:"#722F37",name:"Bordeaux"},{hex:"#B8956A",name:"Champagne"}],
+    textures: [{name:"Velours",bg:"linear-gradient(135deg,#722F37,#8B3F47,#722F37)"},{name:"Satin",bg:"linear-gradient(135deg,#C8A832,#E8C852,#C8A832)"},{name:"Cristal",bg:"linear-gradient(135deg,#E8E8F0,#F5F5FF,#E8E8F0)"}],
+    fleurs: ["Roses Équateur","Orchidées","Lys","Hortensias blancs"],
+    elements: ["Lustres imposants","Nappage long","Centres de table hauts","Fleurs en masse","Miroirs","Candélabres"],
+    mood: "L'opulence assumée, le scintillement des cristaux, une nuit de gala inoubliable.",
+    harmonie: "Métalliques / Contrastée",
+    rule60: "Ivoire & champagne", rule30: "Or & argent", rule10: "Bordeaux"
+  },
+  "Provençal": {
+    palette: [{hex:"#7B68AE",name:"Lavande"},{hex:"#D4A017",name:"Jaune soleil"},{hex:"#FFFFFF",name:"Blanc"},{hex:"#6B7B3C",name:"Vert olive"},{hex:"#C8704A",name:"Terre cuite"}],
+    textures: [{name:"Terre cuite",bg:"linear-gradient(135deg,#C8704A,#D8805A,#C8704A)"},{name:"Osier",bg:"linear-gradient(45deg,#C4956A,#D4A87A,#C4956A)"},{name:"Lin",bg:"linear-gradient(180deg,#F5F0E8,#E8E0D0)"}],
+    fleurs: ["Lavande","Oliviers","Romarin","Tournesols","Pivoines"],
+    elements: ["Huile d'olive (cadeau)","Poteries","Nappes vichy","Cigales déco","Paniers en osier","Herbes aromatiques"],
+    mood: "Le chant des cigales, le parfum de lavande, la lumière dorée du Midi.",
+    harmonie: "Analogique / Complémentaire",
+    rule60: "Blanc & lin", rule30: "Lavande & olive", rule10: "Jaune soleil & terre cuite"
+  },
+  "Bord de mer / Nautique": {
+    palette: [{hex:"#1B3A5C",name:"Bleu marine"},{hex:"#FFFFFF",name:"Blanc"},{hex:"#D4C496",name:"Sable"},{hex:"#FF7043",name:"Corail"},{hex:"#87CEEB",name:"Ciel"}],
+    textures: [{name:"Corde",bg:"repeating-linear-gradient(0deg,#D4C496,#D4C496 3px,#C4B486 3px,#C4B486 6px)"},{name:"Bois flotté",bg:"linear-gradient(90deg,#B8A888,#C8B898,#B8A888)"},{name:"Lin marin",bg:"linear-gradient(180deg,#F5F8FF,#E8F0FF)"}],
+    fleurs: ["Hortensias bleus","Chardons bleus","Graminées","Craspedia","Lavande de mer"],
+    elements: ["Étoiles de mer","Nœuds marins","Ancres","Lanternes","Sable","Coquillages","Bois flotté"],
+    mood: "Le ressac des vagues, l'horizon infini, les pieds dans le sable tiède.",
+    harmonie: "Analogique",
+    rule60: "Blanc & sable", rule30: "Bleu marine", rule10: "Corail"
+  },
+  "Jardin anglais": {
+    palette: [{hex:"#E8A0B0",name:"Rose tendre"},{hex:"#90C890",name:"Vert tendre"},{hex:"#F5F0E8",name:"Ivoire"},{hex:"#E8B888",name:"Pêche"},{hex:"#B8D0B8",name:"Menthe"}],
+    textures: [{name:"Porcelaine",bg:"linear-gradient(135deg,#F5F0E8,#FFF,#F5F0E8)"},{name:"Fer forgé",bg:"linear-gradient(135deg,#6E6E6E,#8E8E8E,#6E6E6E)"},{name:"Lin fleuri",bg:"linear-gradient(180deg,#F5F0E8,#E8E0D8)"}],
+    fleurs: ["Roses anglaises","Pivoines","Delphiniums","Glycine","Sweet peas"],
+    elements: ["Arches de roses","Service à thé","Jardins structurés","Tonnelles","Bancs en fer forgé","Petits pots"],
+    mood: "Un après-midi au jardin, le parfum des roses, la grâce d'un monde enchanté.",
+    harmonie: "Analogique",
+    rule60: "Ivoire & vert tendre", rule30: "Rose tendre & pêche", rule10: "Menthe"
+  },
+  "Médiéval / Château": {
+    palette: [{hex:"#722F37",name:"Bordeaux"},{hex:"#C8A832",name:"Or"},{hex:"#2D5016",name:"Vert forêt"},{hex:"#4B0082",name:"Pourpre"},{hex:"#F2E8D8",name:"Parchemin"}],
+    textures: [{name:"Velours",bg:"linear-gradient(135deg,#722F37,#8B3F47,#722F37)"},{name:"Pierre",bg:"linear-gradient(135deg,#A8A098,#B8B0A8,#A8A098)"},{name:"Bois sculpté",bg:"linear-gradient(90deg,#5B3413,#6B4423,#5B3413)"}],
+    fleurs: ["Lierre","Roses rouges","Chardons","Fougères","Mousses"],
+    elements: ["Blasons","Candélabres","Longues tables banquet","Tapisseries","Armures déco","Couronnes"],
+    mood: "La majesté des pierres anciennes, l'éclat des bougies sur le velours, un serment éternel.",
+    harmonie: "Complémentaire",
+    rule60: "Parchemin & pierre", rule30: "Bordeaux & vert forêt", rule10: "Or & pourpre"
+  },
+  "Bridgerton / Régence": {
+    palette: [{hex:"#5B7FA5",name:"Bleu Wedgwood"},{hex:"#B8A0C8",name:"Lilas"},{hex:"#F5F0E8",name:"Ivoire"},{hex:"#D4C496",name:"Or pâle"},{hex:"#E8C4C8",name:"Rose poudré"}],
+    textures: [{name:"Soie",bg:"linear-gradient(135deg,#B8A0C8,#C8B0D8,#B8A0C8)"},{name:"Taffetas",bg:"linear-gradient(135deg,#5B7FA5,#6B8FB5,#5B7FA5)"},{name:"Porcelaine fine",bg:"linear-gradient(135deg,#F5F0E8,#FFF,#F5F0E8)"}],
+    fleurs: ["Glycine","Roses anglaises","Pivoines","Delphiniums","Hortensias pastels"],
+    elements: ["Lustres à pampilles","Service à thé porcelaine","Calligraphie à la plume","Quatuor à cordes","Mobilier Louis XVI","Gants longs","Cachets de cire"],
+    mood: "L'élégance de la cour, le froissement de la soie, un bal sous les lustres de cristal.",
+    harmonie: "Analogique",
+    rule60: "Ivoire & blanc", rule30: "Bleu Wedgwood & lilas", rule10: "Or pâle & rose poudré"
+  },
+  "Créole / Antillais": {
+    palette: [{hex:"#1B5E20",name:"Vert tropical"},{hex:"#C62828",name:"Rouge madras"},{hex:"#E8B817",name:"Jaune soleil"},{hex:"#0277BD",name:"Bleu caraïbe"},{hex:"#C8A832",name:"Or"}],
+    textures: [{name:"Madras",bg:"repeating-linear-gradient(45deg,#C62828 0px,#C62828 8px,#E8B817 8px,#E8B817 16px,#1B5E20 16px,#1B5E20 24px)"},{name:"Bambou",bg:"linear-gradient(90deg,#8B7355,#A08855,#8B7355,#7B6345)"},{name:"Raphia",bg:"repeating-linear-gradient(0deg,#D4C496,#D4C496 2px,#C4B486 2px,#C4B486 4px)"}],
+    fleurs: ["Alpinia (rose de porcelaine)","Héliconia","Anthurium","Balisier","Frangipaniers","Feuilles de bananier"],
+    elements: ["Tissu madras","Rhum arrangé (cadeau)","Fruits tropicaux","Percussions ka/gwoka","Chapeaux bakoua","Menu sur feuille de bananier","Arche bois flotté"],
+    mood: "Le soleil des Îles, le rythme du gwoka, l'éclat du madras sous les cocotiers.",
+    harmonie: "Triadique / Contrastée",
+    rule60: "Vert tropical & crème", rule30: "Rouge madras & jaune", rule10: "Bleu caraïbe & or"
+  }
 };
+
+const MOODS = ["Intimiste","Festif","Solennel","Décontracté","Luxueux","Poétique","Joyeux","Mystérieux"];
+const SEASONS = ["Printemps","Été","Automne","Hiver","Toutes saisons"];
+
+function initMoodboard() {
+  const sel = document.getElementById('mbTheme');
+  sel.innerHTML = Object.keys(THEMES).map(t => '<option value="'+t+'">'+t+'</option>').join('');
+
+  const moodChips = document.getElementById('mbMoodChips');
+  moodChips.innerHTML = MOODS.map(m => '<span class="mb-chip" data-val="'+m+'">'+m+'</span>').join('');
+  moodChips.addEventListener('click', e => { if(e.target.classList.contains('mb-chip')) e.target.classList.toggle('selected'); });
+
+  const seasonChips = document.getElementById('mbSeasonChips');
+  seasonChips.innerHTML = SEASONS.map(s => '<span class="mb-chip" data-val="'+s+'">'+s+'</span>').join('');
+  seasonChips.addEventListener('click', e => {
+    if(!e.target.classList.contains('mb-chip')) return;
+    seasonChips.querySelectorAll('.mb-chip').forEach(c => c.classList.remove('selected'));
+    e.target.classList.toggle('selected');
+  });
+
+  document.getElementById('mbGenerate').addEventListener('click', generateMoodboard);
+}
+
+function generateMoodboard() {
+  const theme = document.getElementById('mbTheme').value;
+  const t = THEMES[theme];
+  const bride = document.getElementById('mbBride').value || 'Elle';
+  const groom = document.getElementById('mbGroom').value || 'Lui';
+  const dateVal = document.getElementById('mbDate').value;
+  const dateStr = dateVal ? new Date(dateVal).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) : '';
+
+  const selectedMoods = [...document.querySelectorAll('#mbMoodChips .mb-chip.selected')].map(c => c.dataset.val);
+  const selectedSeason = document.querySelector('#mbSeasonChips .mb-chip.selected');
+
+  const out = document.getElementById('mbOutput');
+  out.classList.add('visible');
+
+  const moodLine = selectedMoods.length ? '<p style="margin-top:8px;font-size:11px;color:var(--muted);">Ambiances : <strong>'+selectedMoods.join(', ')+'</strong></p>' : '';
+  const seasonLine = selectedSeason ? '<p style="font-size:11px;color:var(--muted);">Saison florale : <strong>'+selectedSeason.dataset.val+'</strong></p>' : '';
+
+  out.innerHTML = `
+    <div class="mb-board">
+      <div class="mb-board-header">
+        <h2>${bride} & ${groom}</h2>
+        ${dateStr ? '<p>'+dateStr+'</p>' : ''}
+        <span class="mb-theme-label">${theme}</span>
+        ${moodLine}${seasonLine}
+      </div>
+
+      <div class="mb-palette-row">
+        ${t.palette.map(c => {
+          const dark = isDark(c.hex);
+          return '<div class="mb-palette-swatch" style="background:'+c.hex+'"><span style="color:'+(dark?'#fff':'#333')+';background:'+(dark?'rgba(0,0,0,0.3)':'rgba(255,255,255,0.7)')+'">'+c.name+'</span></div>';
+        }).join('')}
+      </div>
+
+      <div style="padding:16px;">
+        <h3 style="font-family:Playfair Display,Georgia,serif;font-size:12px;font-weight:700;color:var(--accent-text);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Règle 60 / 30 / 10</h3>
+        <div class="mb-rule-row">
+          <div class="mb-rule-block" style="flex:6;background:${t.palette[0].hex};color:${isDark(t.palette[0].hex)?'#fff':'#333'}">60% ${t.rule60}</div>
+          <div class="mb-rule-block" style="flex:3;background:${t.palette[1].hex};color:${isDark(t.palette[1].hex)?'#fff':'#333'}">30% ${t.rule30}</div>
+          <div class="mb-rule-block" style="flex:1;background:${t.palette[3].hex};color:${isDark(t.palette[3].hex)?'#fff':'#333'}">10%</div>
+        </div>
+        <p style="font-size:11px;color:var(--muted);">Harmonie : <strong>${t.harmonie}</strong></p>
+      </div>
+
+      <div style="padding:0 16px 16px;">
+        <h3 style="font-family:Playfair Display,Georgia,serif;font-size:12px;font-weight:700;color:var(--accent-text);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Textures & Matières</h3>
+        <div class="mb-texture-grid">
+          ${t.textures.map(tx => '<div class="mb-texture-chip" style="background:'+tx.bg+'">'+tx.name+'</div>').join('')}
+        </div>
+      </div>
+
+      <div class="mb-board-grid">
+        <div class="mb-board-cell">
+          <h3>Fleurs & Végétaux</h3>
+          <ul>${t.fleurs.map(f => '<li>'+f+'</li>').join('')}</ul>
+        </div>
+        <div class="mb-board-cell">
+          <h3>Éléments Signature</h3>
+          <ul>${t.elements.slice(0,6).map(e => '<li>'+e+'</li>').join('')}</ul>
+        </div>
+      </div>
+
+      ${t.elements.length > 6 ? '<div style="padding:12px 16px;"><div class="mb-elements-grid">'+t.elements.slice(6).map(e => '<div class="mb-el-tag">'+e+'</div>').join('')+'</div></div>' : ''}
+
+      <div class="mb-mood-quote">&laquo; ${t.mood} &raquo;</div>
+
+      <div class="mb-ai-section">
+        <button class="mb-ai-btn" onclick="generateAiImages()">Générer les images IA pour ce thème</button>
+        <div id="mbAiResult"></div>
+      </div>
+
+      <div class="mb-board-footer">Moodboard — Maison Reveal Impact</div>
+    </div>
+  `;
+
+  out.scrollIntoView({behavior:'smooth', block:'start'});
+}
 
 function isDark(hex) {
   const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
   return (r*0.299 + g*0.587 + b*0.114) < 140;
 }
 
-const btnGen = document.getElementById('btnGen');
-const loading = document.getElementById('loading');
-const result = document.getElementById('result');
-const error = document.getElementById('error');
+initMoodboard();
 
-btnGen.addEventListener('click', async () => {
-  const theme = document.getElementById('theme').value;
-  const bride = document.getElementById('bride').value.trim();
-  const groom = document.getElementById('groom').value.trim();
-  const wdate = document.getElementById('wdate').value;
-  const season = document.getElementById('season').value;
-  const moods = [...document.querySelectorAll('.mood-chip.selected')].map(c => c.dataset.v);
+async function generateAiImages() {
+  const theme = document.getElementById('mbTheme').value;
+  const bride = document.getElementById('mbBride').value || '';
+  const groom = document.getElementById('mbGroom').value || '';
+  const dateVal = document.getElementById('mbDate').value;
+  const selectedMoods = [...document.querySelectorAll('#mbMoodChips .mb-chip.selected')].map(c => c.dataset.val);
+  const selectedSeason = document.querySelector('#mbSeasonChips .mb-chip.selected');
 
-  error.classList.remove('active');
-  result.classList.remove('active');
-  loading.classList.add('active');
-  btnGen.disabled = true;
+  const btn = document.querySelector('.mb-ai-btn');
+  const container = document.getElementById('mbAiResult');
+  btn.disabled = true;
+  btn.textContent = 'Génération en cours...';
+  container.innerHTML = '<div class="mb-ai-loading"><div class="mb-ai-spinner"></div><p><strong>Connexion à l\'IA...</strong></p><p>La génération prend environ 30 secondes</p></div>';
 
-  const steps = [
-    "Connexion à DALL·E 3...",
-    "Génération de la table & réception...",
-    "Génération de l'arche de cérémonie...",
-    "Génération de l'art floral...",
-    "Assemblage du moodboard..."
-  ];
+  const steps = ['Génération de la table...', 'Génération de l\'arche...', 'Génération de l\'art floral...', 'Assemblage...'];
   let si = 0;
   const stepInterval = setInterval(() => {
     si++;
-    if (si < steps.length) document.getElementById('loadStep').textContent = steps[si];
+    if (si < steps.length) {
+      const strong = container.querySelector('strong');
+      if (strong) strong.textContent = steps[si];
+    }
   }, 8000);
 
   try {
     const res = await fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ theme, bride, groom, date: wdate, mood: moods.join(', '), season })
+      body: JSON.stringify({
+        theme,
+        bride,
+        groom,
+        date: dateVal,
+        mood: selectedMoods.join(', '),
+        season: selectedSeason ? selectedSeason.dataset.val : ''
+      })
     });
-
     clearInterval(stepInterval);
-
     if (!res.ok) {
       const err = await res.json().catch(() => ({ error: 'Erreur serveur' }));
       throw new Error(err.error || 'Erreur ' + res.status);
     }
-
     const data = await res.json();
-    renderResult(data, theme);
+    let html = '<div class="mb-ai-grid">';
+    data.images.forEach(img => {
+      if (!img.url) return;
+      const wide = img.key === 'table' ? ' wide' : '';
+      html += '<div class="mb-ai-card' + wide + '"><img src="' + img.url + '" alt="' + img.label + '" loading="lazy"><div class="caption">' + img.label + '</div></div>';
+    });
+    html += '</div>';
+    if (data.images.every(i => !i.url)) {
+      const errMsg = data.images[0]?.error || 'Aucune image générée';
+      html = '<p style="color:#C62828;font-size:12px;text-align:center;padding:16px;">' + errMsg + '</p>';
+    }
+    container.innerHTML = html;
+    btn.textContent = 'Regénérer les images IA';
+    btn.disabled = false;
   } catch (err) {
     clearInterval(stepInterval);
-    error.textContent = err.message;
-    error.classList.add('active');
-    loading.classList.remove('active');
-    btnGen.disabled = false;
+    container.innerHTML = '<p style="color:#C62828;font-size:12px;text-align:center;padding:16px;">' + err.message + '</p>';
+    btn.textContent = 'Réessayer';
+    btn.disabled = false;
   }
-});
-
-function renderResult(data, theme) {
-  loading.classList.remove('active');
-  btnGen.disabled = false;
-
-  document.getElementById('resTheme').textContent = theme;
-  const couple = [data.bride, data.groom].filter(Boolean);
-  document.getElementById('resCouple').textContent = couple.length === 2 ? `${couple[0]} & ${couple[1]}` : '';
-  document.getElementById('resDate').textContent = data.date ? new Date(data.date + 'T00:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
-
-  const grid = document.getElementById('imageGrid');
-  grid.innerHTML = '';
-  grid.style.gridTemplateColumns = '1fr 1fr';
-
-  data.images.forEach(img => {
-    if (!img.url) return;
-    const card = document.createElement('div');
-    card.className = 'image-card' + (img.key === 'table' ? ' landscape' : '');
-    card.innerHTML = `<img src="${img.url}" alt="${img.label}" loading="lazy"><div class="caption">${img.label}</div>`;
-    grid.appendChild(card);
-  });
-
-  const td = THEME_DATA[theme];
-  if (td) {
-    const info = document.getElementById('resInfo');
-    info.innerHTML = `
-      <h3>Palette</h3>
-      <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
-        ${td.palette.map(c => `<div style="width:48px;height:32px;border-radius:6px;background:${c};border:1px solid var(--border)" title="${c}"></div>`).join('')}
-      </div>
-      <h3>Fleurs recommandées</h3>
-      <div class="info-row" style="margin-bottom:12px">
-        ${td.flowers.split(', ').map(f => `<span class="info-tag">${f}</span>`).join('')}
-      </div>
-      <h3>Éléments de décor</h3>
-      <div class="info-row">
-        ${td.elements.split(', ').map(e => `<span class="info-tag">${e}</span>`).join('')}
-      </div>
-    `;
-  }
-
-  result.classList.add('active');
-  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function resetForm() {
-  result.classList.remove('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+/* Patch pills to handle Moodboard tab */
+const origPillHandler = document.getElementById('catPills');
+origPillHandler.addEventListener('click', e => {
+  if (!e.target.classList.contains('cat-pill')) return;
+  const cat = e.target.dataset.cat;
+  const mbSection = document.getElementById('moodboardSection');
+  const contentEl = document.getElementById('content');
+  if (cat === 'moodboard') {
+    mbSection.classList.add('visible');
+    contentEl.style.display = 'none';
+  } else {
+    mbSection.classList.remove('visible');
+    contentEl.style.display = '';
+  }
+}, true);
 </script>
-</body>
-</html>
