@@ -106,7 +106,7 @@ const THEME_MAP = {
   "Créole / Antillais": "creole"
 };
 
-async function generateWithDallE(prompt, size, apiKey) {
+async function generateImage(prompt, size, apiKey) {
   const response = await fetch("https://api.openai.com/v1/images/generations", {
     method: "POST",
     headers: {
@@ -114,21 +114,23 @@ async function generateWithDallE(prompt, size, apiKey) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      model: "dall-e-3",
+      model: "gpt-image-1",
       prompt: prompt,
       n: 1,
       size: size,
-      quality: "standard"
+      quality: "low"
     })
   });
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(err.error?.message || `DALL-E API error ${response.status}`);
+    throw new Error(err.error?.message || `OpenAI API error ${response.status}`);
   }
 
   const data = await response.json();
-  return data.data[0].url;
+  if (data.data[0].url) return data.data[0].url;
+  if (data.data[0].b64_json) return "data:image/png;base64," + data.data[0].b64_json;
+  throw new Error("Pas d'image dans la réponse");
 }
 
 module.exports = async function handler(req, res) {
@@ -161,16 +163,16 @@ module.exports = async function handler(req, res) {
   const extra = coupleContext.length ? ", " + coupleContext.join(", ") : "";
 
   const views = [
-    { key: "table", label: "Table & Réception", prompt: prompts.table + extra, size: "1792x1024" },
+    { key: "table", label: "Table & Réception", prompt: prompts.table + extra, size: "1536x1024" },
     { key: "arch", label: "Cérémonie & Arche", prompt: prompts.arch + extra, size: "1024x1024" },
-    { key: "floral", label: "Art Floral", prompt: prompts.floral + extra, size: "1024x1792" }
+    { key: "floral", label: "Art Floral", prompt: prompts.floral + extra, size: "1024x1536" }
   ];
 
   try {
     const results = await Promise.all(
       views.map(async (v) => {
         try {
-          const url = await generateWithDallE(v.prompt, v.size, apiKey);
+          const url = await generateImage(v.prompt, v.size, apiKey);
           return { key: v.key, label: v.label, url, size: v.size };
         } catch (err) {
           return { key: v.key, label: v.label, url: null, error: err.message };
