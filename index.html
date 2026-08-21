@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moodboard IA — Maison Reveal Impact</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;600;700&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#FDFCFA;--card:#F5F3EF;--card-hover:#EDEAE4;
+  --ink:#2B2926;--ink-soft:#4A4641;--muted:#8C8880;
+  --accent:#5C7A6B;--accent-soft:#E2EBE6;--accent-text:#4A6558;
+  --gold:#B8956A;--gold-soft:#F0E6D8;
+  --border:#E0DDD7;--shadow:rgba(43,41,38,0.06);--radius:12px;
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1917;--card:#262421;--card-hover:#302D2A;
+    --ink:#E8E5E0;--ink-soft:#C4C0BA;--muted:#8C8880;
+    --accent:#7FA08E;--accent-soft:#2D3832;--accent-text:#9BC0AA;
+    --gold:#C8A57A;--gold-soft:#3A3020;
+    --border:#3A3733;--shadow:rgba(0,0,0,0.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1917;--card:#262421;--card-hover:#302D2A;
+  --ink:#E8E5E0;--ink-soft:#C4C0BA;--muted:#8C8880;
+  --accent:#7FA08E;--accent-soft:#2D3832;--accent-text:#9BC0AA;
+  --gold:#C8A57A;--gold-soft:#3A3020;
+  --border:#3A3733;--shadow:rgba(0,0,0,0.3);
+}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+.container{max-width:720px;margin:0 auto;padding:24px 16px}
+
+header{text-align:center;padding:32px 0 24px}
+header h1{font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;color:var(--ink);margin-bottom:4px}
+header .tagline{font-size:13px;color:var(--gold);font-weight:500;letter-spacing:0.08em;text-transform:uppercase}
+header .subtitle{font-size:14px;color:var(--muted);margin-top:8px}
+
+.form-section{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:24px;border:1px solid var(--border)}
+.form-section h2{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;margin-bottom:16px;color:var(--ink)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group.full{grid-column:1/-1}
+label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted)}
+select,input[type="text"],input[type="date"]{
+  width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;
+  background:var(--bg);color:var(--ink);font-family:inherit;font-size:14px;
+  transition:border-color .2s;
+}
+select:focus,input:focus{outline:none;border-color:var(--accent)}
+
+.mood-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.mood-chip{
+  padding:6px 12px;border-radius:20px;border:1px solid var(--border);
+  background:var(--bg);color:var(--ink-soft);font-size:12px;cursor:pointer;
+  transition:all .2s;user-select:none;
+}
+.mood-chip.selected{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-text);font-weight:600}
+
+.btn-generate{
+  width:100%;padding:14px;border:none;border-radius:var(--radius);
+  background:var(--accent);color:#fff;font-family:inherit;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .3s;letter-spacing:0.02em;margin-top:8px;
+}
+.btn-generate:hover{opacity:0.9;transform:translateY(-1px)}
+.btn-generate:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+
+.loading{display:none;text-align:center;padding:48px 0}
+.loading.active{display:block}
+.loading .spinner{
+  width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);
+  border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{color:var(--muted);font-size:14px}
+.loading .step{font-weight:600;color:var(--accent-text);margin-bottom:4px}
+
+.result{display:none;margin-top:24px}
+.result.active{display:block}
+.result-header{text-align:center;margin-bottom:24px}
+.result-header h2{font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;margin-bottom:4px}
+.result-header .couple{font-size:16px;color:var(--gold);font-weight:500}
+.result-header .date{font-size:13px;color:var(--muted);margin-top:4px}
+
+.image-grid{display:grid;gap:16px;margin-bottom:24px}
+.image-card{
+  border-radius:var(--radius);overflow:hidden;background:var(--card);
+  border:1px solid var(--border);box-shadow:0 2px 8px var(--shadow);
+}
+.image-card img{width:100%;display:block;object-fit:cover}
+.image-card .caption{
+  padding:10px 14px;font-size:12px;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.05em;color:var(--muted);text-align:center;
+}
+.image-card.landscape{grid-column:1/-1}
+
+.moodboard-info{
+  background:var(--card);border-radius:var(--radius);padding:20px;
+  border:1px solid var(--border);margin-bottom:16px;
+}
+.moodboard-info h3{font-family:'Playfair Display',Georgia,serif;font-size:14px;margin-bottom:8px;color:var(--accent-text)}
+.info-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.info-tag{
+  padding:4px 10px;border-radius:14px;font-size:11px;font-weight:600;
+  background:var(--accent-soft);color:var(--accent-text);
+}
+
+.footer-brand{
+  text-align:center;padding:20px 0;font-size:11px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);
+}
+
+.error-msg{
+  background:#FFF0F0;border:1px solid #E8C4C4;border-radius:8px;padding:14px;
+  color:#8B2020;font-size:13px;margin-top:16px;display:none;
+}
+.error-msg.active{display:block}
+
+@media(max-width:480px){
+  .form-row{grid-template-columns:1fr}
+  header h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Moodboard IA</h1>
+    <div class="tagline">Maison Reveal Impact</div>
+    <div class="subtitle">Générez un moodboard personnalisé grâce à l'intelligence artificielle</div>
+  </header>
+
+  <div class="form-section">
+    <h2>Votre projet</h2>
+    <div class="form-row">
+      <div class="form-group full">
+        <label>Thème de mariage</label>
+        <select id="theme">
+          <option value="Romantique classique">Romantique classique</option>
+          <option value="Vintage / Rétro">Vintage / Rétro</option>
+          <option value="Shabby Chic">Shabby Chic</option>
+          <option value="Champêtre">Champêtre</option>
+          <option value="Rustique">Rustique</option>
+          <option value="Bohème / Boho">Bohème / Boho</option>
+          <option value="Tropical / Exotique">Tropical / Exotique</option>
+          <option value="Minimaliste">Minimaliste</option>
+          <option value="Industriel / Urbain">Industriel / Urbain</option>
+          <option value="Art Déco / Gatsby">Art Déco / Gatsby</option>
+          <option value="Glamour / Luxe">Glamour / Luxe</option>
+          <option value="Provençal">Provençal</option>
+          <option value="Bord de mer / Nautique">Bord de mer / Nautique</option>
+          <option value="Jardin anglais">Jardin anglais</option>
+          <option value="Médiéval / Château">Médiéval / Château</option>
+          <option value="Bridgerton / Régence">Bridgerton / Régence</option>
+          <option value="Créole / Antillais">Créole / Antillais</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Prénom de la mariée</label>
+        <input type="text" id="bride" placeholder="Ex : Amina">
+      </div>
+      <div class="form-group">
+        <label>Prénom du marié</label>
+        <input type="text" id="groom" placeholder="Ex : David">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Date du mariage</label>
+        <input type="date" id="wdate">
+      </div>
+      <div class="form-group">
+        <label>Saison</label>
+        <select id="season">
+          <option value="">— Automatique —</option>
+          <option value="spring">Printemps</option>
+          <option value="summer">Été</option>
+          <option value="autumn">Automne</option>
+          <option value="winter">Hiver</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group full" style="margin-bottom:12px">
+      <label>Ambiance souhaitée</label>
+      <div class="mood-chips" id="moods">
+        <span class="mood-chip" data-v="intimate">Intimiste</span>
+        <span class="mood-chip" data-v="festive">Festif</span>
+        <span class="mood-chip" data-v="elegant">Élégant</span>
+        <span class="mood-chip" data-v="whimsical">Poétique</span>
+        <span class="mood-chip" data-v="dramatic">Dramatique</span>
+        <span class="mood-chip" data-v="joyful">Joyeux</span>
+      </div>
+    </div>
+    <button class="btn-generate" id="btnGen">Générer le Moodboard IA</button>
+    <div class="error-msg" id="error"></div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p class="step" id="loadStep">Connexion à DALL·E 3...</p>
+    <p>La génération prend environ 30 secondes</p>
+  </div>
+
+  <div class="result" id="result">
+    <div class="result-header">
+      <h2 id="resTheme"></h2>
+      <div class="couple" id="resCouple"></div>
+      <div class="date" id="resDate"></div>
+    </div>
+    <div class="image-grid" id="imageGrid"></div>
+    <div class="moodboard-info" id="resInfo"></div>
+    <div class="footer-brand">Moodboard IA — Maison Reveal Impact</div>
+    <button class="btn-generate" onclick="resetForm()" style="background:var(--gold);margin-top:16px">Générer un autre moodboard</button>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.mood-chip').forEach(c => {
+  c.addEventListener('click', () => c.classList.toggle('selected'));
+});
+
+const THEME_DATA = {
+  "Romantique classique": { palette: ["#F5E6E8","#E8A0B0","#C8A832","#F5F0E8","#B8956A"], flowers: "Roses blanches, pivoines, gypsophile", elements: "Bougies hautes, cristal, voilages, satin" },
+  "Vintage / Rétro": { palette: ["#C4967A","#F2E8D8","#B8956A","#8B7355","#D4C0A8"], flowers: "Roses anciennes, fleurs séchées", elements: "Cadres dorés, valises, miroirs patinés" },
+  "Shabby Chic": { palette: ["#E8C8D0","#F5F0E8","#B8D4D0","#D4C8B8","#C8B8A8"], flowers: "Roses pâles, hortensias, renoncules", elements: "Cages à oiseaux, meubles patinés, dentelle" },
+  "Champêtre": { palette: ["#9CAF88","#F5F0E8","#D4C896","#A8A0D0","#C8B898"], flowers: "Fleurs des champs, lavande, marguerites", elements: "Bottes de foin, tonneaux, mason jars" },
+  "Rustique": { palette: ["#6B4423","#2D5016","#722F37","#F2E8D8","#8B7355"], flowers: "Roses bordeaux, fougères, pommes de pin", elements: "Bois massif, lanternes, bougies piliers" },
+  "Bohème / Boho": { palette: ["#C8704A","#C4956A","#9CAF88","#C8A832","#F2E8D8"], flowers: "Herbes de la pampa, roses, eucalyptus", elements: "Macramé, tapis persans, coussins, attrape-rêves" },
+  "Tropical / Exotique": { palette: ["#1B5E20","#D81B60","#FF7043","#C8A832","#F5F0E8"], flowers: "Orchidées, oiseaux de paradis, monstera", elements: "Bambou, fruits tropicaux, flamants" },
+  "Minimaliste": { palette: ["#FFFFFF","#E0E0E0","#333333","#9CAF88","#F5F5F5"], flowers: "Calla lily, eucalyptus", elements: "Lignes épurées, verre, espace vide" },
+  "Industriel / Urbain": { palette: ["#6E6E6E","#2B2926","#B87333","#A0522D","#F2E8D8"], flowers: "Fleurs sombres, succulentes", elements: "Ampoules Edison, briques, métal, cuivre" },
+  "Art Déco / Gatsby": { palette: ["#2B2926","#C8A832","#006B3C","#F5F0E8","#B8956A"], flowers: "Calla lilies, plumes noires, cristal", elements: "Motifs géométriques, arches dorées, sequins" },
+  "Glamour / Luxe": { palette: ["#C8A832","#C0C0C0","#F5F0E8","#722F37","#B8956A"], flowers: "Roses blanches, orchidées en masse", elements: "Lustres cristal, miroirs, candélabres" },
+  "Provençal": { palette: ["#7B68AE","#D4A017","#FFFFFF","#6B7B3C","#C8704A"], flowers: "Lavande, tournesols, romarin", elements: "Poteries, nappes vichy, herbes aromatiques" },
+  "Bord de mer / Nautique": { palette: ["#1B3A5C","#FFFFFF","#D4C496","#FF7043","#87CEEB"], flowers: "Roses blanches, chardons bleus, corail", elements: "Étoiles de mer, nœuds marins, coquillages" },
+  "Jardin anglais": { palette: ["#E8A0B0","#90C890","#F5F0E8","#E8B888","#B8D0B8"], flowers: "Roses anglaises, hortensias, renoncules", elements: "Service à thé, tonnelles, bancs fer forgé" },
+  "Médiéval / Château": { palette: ["#722F37","#C8A832","#2D5016","#4B0082","#F2E8D8"], flowers: "Roses bordeaux, dahlias pourpres", elements: "Blasons, candélabres, tapisseries, couronnes" },
+  "Bridgerton / Régence": { palette: ["#5B7FA5","#B8A0C8","#F5F0E8","#D4C496","#E8C4C8"], flowers: "Roses lilas, hortensias Wedgwood, pivoines", elements: "Lustres à pampilles, porcelaine, calligraphie à la plume" },
+  "Créole / Antillais": { palette: ["#1B5E20","#C62828","#E8B817","#0277BD","#C8A832"], flowers: "Anthurium, balisier, frangipanier, bananier", elements: "Madras, bambou, raphia, percussions ka/gwoka" }
+};
+
+function isDark(hex) {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return (r*0.299 + g*0.587 + b*0.114) < 140;
+}
+
+const btnGen = document.getElementById('btnGen');
+const loading = document.getElementById('loading');
+const result = document.getElementById('result');
+const error = document.getElementById('error');
+
+btnGen.addEventListener('click', async () => {
+  const theme = document.getElementById('theme').value;
+  const bride = document.getElementById('bride').value.trim();
+  const groom = document.getElementById('groom').value.trim();
+  const wdate = document.getElementById('wdate').value;
+  const season = document.getElementById('season').value;
+  const moods = [...document.querySelectorAll('.mood-chip.selected')].map(c => c.dataset.v);
+
+  error.classList.remove('active');
+  result.classList.remove('active');
+  loading.classList.add('active');
+  btnGen.disabled = true;
+
+  const steps = [
+    "Connexion à DALL·E 3...",
+    "Génération de la table & réception...",
+    "Génération de l'arche de cérémonie...",
+    "Génération de l'art floral...",
+    "Assemblage du moodboard..."
+  ];
+  let si = 0;
+  const stepInterval = setInterval(() => {
+    si++;
+    if (si < steps.length) document.getElementById('loadStep').textContent = steps[si];
+  }, 8000);
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ theme, bride, groom, date: wdate, mood: moods.join(', '), season })
+    });
+
+    clearInterval(stepInterval);
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Erreur serveur' }));
+      throw new Error(err.error || 'Erreur ' + res.status);
+    }
+
+    const data = await res.json();
+    renderResult(data, theme);
+  } catch (err) {
+    clearInterval(stepInterval);
+    error.textContent = err.message;
+    error.classList.add('active');
+    loading.classList.remove('active');
+    btnGen.disabled = false;
+  }
+});
+
+function renderResult(data, theme) {
+  loading.classList.remove('active');
+  btnGen.disabled = false;
+
+  document.getElementById('resTheme').textContent = theme;
+  const couple = [data.bride, data.groom].filter(Boolean);
+  document.getElementById('resCouple').textContent = couple.length === 2 ? `${couple[0]} & ${couple[1]}` : '';
+  document.getElementById('resDate').textContent = data.date ? new Date(data.date + 'T00:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+
+  const grid = document.getElementById('imageGrid');
+  grid.innerHTML = '';
+  grid.style.gridTemplateColumns = '1fr 1fr';
+
+  data.images.forEach(img => {
+    if (!img.url) return;
+    const card = document.createElement('div');
+    card.className = 'image-card' + (img.key === 'table' ? ' landscape' : '');
+    card.innerHTML = `<img src="${img.url}" alt="${img.label}" loading="lazy"><div class="caption">${img.label}</div>`;
+    grid.appendChild(card);
+  });
+
+  const td = THEME_DATA[theme];
+  if (td) {
+    const info = document.getElementById('resInfo');
+    info.innerHTML = `
+      <h3>Palette</h3>
+      <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+        ${td.palette.map(c => `<div style="width:48px;height:32px;border-radius:6px;background:${c};border:1px solid var(--border)" title="${c}"></div>`).join('')}
+      </div>
+      <h3>Fleurs recommandées</h3>
+      <div class="info-row" style="margin-bottom:12px">
+        ${td.flowers.split(', ').map(f => `<span class="info-tag">${f}</span>`).join('')}
+      </div>
+      <h3>Éléments de décor</h3>
+      <div class="info-row">
+        ${td.elements.split(', ').map(e => `<span class="info-tag">${e}</span>`).join('')}
+      </div>
+    `;
+  }
+
+  result.classList.add('active');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  result.classList.remove('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
