@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cahier Wedding Designer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  :root{
+    --ivory:#F5F0E6;
+    --ivory-2:#EFE8D8;
+    --card:#FBF8F1;
+    --ink:#2A241D;
+    --ink-soft:#5B5142;
+    --muted:#8A7F6C;
+    --border:#E2D8C2;
+    --gold:#A9821A;
+    --gold-deep:#8A6912;
+    --gold-soft:#EFDFAE;
+    --accent-text:#5E4A0E;
+    --shadow: 0 1px 2px rgba(42,36,29,.06), 0 8px 24px rgba(42,36,29,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ivory:#1C1712; --ivory-2:#241D16; --card:#231D16; --ink:#EDE4D3; --ink-soft:#C6B99F;
+      --muted:#8F8271; --border:#3A3024; --gold:#D9B04C; --gold-deep:#E9C878; --gold-soft:#3A2E12;
+      --accent-text:#E9C878; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ivory:#1C1712; --ivory-2:#241D16; --card:#231D16; --ink:#EDE4D3; --ink-soft:#C6B99F;
+    --muted:#8F8271; --border:#3A3024; --gold:#D9B04C; --gold-deep:#E9C878; --gold-soft:#3A2E12;
+    --accent-text:#E9C878; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .page{background:var(--ivory); color:var(--ink); font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:'Playfair Display', Georgia, serif; font-weight:700; color:var(--ink); text-wrap:balance; margin:0;}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+  .shell{max-width:900px; margin:0 auto; padding:0 24px 100px;}
+
+  .hero{padding:60px 24px 36px; text-align:center; border-bottom:1px solid var(--border);}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); font-weight:500; display:inline-block; margin-bottom:16px;}
+  .hero h1{font-size:clamp(30px,5vw,46px); line-height:1.08; margin-bottom:14px;}
+  .hero p.lead{font-size:16.5px; color:var(--ink-soft); max-width:600px; margin:0 auto;}
+  .hero .meta{margin-top:24px; display:flex; flex-wrap:wrap; gap:9px; justify-content:center;}
+  .meta-chip{font-size:11px; letter-spacing:.03em; padding:6px 12px; border-radius:999px; background:var(--card); border:1px solid var(--border); color:var(--ink-soft);}
+
+  .toc{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; padding:16px 20px; position:sticky; top:0; z-index:10;
+    background:color-mix(in srgb, var(--ivory) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--border);}
+  .toc a{font-size:11.5px; font-weight:600; letter-spacing:.01em; padding:6px 12px; border-radius:999px; text-decoration:none;
+    color:var(--ink-soft); border:1px solid var(--border); transition:all .15s ease; white-space:nowrap;}
+  .toc a:hover{border-color:var(--gold); color:var(--accent-text); background:var(--gold-soft);}
+
+  section.module{padding:52px 0 8px; border-bottom:1px solid var(--border);}
+  section.module:last-of-type{border-bottom:none;}
+  .mod-head{margin-bottom:28px;}
+  .mod-num{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); font-weight:500; margin-bottom:8px; display:block;}
+  .mod-head h2{font-size:clamp(24px,4vw,32px); margin-bottom:6px;}
+  .mod-head .sub{font-size:13.5px; color:var(--ink-soft); margin-bottom:14px;}
+
+  .source-badge{display:flex; align-items:flex-start; gap:10px; flex-wrap:wrap; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px 16px; box-shadow:var(--shadow);}
+  .source-badge .tag{font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--gold-deep); background:var(--gold-soft); padding:3px 8px; border-radius:5px; flex-shrink:0;}
+  .source-badge .src-body{font-size:13px; color:var(--ink-soft);}
+  .source-badge .src-body strong{color:var(--ink); font-weight:600;}
+  .source-badge .path{display:block; margin-top:4px; font-size:11px; color:var(--muted); word-break:break-all;}
+
+  .chapter{margin-top:36px;}
+  .chapter h3{font-size:19px; margin-bottom:12px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .chapter h3 .chnum{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--gold-deep); font-weight:500;}
+  .chapter h4{font-size:15px; margin:20px 0 9px; color:var(--ink);}
+  .chapter p{margin:0 0 13px; color:var(--ink-soft); font-size:14.5px;}
+  .chapter ul, .chapter ol{margin:0 0 13px; padding-left:20px; color:var(--ink-soft); font-size:14.5px;}
+  .chapter li{margin-bottom:5px;}
+  .chapter li strong{color:var(--ink);}
+
+  blockquote{margin:18px 0; padding:14px 18px; border-left:3px solid var(--gold); background:var(--card); border-radius:0 10px 10px 0; font-family:'Playfair Display', serif; font-style:italic; font-size:15.5px; color:var(--ink);}
+  .tip{margin:16px 0; padding:12px 15px; border-radius:10px; background:var(--gold-soft); color:var(--accent-text); font-size:13.5px;}
+
+  .table-wrap{overflow-x:auto; margin:14px 0 20px; border:1px solid var(--border); border-radius:10px;}
+  table{width:100%; border-collapse:collapse; font-size:13px; min-width:460px;}
+  thead th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding:9px 13px; background:var(--card); border-bottom:1px solid var(--border); font-weight:500;}
+  tbody td{padding:9px 13px; border-bottom:1px solid var(--border); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td strong{color:var(--ink);}
+  tbody tr:nth-child(odd){background:color-mix(in srgb, var(--card) 55%, transparent);}
+
+  .swatch-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:9px; margin:16px 0 22px;}
+  .swatch{display:flex; align-items:center; gap:11px; padding:9px 11px; background:var(--card); border:1px solid var(--border); border-radius:10px;}
+  .swatch .dot{width:32px; height:32px; border-radius:9px; flex-shrink:0; border:1px solid rgba(0,0,0,.08);}
+  .swatch .label{font-size:12.5px;}
+  .swatch .label b{display:block; color:var(--ink); font-weight:600;}
+  .swatch .label span{display:block; font-size:11px; color:var(--muted); margin-top:1px;}
+
+  .ratio-bar{display:flex; height:52px; border-radius:10px; overflow:hidden; margin:16px 0 9px; border:1px solid var(--border);}
+  .ratio-bar div{display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.25);}
+  .ratio-legend{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px; font-size:12px; color:var(--ink-soft);}
+  .ratio-legend span{display:inline-flex; align-items:center; gap:6px;}
+  .ratio-legend i{width:10px; height:10px; border-radius:3px; display:inline-block;}
+
+  .pillar{margin:24px 0; padding:20px 22px; background:var(--card); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);}
+  .pillar .pnum{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:4px; display:block;}
+  .pillar h4.ptitle{font-family:'Playfair Display',serif; font-size:19px; margin:0 0 9px;}
+
+  .actions{margin-top:26px; padding:18px 20px; border-radius:14px; background:linear-gradient(155deg, var(--gold-soft), transparent 70%); border:1px solid var(--border);}
+  .actions h4{font-size:12.5px; text-transform:uppercase; letter-spacing:.08em; font-family:'IBM Plex Mono',monospace; color:var(--gold-deep); margin-bottom:11px; font-weight:500;}
+  .actions ul{list-style:none; padding:0; margin:0; display:grid; gap:8px;}
+  .actions li{font-size:13.5px; color:var(--ink-soft); padding-left:22px; position:relative;}
+  .actions li::before{content:'✓'; position:absolute; left:0; top:0; color:var(--gold-deep); font-weight:700;}
+
+  .keypoints{margin-top:26px; padding:18px 20px; border-radius:14px; background:var(--card); border:1px solid var(--border);}
+  .keypoints h4{font-size:12.5px; text-transform:uppercase; letter-spacing:.08em; font-family:'IBM Plex Mono',monospace; color:var(--gold-deep); margin-bottom:11px; font-weight:500;}
+  .keypoints ol{margin:0; padding-left:18px; display:grid; gap:6px;}
+  .keypoints li{font-size:13.5px; color:var(--ink-soft);}
+  .keypoints li strong{color:var(--ink);}
+
+  .resource-card{margin:22px 0; padding:22px 24px; background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow);}
+  .resource-card h3{font-size:18px; margin-bottom:5px;}
+  .resource-card .sub{font-size:12px; color:var(--muted); margin-bottom:14px; letter-spacing:.02em;}
+
+  .collection-row{display:flex; align-items:center; gap:14px; padding:9px 0; border-top:1px solid var(--border);}
+  .collection-row:first-of-type{border-top:none;}
+  .collection-swatches{display:flex; gap:4px; flex-shrink:0;}
+  .collection-swatches i{width:20px; height:20px; border-radius:5px; display:block; border:1px solid rgba(0,0,0,.08);}
+  .collection-row .ctext b{display:block; font-size:13.5px; color:var(--ink);}
+  .collection-row .ctext span{font-size:11.5px; color:var(--muted);}
+
+  .glory-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:9px; margin:12px 0 4px;}
+  .glory-item{border:1px solid var(--border); border-radius:10px; overflow:hidden; background:var(--card);}
+  .glory-strip{display:flex; height:28px;}
+  .glory-strip i{flex:1;}
+  .glory-item .gname{font-size:11px; padding:7px 9px 8px; color:var(--ink-soft);}
+  .glory-item .gname b{display:block; color:var(--ink); font-size:12px; font-weight:600;}
+
+  .checklist{list-style:none; padding:0; margin:14px 0; display:grid; gap:7px;}
+  .checklist li{font-size:13.5px; color:var(--ink-soft); padding-left:24px; position:relative;}
+  .checklist li::before{content:'☐'; position:absolute; left:0; top:0; color:var(--gold-deep);}
+  .checklist li b{color:var(--ink);}
+
+  footer.sources{padding:52px 0 20px;}
+  footer.sources h2{font-size:21px; margin-bottom:5px;}
+  footer.sources .sub{color:var(--muted); font-size:12.5px; margin-bottom:22px;}
+  .file-group{margin-bottom:20px;}
+  .file-group h4{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:9px; font-weight:500;}
+  .file-item{font-size:12px; color:var(--ink-soft); padding:7px 0; border-top:1px solid var(--border); word-break:break-all;}
+  .file-item:first-child{border-top:none;}
+  .file-item .fname{color:var(--ink); font-weight:600; display:block; margin-bottom:2px; font-family:'Inter',sans-serif; font-size:12.5px;}
+  .end-note{text-align:center; padding:30px 0 0; color:var(--muted); font-size:12px;}
+
+  @media (max-width:600px){
+    .hero{padding:44px 18px 28px;}
+    section.module{padding:36px 0 4px;}
+    .toc{gap:5px; padding:14px;}
+    .toc a{padding:5px 10px; font-size:11px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <span class="eyebrow">Wedding Academy · Formation Wedding Designer</span>
+    <h1>Cahier Wedding Designer</h1>
+    <p class="lead">Les 9 modules complets, le livret officiel, le process de A à Z et les applications professionnelles — toute la formation Wedding Designer réunie pour Maison Reveal Impact.</p>
+    <div class="meta">
+      <span class="meta-chip">Karine Pochot</span>
+      <span class="meta-chip">9 modules · M1 à M9</span>
+      <span class="meta-chip">Livret & tarifs officiels</span>
+      <span class="meta-chip">Process complet A à Z</span>
+      <span class="meta-chip">Applications MRI</span>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <a href="#m1">M1 · Le métier</a>
+    <a href="#m2">M2 · Conception</a>
+    <a href="#m3">M3 · Event design</a>
+    <a href="#m4">M4 · Floral</a>
+    <a href="#m5">M5 · Scénographie</a>
+    <a href="#m6">M6 · Tables & carterie</a>
+    <a href="#m7">M7 · Moodboards</a>
+    <a href="#m8">M8 · PAO Publisher</a>
+    <a href="#m9">M9 · Honoraires</a>
+    <a href="#process">Process A à Z</a>
+    <a href="#livret">Livret & tarifs</a>
+    <a href="#palette">Palette signature</a>
+    <a href="#applications">Applications MRI</a>
+    <a href="#sources">Fichiers sources</a>
+  </nav>
+
+  <div class="shell">
+
+    <!-- MODULE 1 -->
+    <section class="module" id="m1">
+      <div class="mod-head">
+        <span class="mod-num">Module 1</span>
+        <h2>Introduction au Wedding Design</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>Module 1 - Introduction au design.pdf</strong> · <strong>Livret Wedding Designer.pdf</strong>
+            <span class="path mono">…\formations\wedding-designer\pdf-source\Module 1 - Introduction au design.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Définition du métier</h3>
+        <p>Le Wedding Designer crée de la magie, une expérience nouvelle, et inspire ses clients. Son rôle : <strong>diriger l'ensemble des aspects visuels</strong> d'un événement en fusionnant conception, logistique et technique.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Le Wedding Designer</th><th>Le Wedding Planner</th></tr></thead>
+            <tbody>
+              <tr><td>Conceptualise et crée le design de A à Z</td><td>Organise et coordonne l'ensemble des prestataires</td></tr>
+              <tr><td>Responsable des aspects <strong>visuels</strong> uniquement</td><td>Responsable de la logistique <strong>globale</strong></td></tr>
+              <tr><td>Fait intervenir : fleuriste, éclairagiste, loueur, graphiste</td><td>Fait intervenir : lieu, traiteur, DJ, photographe, WD…</td></tr>
+              <tr><td>Tout passe par lui pour la décoration</td><td>Le client signe directement avec chaque prestataire</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <blockquote>Le Wedding Designer s'occupe uniquement de la décoration, scénographie, carterie et tout ce qui est visuel — il ne gère pas le traiteur, le DJ, le photographe.</blockquote>
+      </div>
+
+      <div class="chapter">
+        <h3>Les 4 grandes références</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nom</th><th>Signature</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Preston Bailey</strong> (USA)</td><td>Total Décor Concept — transformer un lieu ordinaire en espace extraordinaire ; a travaillé pour Donald Trump, Liza Minnelli, familles royales</td></tr>
+              <tr><td><strong>David Tutera</strong> (USA)</td><td>WD et WP à la fois, star de « My Fair Wedding » (Fox TV)</td></tr>
+              <tr><td><strong>Karen Tran</strong> (USA)</td><td>+25 ans d'expérience — structures florales à grande échelle, masterclasses de luxe</td></tr>
+              <tr><td><strong>Jean-Luc Blais</strong> (France)</td><td>Précurseur français — formé en architecture d'intérieur et scénographie cinéma, agence fondée en 1995</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Le marché en France</h3>
+        <ul>
+          <li>Métier récent (apparu ~2013, les WP en 2003) — pas de code APE spécifique</li>
+          <li>La majorité des WD actuels sont d'anciens WP, fleuristes ou loueurs de mobilier</li>
+          <li>L'expérience client devient centrale — les mariés veulent <strong>vivre quelque chose</strong>, pas juste voir une belle salle</li>
+          <li>La France a <strong>5 à 10 ans de retard</strong> sur les USA → surveiller les tendances américaines</li>
+        </ul>
+        <h4>Motivations client</h4>
+        <ul><li>Manque de temps / d'idées</li><li>Décor sur mesure très spécifique</li><li>Besoin de conseils professionnels</li></ul>
+        <h4>Freins client</h4>
+        <ul><li>Le prix (frein principal)</li><li>Métier mal connu (confusion avec simple décoratrice)</li><li>Peur de ne pas être bien compris</li></ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Profil du Wedding Designer</h3>
+        <h4>Qualités indispensables</h4>
+        <ul>
+          <li>Créativité (se développe, pas seulement innée) et sens artistique</li>
+          <li>Empathie et écoute — deviner ce que veut le client même s'il ne sait pas l'exprimer</li>
+          <li>Persistance — les clients changent d'avis pendant 6 à 12 mois</li>
+          <li>Force de conviction — vendre ses idées et se vendre</li>
+        </ul>
+        <h4>Équipement requis</h4>
+        <ul><li><strong>Véhicule spacieux</strong> (type Kangoo) — obligatoire pour fleurs, échelles, déco</li><li>Garage/stockage ~30 m²</li><li>Logiciels : Word, Excel, Photoshop, Publisher, logiciel 3D</li></ul>
+      </div>
+
+      <div class="chapter">
+        <h3>L'espace de travail</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Espace</th><th>Recommandation</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Bureau</strong></td><td>Couleurs neutres (gris, taupe, blanc) pour ne pas influencer le choix du client ; rideaux pour la chaleur ; éclairage indirect + lampe</td></tr>
+              <tr><td><strong>Atelier</strong></td><td>Table haute (90 cm–1 m), rayonnages sol-plafond, garage 30 m² pour vases, tonnelles, décor</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="keypoints">
+        <h4>Points clés pour le test</h4>
+        <ol>
+          <li>WD = aspects visuels UNIQUEMENT — ne remplace pas le WP</li>
+          <li>4 références : Preston Bailey, Karen Tran, Jean-Luc Blais, David Tutera</li>
+          <li>Marché WD en France : récent (2013), en plein boom, 5-10 ans de retard sur USA</li>
+          <li>Véhicule spacieux = obligatoire</li>
+          <li>WD travaille en coulisses — ne voit pas la cérémonie</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- MODULE 2 -->
+    <section class="module" id="m2">
+      <div class="mod-head">
+        <span class="mod-num">Module 2</span>
+        <h2>Conception d'un Design</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>MODULE 2 - LE DESIGN.pdf</strong> · <strong>MODULE 2 - EVENT STYLING.pdf</strong> · <strong>M2C3-La psychologie des couleurs.pdf</strong>
+            <span class="path mono">…\formations\wedding-designer\pdf-source\MODULE 2 - LE DESIGN.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>La démarche créative — éduquer son regard</h3>
+        <blockquote>Pinterest, c'est un outil, pas une source. La vraie inspiration, c'est ce qui vous fait vibrer avant même que vous puissiez l'expliquer.</blockquote>
+        <p>L'œil du designer se cultive, ce n'est pas un don inné : observer l'ombre sur un mur, un tissu, un rayon de lumière ; nourrir sa bibliothèque visuelle (hôtels, vitrines de luxe, spas) ; garder un carnet pour photographier et collecter.</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Concept design et storytelling</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Ce que dit le client</th><th>Ce qu'il veut vraiment</th></tr></thead>
+            <tbody>
+              <tr><td>« Simple et élégant »</td><td>Intemporel ? Minimaliste ? Naturel ? Luxe discret ?</td></tr>
+              <tr><td>« Moderne »</td><td>Simplicité, clarté, lignes épurées, matériaux nets</td></tr>
+              <tr><td>« Romantique »</td><td>Douceur, chaleur — champagne, blanc cassé, doré clair</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Le fil rouge</strong> = le thème émotionnel unique qui guide toutes les décisions. Exemples : « Balade au crépuscule » → lumières dorées, matières chaudes ; « Élégance intemporelle » → noir et blanc, symétrie, sobriété.</p>
+        <blockquote>Si un élément ne correspond pas au fil rouge → on le retire. Tout doit raconter la même histoire.</blockquote>
+      </div>
+
+      <div class="chapter">
+        <h3>Les 5 dimensions de l'harmonie visuelle</h3>
+        <blockquote>L'harmonie, c'est ce moment où l'œil se pose quelque part et se sent bien, sans même savoir pourquoi.</blockquote>
+
+        <div class="pillar">
+          <span class="pnum">Dimension 1</span>
+          <h4 class="ptitle">La Forme — squelette du design</h4>
+          <p>Première chose perçue par l'œil, avant même la couleur.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Type de forme</th><th>Émotion évoquée</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Rondes / courbes</strong></td><td>Douceur, enveloppant, rassurant</td></tr>
+                <tr><td><strong>Linéaires / droites</strong></td><td>Structure, rigueur, modernité</td></tr>
+                <tr><td><strong>Géométriques</strong></td><td>Dynamisme, caractère, audace</td></tr>
+                <tr><td><strong>Organiques</strong></td><td>Liberté, authenticité, vie</td></tr>
+                <tr><td><strong>Symétriques</strong></td><td>Maîtrise, ordre, noblesse</td></tr>
+                <tr><td><strong>Asymétriques</strong></td><td>Mouvement, créativité, surprise</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <span class="pnum">Dimension 2</span>
+          <h4 class="ptitle">La Couleur — émotion pure</h4>
+          <p>« Ce n'est pas la couleur qui compte, c'est le dialogue qu'elle entretient avec les autres. » Toujours demander au 1er RDV : quelles couleurs le couple <strong>n'aime pas</strong> — ne plus jamais les mentionner. Référence tendance : le site <strong>Pantone</strong>.</p>
+
+          <h4>Psychologie des couleurs</h4>
+          <div class="swatch-grid">
+            <div class="swatch"><i class="dot" style="background:#E8A9BB"></i><span class="label"><b>Rose</b><span>Douceur, romantisme — apaisement, tendresse</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#A32638"></i><span class="label"><b>Rouge</b><span>Passion, puissance — stimulation, énergie</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#3E5C76"></i><span class="label"><b>Bleu</b><span>Sérénité, confiance — calme, stabilité</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#7C9473"></i><span class="label"><b>Vert</b><span>Harmonie, naturel — apaisement, équilibre</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#E8C547"></i><span class="label"><b>Jaune</b><span>Joie, optimisme — lumière, énergie</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#6B4E82"></i><span class="label"><b>Violet</b><span>Créativité, spiritualité — introspection</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#D98A4A"></i><span class="label"><b>Orange</b><span>Convivialité, chaleur — enthousiasme</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#F7F3EC;border-color:#d8cdb0"></i><span class="label"><b>Blanc</b><span>Base intemporelle — pureté, clarté</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#8C8C88"></i><span class="label"><b>Gris</b><span>Neutralité, élégance — sophistication</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#7A5230"></i><span class="label"><b>Marron</b><span>Authenticité, terre — confort, enracinement</span></span></div>
+            <div class="swatch"><i class="dot" style="background:#1A1714"></i><span class="label"><b>Noir</b><span>Mystère, luxe — mariages haut de gamme</span></span></div>
+          </div>
+
+          <h4>Les 5 grandes harmonies</h4>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Harmonie</th><th>Principe</th><th>Application conseillée</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Monochrome</strong></td><td>1 couleur déclinée en nuances</td><td>Blanc/ivoire/champagne — grand classique élégant</td></tr>
+                <tr><td><strong>Analogique</strong></td><td>Couleurs voisines (rose, corail, pêche)</td><td>La plus facile à maîtriser avec les fleurs</td></tr>
+                <tr><td><strong>Complémentaire</strong></td><td>Couleurs opposées (bleu & orange)</td><td>Dosage 70% dominante / 30% complémentaire</td></tr>
+                <tr><td><strong>Triadique</strong></td><td>3 couleurs équidistantes</td><td>Réservé aux designers expérimentés</td></tr>
+                <tr><td><strong>Tétradique</strong></td><td>2 couples de complémentaires</td><td>Mariages très audacieux uniquement</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tip">⚠️ Règle des 3 maximum — ne jamais dépasser 3 couleurs : 1 dominante + 1 secondaire + 1 accent.</div>
+
+          <h4>Créer sa palette émotionnelle — la méthode</h4>
+          <ol>
+            <li>Écouter les mots du couple (adjectifs, ambiances, ressentis)</li>
+            <li>Identifier l'émotion dominante souhaitée pour les invités</li>
+            <li>Choisir la couleur dominante selon le tableau de psychologie</li>
+            <li>Construire l'harmonie (monochrome, analogique…)</li>
+            <li>Limiter à 3 couleurs max : 1 dominante + 1 secondaire + 1 accent</li>
+            <li>Tester la cohérence — chaque couleur doit servir le fil rouge</li>
+          </ol>
+        </div>
+
+        <div class="pillar">
+          <span class="pnum">Dimension 3</span>
+          <h4 class="ptitle">La Matière — texture qui rend le décor vivant</h4>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Matière</th><th>Vibration émotionnelle</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Velours</strong></td><td>Absorbe la lumière — atmosphère feutrée, intime, luxe sensuel</td></tr>
+                <tr><td><strong>Lin</strong></td><td>Laisse respirer — authenticité, naturel, simplicité raffinée</td></tr>
+                <tr><td><strong>Bois</strong></td><td>Ancrage, chaleur, stabilité — équilibre tout décor blanc</td></tr>
+                <tr><td><strong>Verre / cristal</strong></td><td>Mouvement, respiration lumineuse</td></tr>
+                <tr><td><strong>Métal</strong></td><td>Caractère, structure — à doser avec précision</td></tr>
+                <tr><td><strong>Satin / soie</strong></td><td>Fluidité, lumière, féminité</td></tr>
+                <tr><td><strong>Béton / pierre</strong></td><td>Force tranquille, solidité, contemporain</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Règle : ne jamais juxtaposer les matières — les faire <strong>dialoguer</strong> (rugueux/lisse, chaud/froid, mat/brillant).</p>
+        </div>
+
+        <div class="pillar">
+          <span class="pnum">Dimension 4</span>
+          <h4 class="ptitle">Le Volume — respiration du décor</h4>
+          <ul>
+            <li><strong>Hauteurs variées</strong> — alterner hauts et bas sur les tables</li>
+            <li><strong>Espaces respirants</strong> — le vide met en valeur</li>
+            <li><strong>Superpositions</strong> — créer de la profondeur</li>
+            <li><strong>Points focaux</strong> — toujours un élément fort pour fixer le regard</li>
+          </ul>
+          <blockquote>Un décor sans point focal, c'est une phrase sans ponctuation.</blockquote>
+        </div>
+
+        <div class="pillar">
+          <span class="pnum">Dimension 5</span>
+          <h4 class="ptitle">La Lumière — ce qui révèle tout le reste</h4>
+          <blockquote>La lumière n'éclaire pas, elle ressent. À penser dès la conception, jamais en dernier.</blockquote>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Type</th><th>Effet</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Naturelle</strong></td><td>Sincère, vivante, évolutive</td></tr>
+                <tr><td><strong>Chaude</strong></td><td>Enveloppe, apaise, met en valeur peaux/fleurs/dorures</td></tr>
+                <tr><td><strong>Froide</strong></td><td>Structure, moderne — mal dosée = impersonnelle</td></tr>
+                <tr><td><strong>Directionnelle</strong></td><td>Guide le regard, crée les points focaux</td></tr>
+                <tr><td><strong>Diffuse</strong></td><td>Lampions, guirlandes, bougies — atmosphère magique</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Thèmes, ambiances et tendances</h3>
+        <p><strong>Thème</strong> = référence précise (film, époque, région) — Harry Potter, Années 50, Provence. <strong>Ambiance</strong> = assortiment d'adjectifs, couleurs, textures — Romantique + Doré + Naturel.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Famille</th><th>Thèmes</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Nature</strong></td><td>Garden Wedding · Rustique Chic · Bohème Chic</td></tr>
+              <tr><td><strong>Époque</strong></td><td>Vintage (début XXe) · Rétro Années 50 · Élégant Contemporain</td></tr>
+              <tr><td><strong>Saison</strong></td><td>Hivernal (blanc, sculptures de glace) · Printanier (peps, jardin)</td></tr>
+              <tr><td><strong>Région</strong></td><td>Oriental Chic · Provincial (lavande, olivier) · Méditerranée</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>Les 8 grandes tendances du moment</h4>
+        <ol>
+          <li><strong>Géométrie</strong> partout — bouquets, arches, tables, papeterie</li>
+          <li><strong>Le vert</strong> — feuillage à profusion, éco-responsable</li>
+          <li><strong>Inverser les décors</strong> — meubles dehors, nature dedans</li>
+          <li><strong>Tissus imprimés</strong> — séquins, motifs, volants</li>
+          <li><strong>Personnalisation</strong> — monogrammes, prénoms sur tout</li>
+          <li><strong>Couleurs Pantone</strong> — suivre la couleur de l'année</li>
+          <li><strong>Mix & Match</strong> — mélanger styles, chaises, vaisselles</li>
+          <li><strong>Kitsch is back</strong> — velours, boules à facettes, voilages</li>
+        </ol>
+        <p>Règle fondamentale : les tendances naissent aux <strong>USA</strong> puis arrivent en France avec <strong>5 à 10 ans de retard</strong>.</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Le design sensoriel — les 5 sens</h3>
+        <blockquote>Ce qui rend un événement mémorable, c'est le nombre d'expériences positives dont l'invité se souvient, pas le budget dépensé.</blockquote>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sens</th><th>Application</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Vue</strong></td><td>Palette, formes, lumière, volumes</td></tr>
+              <tr><td><strong>Ouïe</strong></td><td>Musique d'ambiance, acoustique de la salle</td></tr>
+              <tr><td><strong>Odorat</strong></td><td>Fleurs fraîches, bougies parfumées</td></tr>
+              <tr><td><strong>Toucher</strong></td><td>Matières des nappes, verrerie, carterie texturée</td></tr>
+              <tr><td><strong>Goût</strong></td><td>Amuse-bouches, mignardises, candy bar</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Les règles d'or du wedding styling</h3>
+        <ol>
+          <li>Éviter le kitsch — passer au-dessus du thème littéral</li>
+          <li>Utiliser les adjectifs du client dans votre vision (validation inconsciente)</li>
+          <li>Ne jamais parler des couleurs qu'ils n'aiment pas</li>
+          <li>Parler de leurs vacances → révèle le niveau de gamme souhaité</li>
+          <li>Proposer plusieurs nuances de leurs couleurs préférées</li>
+          <li>Obtenir leur approbation avant de rédiger le devis</li>
+        </ol>
+      </div>
+
+      <div class="keypoints">
+        <h4>Points clés pour le test</h4>
+        <ol>
+          <li>5 dimensions : Forme → Couleur → Matière → Volume → Lumière (toutes liées)</li>
+          <li>Le fil rouge = boussole créative unique</li>
+          <li>Palette = 3 couleurs maximum : 1 dominante + 1 secondaire + 1 accent</li>
+          <li>Tendances USA = 5-10 ans d'avance sur la France</li>
+          <li>Lumière = à penser en premier, pas en dernier</li>
+          <li>Volume : toujours créer un point focal dominant</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- MODULE 3 -->
+    <section class="module" id="m3">
+      <div class="mod-head">
+        <span class="mod-num">Module 3</span>
+        <h2>Event & Wedding Design</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>Cours PDF Module 3 - Event & Wedding Design.pdf</strong>
+            <span class="path mono">…\formations\wedding-designer\pdf-source\Cours PDF Module 3 - Event & Wedding Design.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Les six principes fondamentaux de la conception</h3>
+        <blockquote>Un décor, ça ne s'improvise pas : ça suit des principes de base bien établis pour le plaisir des yeux et pour obtenir l'effet désiré.</blockquote>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Principe</th><th>Objectif</th><th>Erreur à éviter</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Espace (volume)</strong></td><td>Adapter le décor à la taille de la salle</td><td>Petite salle surchargée / objets perdus en grande salle</td></tr>
+              <tr><td><strong>Perspective</strong></td><td>Effet « waouh » dès l'entrée</td><td>Encombrer l'entrée</td></tr>
+              <tr><td><strong>Équilibre & asymétrie</strong></td><td>Confort visuel + dynamisme</td><td>Trop de symétrie = monotonie</td></tr>
+              <tr><td><strong>Harmonie & unité</strong></td><td>Répétition couleurs/formes pour lisibilité</td><td>Fouillis visuel</td></tr>
+              <tr><td><strong>Flux</strong></td><td>Passages fluides (invités, service, danse)</td><td>Blocage des accès</td></tr>
+              <tr><td><strong>Contraste</strong></td><td>Dynamiser la décoration</td><td>Palette trop uniforme (invisible à distance)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Techniques d'agencement de l'espace</h3>
+        <ul>
+          <li><strong>1 m²</strong> par personne assise (référence standard) · <strong>50 cm minimum</strong> entre chaises</li>
+          <li>DJ dans la même salle que le repas · table d'honneur au centre</li>
+        </ul>
+        <h4>Dispositions de tables</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Disposition</th><th>Idéal pour</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Linéaire</strong></td><td>Petit comité, granges (barn weddings)</td></tr>
+              <tr><td><strong>En chevron</strong></td><td>Beaucoup d'invités, très actuelle</td></tr>
+              <tr><td><strong>En U</strong></td><td>Cours intérieures, atmosphère intimiste — indémodable</td></tr>
+              <tr><td><strong>En T</strong></td><td>Petite salle + beaucoup d'invités, de retour en tendance</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Recommandation : tables rectangulaires en extérieur, tables rondes pour la convivialité en salle fermée.</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Éclairages événementiels</h3>
+        <blockquote>Il vaut mieux jouer avec les lumières plutôt que surcharger la décoration sur la table.</blockquote>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Critère</th><th>Traditionnelles</th><th>LED</th></tr></thead>
+            <tbody>
+              <tr><td>Rendu</td><td>Romantique authentique</td><td>Très réaliste (flamme mobile)</td></tr>
+              <tr><td>Sécurité</td><td>Risque incendie, coulures</td><td>Aucun risque</td></tr>
+              <tr><td>Praticité</td><td>Allumage une par une</td><td>Télécommande (allumage simultané)</td></tr>
+              <tr><td>Lieux</td><td>Souvent interdites</td><td>Acceptées partout</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tip">Recommandation forte : investir dans les bougies LED avec télécommande. Toujours vérifier la politique du lieu.</div>
+      </div>
+
+      <div class="chapter">
+        <h3>Tissus et techniques de drapé</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tissu</th><th>Usage recommandé</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Doublure de satin</strong></td><td>Le moins cher — budget maîtrisé, rendu soigné</td></tr>
+              <tr><td><strong>Mousseline de soie</strong></td><td>Plafonds, chapiteaux mobiles (idéal transport)</td></tr>
+              <tr><td><strong>Organza</strong></td><td>Effets aériens et lumineux</td></tr>
+              <tr><td><strong>Lin</strong></td><td>Thèmes nature/rustique</td></tr>
+              <tr><td><strong>Lycra/Spandex</strong></td><td>Consoles DJ — à éviter pour les mariages</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tip">⚠️ Ignifugation obligatoire en contexte professionnel (~×3 le prix standard) — sans elle, risque de non-indemnisation par l'assurance.</div>
+      </div>
+
+      <div class="chapter">
+        <h3>Nappes et housses de chaises</h3>
+        <ul>
+          <li>Aller au-delà du blanc uni : séquins, organza, dentelle, superpositions</li>
+          <li><strong>Juponage</strong> systématique — cacher les pieds de table, souvent oublié</li>
+          <li>Privilégier la <strong>location de jolies chaises</strong> plutôt que les housses ; proscrire les housses de couleur</li>
+          <li>Décorer les chaises <strong>sélectivement</strong> (allée ou mariés) plutôt que toutes</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Art floral — matériel de base</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Matériel</th><th>Fonction</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Mousse florale (Oasis)</strong></td><td>Piquer les tiges, découpée à la forme voulue</td></tr>
+              <tr><td><strong>Floratap / Permacel</strong></td><td>Bouquets/boutonnières (naturel) vs compositions lourdes</td></tr>
+              <tr><td><strong>Serpette</strong></td><td>Coupe en biseau — absorption d'eau optimale</td></tr>
+              <tr><td><strong>Pipettes à eau</strong></td><td>Hydratation (bords de banc, hortensias)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>Fleurs par style et saison</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Fleur</th><th>Saison</th><th>Conseil</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Pivoine</strong></td><td>Mai–juin exclusivement</td><td>La plus demandée — anticiper la pédagogie client hors saison</td></tr>
+              <tr><td><strong>Dahlia</strong></td><td>Été–automne</td><td>Idéal centres de table + bouquets</td></tr>
+              <tr><td><strong>Hortensia</strong></td><td>Surtout été</td><td>1 tige = grosse sphère, bon ratio coût/volume</td></tr>
+              <tr><td><strong>Lisianthus</strong></td><td>Quasi toute l'année</td><td>Similaire à la rose, bien moins cher — incontournable</td></tr>
+              <tr><td><strong>Œillet / Chrysanthème / Glaïeul</strong></td><td>—</td><td>À éviter par défaut — associés au deuil/malheur</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>TVA fleuriste : fleurs en vrac <strong>9%</strong>, compositions (travail floral inclus) <strong>20%</strong>.</p>
+      </div>
+    </section>
+
+    <!-- MODULE 4 -->
+    <section class="module" id="m4">
+      <div class="mod-head">
+        <span class="mod-num">Module 4</span>
+        <h2>Design Floral</h2>
+        <div class="source-badge">
+          <span class="tag">Transcript</span>
+          <div class="src-body">
+            <strong>Design Floral pour Wedding Designer — Vision Artistique et Collaboration Professionnelle</strong>
+            <span class="path mono">…\formations\wedding-designer\transcripts\M4 (1) Design Floral pour Wedding Designer_...docx</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Vision artistique et collaboration professionnelle</h3>
+        <blockquote>Le design floral, c'est pas simplement choisir de jolies fleurs. C'est le cœur vivant de la scénographie.</blockquote>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Le designer…</th><th>Le fleuriste…</th></tr></thead>
+            <tbody>
+              <tr><td>Définit l'intention, l'émotion-cible, les points focaux</td><td>Maîtrise les variétés, les gestes de montage</td></tr>
+              <tr><td>Fournit brief, palette, contraintes</td><td>Gère la faisabilité technique (transport, tenue)</td></tr>
+              <tr><td>Assure la cohérence visuelle globale</td><td>Exécute les compositions avec expertise</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Principe fondamental :</strong> « Intention avant exécution » — 4 questions avant de choisir les fleurs :</p>
+        <ol><li>Quelle émotion voulons-nous transmettre ?</li><li>Quelle atmosphère souhaitons-nous créer ?</li><li>Quelle histoire racontons-nous ?</li><li>Où voulons-nous que le regard se pose ?</li></ol>
+        <p>Le décorateur cherche ce qui est <strong>joli</strong> (choix par la couleur). Le designer cherche ce qui <strong>raconte quelque chose</strong> (choix par l'intention, la texture, la personnalité de la fleur).</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Symbolique et langage des fleurs</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Fleur</th><th>Signification</th><th>Style adapté</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Pivoine</strong></td><td>Amour sincère, générosité</td><td>Romantique, château, jardin anglais</td></tr>
+              <tr><td><strong>Rose blanche</strong></td><td>Élégance intemporelle</td><td>Classique, monochrome</td></tr>
+              <tr><td><strong>Orchidée blanche</strong></td><td>Raffinement, luxe, exclusivité</td><td>Contemporain haut de gamme</td></tr>
+              <tr><td><strong>Eucalyptus</strong></td><td>Féminité, équilibre</td><td>Bohème, naturel</td></tr>
+              <tr><td><strong>Dahlia</strong></td><td>Force, géométrie sophistiquée</td><td>Contemporain, automnal</td></tr>
+              <tr><td><strong>Gypsophile</strong></td><td>Légèreté, innocence</td><td>Arches aériennes, nuages suspendus</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <blockquote>Chaque fleur a une personnalité. Une rose noire ne raconte pas la même histoire qu'une rose blanche. Ne jamais choisir uniquement par la couleur.</blockquote>
+      </div>
+
+      <div class="actions">
+        <h4>Exercice recommandé par Emma</h4>
+        <ul>
+          <li>Sélectionner 5 à 8 fleurs</li>
+          <li>Noter pour chacune : l'émotion évoquée, la matière/texture dominante, les types d'événements adaptés</li>
+          <li>Créer une mini planche visuelle (photos, mots-clés, textures)</li>
+          <li>Bénéfice : présenter chaque fleur par son émotion en RDV client</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MODULE 5 -->
+    <section class="module" id="m5">
+      <div class="mod-head">
+        <span class="mod-num">Module 5</span>
+        <h2>Décoration & Scénographie</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>Cours PDF Module 5 - Déco & Scéno.pdf</strong>
+            <span class="path mono">…\formations\wedding-designer\pdf-source\Cours PDF Module 5 - Deco & Sceno.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Décoration de cortège</h3>
+        <blockquote>Le bouquet de la mariée est le premier accessoire qu'on coordonne — avant même la décoration de la salle.</blockquote>
+        <ul>
+          <li><strong>Accord avec la robe d'abord</strong> — forme et volume du bouquet dictés par la silhouette</li>
+          <li><strong>Largeur &lt; taille</strong> de la mariée · forme ronde = passe-partout</li>
+          <li>À éviter : hortensias (fanent vite) et lys Casablanca (pollen tachant)</li>
+          <li>Boutonnières : épingle en T, revers gauche, marié plus grande que les témoins</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Chapiteau de cérémonie</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Critère</th><th>Détail</th></tr></thead>
+            <tbody>
+              <tr><td>Dimensions standard</td><td>3 × 3 m, blanc, télescopique (~150 €)</td></tr>
+              <tr><td>Montage</td><td>&lt;1h seul, ~20 min à 3 personnes</td></tr>
+              <tr><td>Investissement habillé</td><td>~300–500 € · tarif prestation à partir de ~300 €</td></tr>
+              <tr><td>Habillage</td><td>Mousseline (transparence) + coton opaque (pieds), ruban satin sur les coutures</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Centres de table</h3>
+        <ul>
+          <li>Tendance majeure : <strong>suspensions</strong> (lustres floraux, guirlandes aériennes) — démodé : vases martini</li>
+          <li><strong>Règle de 3</strong> — nombre impair d'éléments pour un rendu naturel</li>
+          <li>Bougies : placer au-dessus du niveau des regards</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Bas</th><th>Haut</th></tr></thead>
+            <tbody>
+              <tr><td>Favorise l'intimité et la conversation, budget réduit</td><td>Impact visuel fort, idéal plafonds hauts, vases fins pour ne pas gêner la vue</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Table d'honneur type : 4 tables bout à bout (~160 × 360 cm, ~16 personnes).</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Tendances Inside-Out / Outside-In</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tendance</th><th>Principe</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Inside-Out</strong></td><td>Amener le confort intérieur en extérieur (fauteuils, tapis, lounge)</td></tr>
+              <tr><td><strong>Outside-In</strong></td><td>Amener la nature à l'intérieur (arbres en pot, murs végétaux)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Mise en scène complète & points stratégiques</h3>
+        <blockquote>L'entrée de la salle est la première ET la dernière impression — c'est stratégique.</blockquote>
+        <p>Éclairage architectural = la priorité : spots au sol tous les 3–4 m, 3 scènes lumière (accueil feutré → dîner clair → danse dynamique).</p>
+        <ul>
+          <li><strong>Décor du gâteau :</strong> fleurs fraîches + pipettes obligatoires, 3 à 7 fleurs (impair), posées max 3h avant service</li>
+          <li><strong>Ballons :</strong> proscrits en mariage sauf photo de couple ou lâcher extérieur réglementé</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Bridal shower, anniversaires, EVJF & célébrations spéciales</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Événement</th><th>Éléments clés</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Bridal shower</strong></td><td>Point focal + rappels discrets · sweet table = ×3-4 le budget d'un candy bar</td></tr>
+              <tr><td><strong>EVJF</strong></td><td>Bascule vers activités bien-être (spa, relooking) · personnalisation (pyjamas, ballons)</td></tr>
+              <tr><td><strong>Bar/Bat Mitzvah</strong></td><td>Scénographie type mariage, effet « waouh »</td></tr>
+              <tr><td><strong>Quinceañera / Sweet Sixteen</strong></td><td>Démesure assumée, glamour, palette rose</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Positionnement : décliner des offres par rite avec niveaux Essentiel / Signature / Prestige.</p>
+      </div>
+    </section>
+
+    <!-- MODULE 6 -->
+    <section class="module" id="m6">
+      <div class="mod-head">
+        <span class="mod-num">Module 6</span>
+        <h2>Organisation, Tables & Carterie</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>Cours PDF Module 6 — Art de la table & Carterie.pdf</strong>
+            <span class="path mono">…\formations\wedding-designer\Cours PDF Module 6 Art de la table & Carterie (1).pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Organisation de l'espace</h3>
+        <blockquote>2,5 m² par personne, c'est l'idéal — en dessous de 1,5 m², on est dans l'inconfort.</blockquote>
+        <h4>Les 10 règles du plan de table</h4>
+        <ol>
+          <li>Piste de danse petite (elle s'agrandira naturellement)</li>
+          <li>50 cm minimum entre les chaises</li>
+          <li>Accès serveurs dégagé tout autour</li>
+          <li>Jeunes devant la piste de danse, enfants sur les côtés</li>
+          <li>Seniors loin des baffles</li>
+          <li>Table d'honneur au milieu de la salle</li>
+          <li>DJ dans la même salle que le repas</li>
+          <li>Zones interdites : entrée, toilettes, buffet, recoins</li>
+        </ol>
+      </div>
+
+      <div class="chapter">
+        <h3>Sécurité, ergonomie & protocole de l'art de la table</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Élément</th><th>Règle</th></tr></thead>
+            <tbody>
+              <tr><td>Assurances</td><td>RC professionnelle obligatoire</td></tr>
+              <tr><td>Ergonomie</td><td>Plier les genoux pour soulever, jamais le dos</td></tr>
+              <tr><td>Espacement rectangulaire</td><td>60–65 cm par invité</td></tr>
+              <tr><td>Espacement ronde</td><td>30 cm entre assiettes</td></tr>
+              <tr><td>Couverts</td><td>De l'extérieur vers l'intérieur (ordre d'utilisation)</td></tr>
+              <tr><td>Verres</td><td>Taille décroissante, de gauche à droite</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Carterie complète</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Avant le mariage</th><th>Le jour J</th><th>Après</th></tr></thead>
+            <tbody>
+              <tr><td>Save the Date (~10 mois avant), faire-part, RSVP, plan d'accès, hébergement</td><td>Menus, marque-places, escort cards, plan de table, livrets de messe</td><td>Remerciements (sous 1 mois max)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>Trois segments de prestataires carterie</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Segment</th><th>Avantages</th><th>Limites</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Préfabriqué</strong></td><td>Prix bas, effets spéciaux accessibles</td><td>Personnalisation très limitée</td></tr>
+              <tr><td><strong>Artisanal</strong></td><td>Personnalisation totale, livraison finie</td><td>Qualité variable</td></tr>
+              <tr><td><strong>Haut de gamme</strong></td><td>Papiers imprimeur non disponibles au public</td><td>Investissement ~5–10 k€ ou externalisation</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>Gammes de papiers</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Gamme</th><th>Caractéristique</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Rives</strong></td><td>~250 g/m² — blanc/ivoire, vergé, embossage</td></tr>
+              <tr><td><strong>Curious Metallics</strong></td><td>Nacré, métallisé, haut de gamme</td></tr>
+              <tr><td><strong>Skin</strong></td><td>~170 g/m² — toucher « peau de pêche » ; OK numérique, PAS jet d'encre</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Processus complet : RDV (1h30–2h) → texte client (J+1 à J+7) → BAT PDF (jamais le fichier source) → fabrication (3 semaines à 1 mois) → <strong>total ~1,5 mois</strong> → envoi 3–6 mois avant le mariage.</p>
+      </div>
+    </section>
+
+    <!-- MODULE 7 -->
+    <section class="module" id="m7">
+      <div class="mod-head">
+        <span class="mod-num">Module 7</span>
+        <h2>Palettes, Moodboards & Outils</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>MODULE 7 - Ateliers Moodboard et retouche photo.pdf</strong> + fiches « Mode d'emploi »
+            <span class="path mono">…\formations\wedding-designer\pdf-source\MODULE 7 - Ateliers Moodboard et retouche photo.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Palettes de couleurs et planches d'inspiration</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>Mood board</th><th>Inspiration board</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Nature</strong></td><td>Abstrait : humeur, style, émotion</td><td>Concret : détails précis de l'événement</td></tr>
+              <tr><td><strong>Ordre</strong></td><td>En premier</td><td>En second, guidé par le mood board</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Outil préféré : <strong>Design Seeds</strong> (3–4 nouvelles palettes/jour). Règle : 2–3 couleurs max + tons neutres ; intensité cohérente ; éviter les complémentaires au départ.</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Créer un mood board avec Photoshop</h3>
+        <ul>
+          <li>Résolution 72 ppp, mode RVB, fond blanc, canevas ×4 la plus petite image</li>
+          <li>Copier-coller les images, renommer les calques, alterner verticales/horizontales</li>
+          <li>Pastille couleur (outil Ellipse + pipette) + watermark agence pour protection</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Pinterest pour designers</h3>
+        <ul>
+          <li>Compte pro, catégorie Mariage, carte géographique désactivée</li>
+          <li>Tableaux publics (vitrine) vs privés/secrets (collaboration client, 6–12 mois par projet)</li>
+          <li>Filigrane obligatoire sur toutes les photos de shootings internes</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Retouche photo avec Photoshop</h3>
+        <blockquote>On renforce les couleurs déjà présentes — on ne crée pas une couleur absente.</blockquote>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Étape</th><th>Réglage</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Niveaux</strong></td><td>Entrées noir/blanc/gamma ; sorties gauche = pastel, droite = sombre</td></tr>
+              <tr><td><strong>Correction sélective</strong></td><td>Renforcer les couleurs existantes par passes légères</td></tr>
+              <tr><td><strong>Filtre photo</strong></td><td>Réchauffant 85, intensité ~25–26%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 8 -->
+    <section class="module" id="m8">
+      <div class="mod-head">
+        <span class="mod-num">Module 8</span>
+        <h2>PAO & Carterie avec Publisher</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>COURS PDF M8 - Atelier création carterie.pdf</strong>
+            <span class="path mono">…\formations\wedding-designer\COURS PDF M8 - Atelier cration carterie.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Faire-part tri-pli avec Publisher</h3>
+        <blockquote>Publisher, pas Word — pour une mise en page fiable et soignée.</blockquote>
+        <ul>
+          <li>Format 21 × 29,5 cm — volets 10 + 10 + 9,5 cm</li>
+          <li>Texte copié depuis Word (jamais ressaisi) ; prénoms agrandis</li>
+          <li>Photo intégrée dans le volet inférieur, retouchée (éclaircie, bords fondus)</li>
+          <li><strong>BAT en PDF uniquement</strong> — jamais le fichier source ; « Bon pour accord » explicite requis</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Menu, marque-place & publipostage</h3>
+        <ul>
+          <li>Menu 11 × 20 cm — 3 zones (titre, corps, prénoms/date)</li>
+          <li>Marque-place chevalet 9 × 8 cm, pli à 4 cm</li>
+          <li>Publipostage depuis Excel (Prénoms + Table) → ~200 exemplaires générés</li>
+          <li><strong>Tirage test obligatoire</strong> avant production en volume</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Fabrication et modèle économique</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Indicateur</th><th>Valeur</th></tr></thead>
+            <tbody>
+              <tr><td>Marge</td><td>60%</td></tr>
+              <tr><td>Panier moyen global</td><td>~550 €</td></tr>
+              <tr><td>Panier faire-parts</td><td>~400 €</td></tr>
+              <tr><td>Kit démarrage (massicot + imprimante)</td><td>~350 € — éviter la presse numérique (5–10 k€) au démarrage</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tip">⚠️ Papiers Skin : OK en presse numérique, PAS en jet d'encre — toujours tester avant d'acheter en quantité.</div>
+      </div>
+    </section>
+
+    <!-- MODULE 9 -->
+    <section class="module" id="m9">
+      <div class="mod-head">
+        <span class="mod-num">Module 9</span>
+        <h2>Honoraires et Devis</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>M9 - HONORAIRES.pdf</strong> · <strong>CGV et de location.pdf</strong> · <strong>Devis Wedding Designer.xlsx</strong>
+            <span class="path mono">…\formations\wedding-designer\pdf-source\M9 - HONORAIRES.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Les 3 formules Wedding Designer</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Élément</th><th>A à Z ⭐</th><th>À la carte</th><th>En kit</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Budget</strong></td><td>≥ 1 500 €</td><td>500–1 500 €</td><td>&lt; 500 €</td></tr>
+              <tr><td>Concept/thème complet</td><td>✅</td><td>❌</td><td>❌</td></tr>
+              <tr><td>Carterie complète</td><td>✅</td><td>Option</td><td>Option</td></tr>
+              <tr><td>Livraison + installation</td><td>✅</td><td>✅</td><td>❌ (livret d'installation fourni)</td></tr>
+              <tr><td>Coordination prestataires</td><td>✅</td><td>❌</td><td>❌</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tip">⚠️ Maximum 3 formules à proposer — au-delà le client est perdu. Ne jamais dire « ça va jusqu'à 1500€ » avant le devis.</div>
+      </div>
+
+      <div class="chapter">
+        <h3>Le rendez-vous client</h3>
+        <p><strong>Posture :</strong> être une oreille — écouter, noter, poser des questions, ne pas attaquer avec ses produits.</p>
+        <ul>
+          <li>Questions révélatrices : « Où partez-vous en vacances ? » (niveau de gamme) · « Quelles couleurs n'aimez-vous PAS ? » (exclusions fermes) · « Quelle expérience pour vos invités ? »</li>
+          <li><strong>Toujours demander la photo de la robe</strong> — adapte la taille du bouquet</li>
+          <li>RDV décoration ≥ 1h30 ; RDV carterie dissocié ; devis envoyé sous <strong>1 semaine max</strong></li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Calcul des marges — la règle d'or</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Poste</th><th>Marge</th><th>Coefficient</th></tr></thead>
+            <tbody>
+              <tr><td>Décoration (location, accessoires)</td><td>40–60%</td><td>1,4–1,6</td></tr>
+              <tr><td>Carterie et cadeaux invités</td><td>60–70%</td><td>1,6–1,7</td></tr>
+              <tr><td>Prestations externes sous-traitées</td><td>15%</td><td>—</td></tr>
+              <tr><td><strong>Compositions florales (réalisées par vous)</strong></td><td><strong>150–200%</strong></td><td><strong>2,5–3</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Forfait création (toujours facturé) : <strong>350 €</strong> concept simple / <strong>850 €</strong> concept complet + maquette 3D.</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Bon de commande, CGV et facturation</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>Arrhes</th><th>À-compte ✅</th></tr></thead>
+            <tbody>
+              <tr><td>Engagement</td><td>Peut renoncer au contrat</td><td>Ferme des deux parties</td></tr>
+              <tr><td>Si acheteur se rétracte</td><td>Perd les arrhes</td><td>Dommages et intérêts</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li>Devis en <strong>PDF uniquement</strong> (jamais Word/Excel modifiable)</li>
+          <li>Signature hors locaux → 14 jours de rétractation légal ; dans vos locaux → aucun délai</li>
+          <li>Solde toujours payé <strong>avant</strong> la prestation</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Assurances et protection juridique</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Assurance</th><th>Couvre</th></tr></thead>
+            <tbody>
+              <tr><td><strong>RC Exploitation</strong></td><td>Dégâts matériels causés (ex. incendie) — pas les frais de tribunal</td></tr>
+              <tr><td><strong>RC Professionnelle</strong></td><td>Faute/négligence + frais de tribunal/avocat + conseil gratuit à l'année</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tip">⚠️ Les deux assurances sont obligatoires. Dépôt de marque à l'INPI (~200 €) + noms de domaine .com/.fr (~10 €/an) dès que le nom est choisi.</div>
+      </div>
+
+      <div class="keypoints">
+        <h4>Points clés pour le test</h4>
+        <ol>
+          <li>3 formules max : A à Z (≥1500€) / À la carte / En kit</li>
+          <li>À-compte ≠ Arrhes — toujours demander un à-compte</li>
+          <li>Marge fleurs = 150 à 200% si compositions réalisées par vous</li>
+          <li>Devis envoyé sous 1 semaine, format PDF uniquement</li>
+          <li>2 assurances obligatoires : RC exploitation + RC professionnelle</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- PROCESS COMPLET -->
+    <section class="module" id="process">
+      <div class="mod-head">
+        <span class="mod-num">Synthèse transversale</span>
+        <h2>Le process complet, de A à Z</h2>
+        <p class="sub">Synthèse opérationnelle reliant les modules M1 à M9 — l'accompagnement client dans l'ordre chronologique réel.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phase</th><th>Contenu</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1 — Préparation</strong></td><td>Positionnement WD, 3 formules, dépôt INPI + assurances, book, échantillothèque, banque de 5 palettes, veille créative (Pinterest hebdo, Design Seeds quotidien)</td></tr>
+            <tr><td><strong>2 — Premier contact</strong></td><td>Qualification du besoin, RDV découverte 1h30–2h, fiche client complète, questions révélatrices, présentation du book sans parler prix</td></tr>
+            <tr><td><strong>3 — Conception</strong></td><td>Brief → émotion → fil rouge, palette 60/30/10, mood board puis inspiration board, 5 piliers, plan de salle 3D, présentation du concept</td></tr>
+            <tr><td><strong>4 — Devis & contrat</strong></td><td>Devis sous 1 semaine (PDF only), à-compte + CGV paraphées, relance par photo d'inspiration (jamais « avez-vous décidé ? »)</td></tr>
+            <tr><td><strong>5 — Production</strong></td><td>Carterie (~1,5 mois, envoi 3–6 mois avant), sourcing déco/floral (3 mois mini), brief fleuriste (4 questions), cortège floral, logistique</td></tr>
+            <tr><td><strong>6 — Installation Jour J</strong></td><td>Timing selon nombre d'invités, éclairage en 3 scènes, points stratégiques (entrée, tables, photobooth), ergonomie et sécurité</td></tr>
+            <tr><td><strong>7 — Post-événement</strong></td><td>Démontage, inventaire, facture de solde, carterie remerciements, mise à jour du book, demande de témoignage</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:19px;margin:32px 0 12px;">Outils enseignés vs recommandés</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Usage</th><th>Enseigné en formation</th><th>Alternative recommandée</th></tr></thead>
+          <tbody>
+            <tr><td>Mood boards</td><td>Photoshop</td><td>Canva Pro (plus rapide, collaboration client temps réel)</td></tr>
+            <tr><td>Palettes de couleurs</td><td>Design Seeds</td><td>Coolors.co (extraction depuis photo, export hex)</td></tr>
+            <tr><td>Modélisation 3D</td><td>3D Event Designer</td><td>Floorplanner / AllSeated (spécialisé événementiel)</td></tr>
+            <tr><td>Carterie / PAO</td><td>MS Publisher</td><td>Canva Pro (petits tirages) / Adobe InDesign (montée en gamme)</td></tr>
+            <tr><td>CRM & suivi client</td><td>Excel</td><td>MRI Suite Pro (déjà en place) / HoneyBook / Dubsado</td></tr>
+            <tr><td>Facturation</td><td>QuickBooks, Indy</td><td>Tiime (automatisation TVA)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="keypoints">
+        <h4>Checklist récapitulative — parcours client complet</h4>
+        <ul class="checklist">
+          <li><b>J-12 mois</b> — Premier contact, qualification, RDV découverte</li>
+          <li><b>J-11 mois</b> — Concept (mood board, palette, fil rouge)</li>
+          <li><b>J-10 mois</b> — Devis + mood board envoyés, signature à-compte + CGV</li>
+          <li><b>J-8 mois</b> — RDV carterie dédié</li>
+          <li><b>J-6 mois</b> — Envoi des faire-parts, brief fleuriste</li>
+          <li><b>J-3 mois</b> — Commande matériel décoration, plan de salle 3D validé</li>
+          <li><b>J-2 mois</b> — Carterie jour J (menus, marque-places, plan de table)</li>
+          <li><b>J-1 mois</b> — Publipostage, solde payé avant la prestation</li>
+          <li><b>Jour J</b> — Installation : éclairage → tables → déco → carterie → fleurs gâteau</li>
+          <li><b>J+1 mois</b> — Carterie remerciements, mise à jour du book, témoignage</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- LIVRET -->
+    <section class="module" id="livret">
+      <div class="mod-head">
+        <span class="mod-num">Livret officiel ⭐ prioritaire</span>
+        <h2>Le dossier client & les tarifs de référence</h2>
+        <div class="source-badge">
+          <span class="tag">Livrable officiel</span>
+          <div class="src-body">
+            <strong>Livret Wedding Designer.pdf</strong> — document livrable type remis au client après signature
+            <span class="path mono">…\formations\wedding-designer\pdf-source\Livret Wedding Designer.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Structure du dossier client — 7 sections</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Section</th><th>Contenu</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. Proposition de style</strong></td><td>Thème, palette, ambiance, fil rouge, inspiration</td></tr>
+              <tr><td><strong>2. Le cortège</strong></td><td>Bouquet, boutonnières, couronnes, décoration voiture</td></tr>
+              <tr><td><strong>3. La cérémonie</strong></td><td>Autel, arche/chapiteau, bouts de banc, allée, sortie</td></tr>
+              <tr><td><strong>4. La réception</strong></td><td>Table d'honneur, centres de table, vin d'honneur, urne</td></tr>
+              <tr><td><strong>5. La scénographie</strong></td><td>Mobilier, décors éphémères, éléments externes</td></tr>
+              <tr><td><strong>6. La carterie</strong></td><td>Faire-part, Save the Date, menus, marque-places</td></tr>
+              <tr><td><strong>7. Le devis</strong></td><td>Tableau détaillé + CGV</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Tarifs de référence officiels — devis complet (100 personnes)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Élément</th><th>Prix unitaire</th></tr></thead>
+            <tbody>
+              <tr><td>Bouquet de mariée</td><td>70 €</td></tr>
+              <tr><td>Boutonnière</td><td>6 €</td></tr>
+              <tr><td>Bouquet demoiselle d'honneur</td><td>35 €</td></tr>
+              <tr><td>Couronne demoiselle d'honneur</td><td>25 €</td></tr>
+              <tr><td>Décoration capot voiture</td><td>90 €</td></tr>
+              <tr><td>Composition autel (pièce)</td><td>60 €</td></tr>
+              <tr><td>Guirlande chapiteau cérémonie</td><td>150 €</td></tr>
+              <tr><td>Bout de banc</td><td>10 €</td></tr>
+              <tr><td>Centre de table d'honneur</td><td>120 €</td></tr>
+              <tr><td>Centre de table invités (par table)</td><td>35 €</td></tr>
+              <tr><td>Faire-part + enveloppe</td><td>6 €</td></tr>
+              <tr><td>Save The Date + enveloppe</td><td>2,50 €</td></tr>
+              <tr><td>Menu</td><td>1,50 €</td></tr>
+              <tr><td>Marque-place</td><td>2 €</td></tr>
+              <tr><td>Livraison + installation complète</td><td>120 €</td></tr>
+              <tr><td>Démontage</td><td>70 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tip">💰 <strong>Total mariage 100 personnes (sans forfait création) : 2 772 €</strong> · avec forfait création 850 € : <strong>3 744 €</strong>. Mention légale : « Tarif net valable un mois. TVA non applicable, art. 293 B du CGI. » Acompte : 50% à la commande.</div>
+      </div>
+
+      <div class="chapter">
+        <h3>Le classeur devis — 2 onglets, 2 visions</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Onglet</th><th>Contenu</th><th>Qui le voit</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Feuil1</strong> — devis client</td><td>Décoration · Prix unitaire · Quantité · Total Net (4 colonnes)</td><td>Le client</td></tr>
+              <tr><td><strong>Calcul marge</strong> — devis interne</td><td>+ Achats fleurs · Autres achats · Location · Calcul marge (9 colonnes)</td><td>Vous uniquement — colonnes masquées avant envoi</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Clauses CGV/CGL essentielles</h3>
+        <ul>
+          <li>« Les prestations extérieures à l'agence feront l'objet d'un devis ultérieur »</li>
+          <li>« Sauf défaillance de nos fournisseurs, le choix des fleurs sera respecté »</li>
+          <li>Casse : tout contenant non restitué propre ou endommagé sera facturé</li>
+          <li>Location : caution obligatoire, non négociable — aucun article ne sort sans</li>
+          <li>Acompte 50% à la commande, signature précédée de « Bon pour accord »</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PALETTE SIGNATURE -->
+    <section class="module" id="palette">
+      <div class="mod-head">
+        <span class="mod-num">Exercice pratique — Module 2</span>
+        <h2>Palette émotionnelle signature de Karine</h2>
+        <div class="source-badge">
+          <span class="tag">Exercice noté</span>
+          <div class="src-body">
+            <strong>Exercice Créer sa palette émotionnelle POCHOT Karine.pdf</strong>
+            <span class="path mono">…\formations\wedding-designer\pdf-source\Exercice Créer sa palette émotionnelle POCHOT Karine.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <p>Émotion principale visée : <strong>Paix · Sérénité · Joie</strong> — une signature lumineuse et apaisée.</p>
+
+      <div class="swatch-grid">
+        <div class="swatch"><i class="dot" style="background:#E8C547"></i><span class="label"><b>Jaune</b><span>Dominante — lumière, optimisme</span></span></div>
+        <div class="swatch"><i class="dot" style="background:#F2ECD9;border-color:#ddd2ae"></i><span class="label"><b>Ivoire</b><span>Liaison — douceur sans froideur</span></span></div>
+        <div class="swatch"><i class="dot" style="background:#C9A227"></i><span class="label"><b>Moutarde</b><span>Accent — caractère, authenticité</span></span></div>
+        <div class="swatch"><i class="dot" style="background:#D4AF37"></i><span class="label"><b>Or</b><span>Matière — prestige, brillance</span></span></div>
+        <div class="swatch"><i class="dot" style="background:#E8D5B7"></i><span class="label"><b>Champagne</b><span>Lumière — bougies, intimité dorée</span></span></div>
+      </div>
+
+      <p style="font-size:14px;">Cette palette peut servir de base aux supports de communication de Maison Reveal Impact, à la collection <strong>« Terre & Lumière »</strong>, et à tout projet où l'émotion cible allie <strong>authenticité naturelle et touche de prestige doré</strong>.</p>
+    </section>
+
+    <!-- APPLICATIONS PROFESSIONNELLES -->
+    <section class="module" id="applications">
+      <div class="mod-head">
+        <span class="mod-num">Ce que cette formation a produit</span>
+        <h2>Applications professionnelles — Maison Reveal Impact</h2>
+        <p class="sub">Deux outils commerciaux nés directement de la méthode enseignée en Module 2.</p>
+      </div>
+
+      <div class="resource-card">
+        <h3>Book Mariage — catalogue d'inspiration</h3>
+        <div class="sub mono">BOOK MARIAGE MAISON REVEAL IMPACT.pdf · 13 pages</div>
+        <p style="font-size:14px; margin-bottom:4px;">5 collections construites sur la règle 60/30/10 et les harmonies chromatiques du Module 2 — outil de présentation au 1er RDV client.</p>
+
+        <div class="collection-row">
+          <div class="collection-swatches"><i style="background:#F5EBDC"></i><i style="background:#FFFFFF;border-color:#ddd"></i><i style="background:#D4AF37"></i></div>
+          <div class="ctext"><b>Élégance Éternelle</b><span>Ivoire · Blanc pur · Doré — mariages d'exception</span></div>
+        </div>
+        <div class="collection-row">
+          <div class="collection-swatches"><i style="background:#E8C4B8"></i><i style="background:#F5EBDC"></i><i style="background:#E8D5B7"></i></div>
+          <div class="ctext"><b>Douceur Contemporaine</b><span>Rose poudré · Ivoire · Champagne — romantique, élégant</span></div>
+        </div>
+        <div class="collection-row">
+          <div class="collection-swatches"><i style="background:#D9C7A8"></i><i style="background:#8FA37E"></i><i style="background:#F5EBDC"></i></div>
+          <div class="ctext"><b>Terre & Lumière</b><span>Beige · Sable · Végétal — naturel sublimé</span></div>
+        </div>
+        <div class="collection-row">
+          <div class="collection-swatches"><i style="background:#6B1E2B"></i><i style="background:#D4AF37"></i><i style="background:#F5EBDC"></i></div>
+          <div class="ctext"><b>Passion & Prestige</b><span>Bordeaux · Or · Ivoire — majestueux, luxueux</span></div>
+        </div>
+        <div class="collection-row">
+          <div class="collection-swatches"><i style="background:#D6336C"></i><i style="background:#4A1942"></i><i style="background:#1A1714"></i></div>
+          <div class="ctext"><b>Signature & Impact</b><span>Fuchsia · Violet · Noir & or — audacieux, moderne</span></div>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <h3>Charte Glory™ — système chromatique maître</h3>
+        <div class="sub mono">Charte_Glory_STILLNESS_Final.pdf · 24 pages</div>
+        <p style="font-size:14px;">Système en 4 états scénographiques — <strong>Incarnation → Révélation → Transfiguration → STILLNESS</strong> — chaque déclinaison articulant une matière, une zone d'onction lumineuse et un effet miroir, selon les mêmes principes de forme/couleur/matière/volume/lumière que le Module 2.</p>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:4px;">Nuancier — 13 déclinaisons (naturelle · glorifiée · miroir) :</p>
+        <div class="glory-grid">
+          <div class="glory-item"><div class="glory-strip"><i style="background:#F5E6B8"></i><i style="background:#EDD58A"></i><i style="background:#D4AF37"></i></div><div class="gname"><b>Glory Yellow</b>Gloire manifeste, joie</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#E8B4A0"></i><i style="background:#F2C4B0"></i><i style="background:#B76E79"></i></div><div class="gname"><b>Rose Gold</b>Tendresse, mariage</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#4A1942"></i><i style="background:#6B2E5E"></i><i style="background:#B8860B"></i></div><div class="gname"><b>Prune</b>Royauté · Salon IMA</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#F5EBDC"></i><i style="background:#FAF2E4"></i><i style="background:#E6D2A8"></i></div><div class="gname"><b>Ivoire</b>Bénédiction, packaging</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#E8A87C"></i><i style="background:#F2B88E"></i><i style="background:#B87333"></i></div><div class="gname"><b>Orangé doré</b>Feu paisible</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#E8D5B7"></i><i style="background:#F0DEC4"></i><i style="background:#CFB53B"></i></div><div class="gname"><b>Champagne</b>Alliance nuptiale</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#FBF8F3;border:1px solid #eee"></i><i style="background:#FFFCF7"></i><i style="background:#C0C0C0"></i></div><div class="gname"><b>Blanc Pur</b>Pureté, transfiguration</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#E8C8B8"></i><i style="background:#F2D5C5"></i><i style="background:#DCB9A3"></i></div><div class="gname"><b>Nude rosé</b>Vulnérabilité sacrée</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#B4C5AA"></i><i style="background:#C5D3BB"></i><i style="background:#A8A878"></i></div><div class="gname"><b>Sauge</b>Vie, renouveau</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#1F2D5C"></i><i style="background:#2E4175"></i><i style="background:#C9B037"></i></div><div class="gname"><b>Saphir</b>Révélation nocturne</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#B8764F"></i><i style="background:#CA8862"></i><i style="background:#B87333"></i></div><div class="gname"><b>Terracotta</b>Humanité, héritage</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#1A1714"></i><i style="background:#2A2622"></i><i style="background:#8B7355"></i></div><div class="gname"><b>Noir</b>Mystère avant révélation</div></div>
+          <div class="glory-item"><div class="glory-strip"><i style="background:#C8B6D9"></i><i style="background:#D7C7E3"></i><i style="background:#B6AFC1"></i></div><div class="gname"><b>Lilas</b>Adoration, Pâques</div></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="sources" id="sources">
+      <h2>Fichiers sources</h2>
+      <div class="sub">Emplacements complets pour ouvrir les supports originaux dans l'Explorateur Windows. Dossier de travail : <span class="mono">C:\Users\karin\iCloudDrive\CLAUDE IA\formations\wedding-designer\</span></div>
+
+      <div class="file-group">
+        <h4>Résumés (9 modules + transversaux)</h4>
+        <div class="file-item"><span class="fname">Tous les résumés WD (.md)</span><span class="mono">…\formations\wedding-designer\resumes\SYNTHESE-*.md et wd-module-*.md</span></div>
+      </div>
+
+      <div class="file-group">
+        <h4>Supports de cours PDF</h4>
+        <div class="file-item"><span class="fname">M1 — Module 1 - Introduction au design.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\Module 1 - Introduction au design.pdf</span></div>
+        <div class="file-item"><span class="fname">M2 — MODULE 2 - LE DESIGN.pdf / EVENT STYLING.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\MODULE 2 - LE DESIGN.pdf</span></div>
+        <div class="file-item"><span class="fname">M2C3 — La psychologie des couleurs.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\M2C3-La psychologie des couleurs.pdf</span></div>
+        <div class="file-item"><span class="fname">M3 — Cours PDF Module 3 - Event & Wedding Design.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\Cours PDF Module 3 - Event & Wedding Design.pdf</span></div>
+        <div class="file-item"><span class="fname">M5 — Cours PDF Module 5 - Deco & Sceno.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\Cours PDF Module 5 - Deco & Sceno.pdf</span></div>
+        <div class="file-item"><span class="fname">M6 — Cours PDF Module 6 Art de la table & Carterie.pdf</span><span class="mono">…\formations\wedding-designer\Cours PDF Module 6 Art de la table & Carterie (1).pdf</span></div>
+        <div class="file-item"><span class="fname">M7 — MODULE 7 - Ateliers Moodboard et retouche photo.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\MODULE 7 - Ateliers Moodboard et retouche photo.pdf</span></div>
+        <div class="file-item"><span class="fname">M8 — COURS PDF M8 - Atelier création carterie.pdf</span><span class="mono">…\formations\wedding-designer\COURS PDF M8 - Atelier cration carterie.pdf</span></div>
+        <div class="file-item"><span class="fname">M9 — M9 - HONORAIRES.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\M9 - HONORAIRES.pdf</span></div>
+        <div class="file-item"><span class="fname">Livret Wedding Designer.pdf (livrable officiel)</span><span class="mono">…\formations\wedding-designer\pdf-source\Livret Wedding Designer.pdf</span></div>
+        <div class="file-item"><span class="fname">CGV et de location.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\CGV et de location.pdf</span></div>
+        <div class="file-item"><span class="fname">Devis Wedding Designer.xlsx (classeur officiel 2 onglets)</span><span class="mono">…\formations\wedding-designer\pdf-source\Devis Wedding Designer.xlsx</span></div>
+        <div class="file-item"><span class="fname">Liste-des-grossistes-WD.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\Liste-des-grossistes-WD.pdf</span></div>
+        <div class="file-item"><span class="fname">Flowers book.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\Flowers book.pdf</span></div>
+        <div class="file-item"><span class="fname">Créer sa palette émotionnelle.pdf (support)</span><span class="mono">…\formations\wedding-designer\pdf-source\Créer sa palette émotionnelle.pdf</span></div>
+        <div class="file-item"><span class="fname">Exercice — POCHOT Karine (rempli).pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\Exercice Créer sa palette émotionnelle POCHOT Karine.pdf</span></div>
+      </div>
+
+      <div class="file-group">
+        <h4>Transcripts bruts (Notta)</h4>
+        <div class="file-item"><span class="fname">M1 à M9 — .txt et .docx par chapitre</span><span class="mono">…\formations\wedding-designer\transcripts\</span></div>
+      </div>
+
+      <div class="file-group">
+        <h4>Applications professionnelles</h4>
+        <div class="file-item"><span class="fname">BOOK MARIAGE MAISON REVEAL IMPACT.pdf</span><span class="mono">…\formations\wedding-designer\pdf-source\BOOK MARIAGE MAISON REVEAL IMPACT.pdf</span></div>
+        <div class="file-item"><span class="fname">Charte_Glory_STILLNESS_Final.pdf</span><span class="mono">…\formations\wedding-designer\resumes\wd-palette-glory-charte-reference.docx (+ dossier CHARTE PALETTE GLORY TM, wedding-planner-designer)</span></div>
+      </div>
+
+      <div class="end-note">Cahier compilé pour Karine Pochot — Maison Reveal Impact · Wedding Academy, formation Wedding Designer (Modules 1 à 9)</div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>

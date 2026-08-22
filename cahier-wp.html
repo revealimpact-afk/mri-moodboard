@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cahier Wedding Planner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  :root{
+    --ivory:#F5F0E6; --ivory-2:#EFE8D8; --card:#FBF8F1; --ink:#2A241D; --ink-soft:#5B5142;
+    --muted:#8A7F6C; --border:#E2D8C2; --gold:#A9821A; --gold-deep:#8A6912; --gold-soft:#EFDFAE;
+    --accent-text:#5E4A0E; --shadow: 0 1px 2px rgba(42,36,29,.06), 0 8px 24px rgba(42,36,29,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ivory:#1C1712; --ivory-2:#241D16; --card:#231D16; --ink:#EDE4D3; --ink-soft:#C6B99F;
+      --muted:#8F8271; --border:#3A3024; --gold:#D9B04C; --gold-deep:#E9C878; --gold-soft:#3A2E12;
+      --accent-text:#E9C878; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ivory:#1C1712; --ivory-2:#241D16; --card:#231D16; --ink:#EDE4D3; --ink-soft:#C6B99F;
+    --muted:#8F8271; --border:#3A3024; --gold:#D9B04C; --gold-deep:#E9C878; --gold-soft:#3A2E12;
+    --accent-text:#E9C878; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .page{background:var(--ivory); color:var(--ink); font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:'Playfair Display', Georgia, serif; font-weight:700; color:var(--ink); text-wrap:balance; margin:0;}
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+  .shell{max-width:900px; margin:0 auto; padding:0 24px 100px;}
+
+  .hero{padding:60px 24px 36px; text-align:center; border-bottom:1px solid var(--border);}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); font-weight:500; display:inline-block; margin-bottom:16px;}
+  .hero h1{font-size:clamp(30px,5vw,46px); line-height:1.08; margin-bottom:14px;}
+  .hero p.lead{font-size:16.5px; color:var(--ink-soft); max-width:600px; margin:0 auto;}
+  .hero .meta{margin-top:24px; display:flex; flex-wrap:wrap; gap:9px; justify-content:center;}
+  .meta-chip{font-size:11px; letter-spacing:.03em; padding:6px 12px; border-radius:999px; background:var(--card); border:1px solid var(--border); color:var(--ink-soft);}
+
+  .toc{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; padding:16px 20px; position:sticky; top:0; z-index:10;
+    background:color-mix(in srgb, var(--ivory) 92%, transparent); backdrop-filter:blur(6px); border-bottom:1px solid var(--border);}
+  .toc a{font-size:11.5px; font-weight:600; letter-spacing:.01em; padding:6px 12px; border-radius:999px; text-decoration:none;
+    color:var(--ink-soft); border:1px solid var(--border); transition:all .15s ease; white-space:nowrap;}
+  .toc a:hover{border-color:var(--gold); color:var(--accent-text); background:var(--gold-soft);}
+
+  section.module{padding:52px 0 8px; border-bottom:1px solid var(--border);}
+  section.module:last-of-type{border-bottom:none;}
+  .mod-head{margin-bottom:28px;}
+  .mod-num{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); font-weight:500; margin-bottom:8px; display:block;}
+  .mod-head h2{font-size:clamp(24px,4vw,32px); margin-bottom:6px;}
+  .mod-head .sub{font-size:13.5px; color:var(--ink-soft); margin-bottom:14px;}
+
+  .source-badge{display:flex; align-items:flex-start; gap:10px; flex-wrap:wrap; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px 16px; box-shadow:var(--shadow);}
+  .source-badge .tag{font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--gold-deep); background:var(--gold-soft); padding:3px 8px; border-radius:5px; flex-shrink:0;}
+  .source-badge .src-body{font-size:13px; color:var(--ink-soft);}
+  .source-badge .src-body strong{color:var(--ink); font-weight:600;}
+  .source-badge .path{display:block; margin-top:4px; font-size:11px; color:var(--muted); word-break:break-all;}
+
+  .chapter{margin-top:36px;}
+  .chapter h3{font-size:19px; margin-bottom:12px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .chapter h3 .chnum{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--gold-deep); font-weight:500;}
+  .chapter h4{font-size:15px; margin:20px 0 9px; color:var(--ink);}
+  .chapter p{margin:0 0 13px; color:var(--ink-soft); font-size:14.5px;}
+  .chapter ul, .chapter ol{margin:0 0 13px; padding-left:20px; color:var(--ink-soft); font-size:14.5px;}
+  .chapter li{margin-bottom:5px;}
+  .chapter li strong{color:var(--ink);}
+
+  blockquote{margin:18px 0; padding:14px 18px; border-left:3px solid var(--gold); background:var(--card); border-radius:0 10px 10px 0; font-family:'Playfair Display', serif; font-style:italic; font-size:15.5px; color:var(--ink);}
+  .tip{margin:16px 0; padding:12px 15px; border-radius:10px; background:var(--gold-soft); color:var(--accent-text); font-size:13.5px;}
+
+  .table-wrap{overflow-x:auto; margin:14px 0 20px; border:1px solid var(--border); border-radius:10px;}
+  table{width:100%; border-collapse:collapse; font-size:13px; min-width:460px;}
+  thead th{text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding:9px 13px; background:var(--card); border-bottom:1px solid var(--border); font-weight:500;}
+  tbody td{padding:9px 13px; border-bottom:1px solid var(--border); color:var(--ink-soft); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td strong{color:var(--ink);}
+  tbody tr:nth-child(odd){background:color-mix(in srgb, var(--card) 55%, transparent);}
+
+  .pillar{margin:24px 0; padding:20px 22px; background:var(--card); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);}
+  .pillar .pnum{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:4px; display:block;}
+  .pillar h4.ptitle{font-family:'Playfair Display',serif; font-size:19px; margin:0 0 9px;}
+
+  .actions{margin-top:26px; padding:18px 20px; border-radius:14px; background:linear-gradient(155deg, var(--gold-soft), transparent 70%); border:1px solid var(--border);}
+  .actions h4{font-size:12.5px; text-transform:uppercase; letter-spacing:.08em; font-family:'IBM Plex Mono',monospace; color:var(--gold-deep); margin-bottom:11px; font-weight:500;}
+  .actions ul{list-style:none; padding:0; margin:0; display:grid; gap:8px;}
+  .actions li{font-size:13.5px; color:var(--ink-soft); padding-left:22px; position:relative;}
+  .actions li::before{content:'✓'; position:absolute; left:0; top:0; color:var(--gold-deep); font-weight:700;}
+
+  .keypoints{margin-top:26px; padding:18px 20px; border-radius:14px; background:var(--card); border:1px solid var(--border);}
+  .keypoints h4{font-size:12.5px; text-transform:uppercase; letter-spacing:.08em; font-family:'IBM Plex Mono',monospace; color:var(--gold-deep); margin-bottom:11px; font-weight:500;}
+  .keypoints ol{margin:0; padding-left:18px; display:grid; gap:6px;}
+  .keypoints li{font-size:13.5px; color:var(--ink-soft);}
+  .keypoints li strong{color:var(--ink);}
+
+  .checklist{list-style:none; padding:0; margin:14px 0; display:grid; gap:7px;}
+  .checklist li{font-size:13.5px; color:var(--ink-soft); padding-left:24px; position:relative;}
+  .checklist li::before{content:'☐'; position:absolute; left:0; top:0; color:var(--gold-deep);}
+  .checklist li b{color:var(--ink);}
+
+  footer.sources{padding:52px 0 20px;}
+  footer.sources h2{font-size:21px; margin-bottom:5px;}
+  footer.sources .sub{color:var(--muted); font-size:12.5px; margin-bottom:22px;}
+  .file-group{margin-bottom:20px;}
+  .file-group h4{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:9px; font-weight:500;}
+  .file-item{font-size:12px; color:var(--ink-soft); padding:7px 0; border-top:1px solid var(--border); word-break:break-all;}
+  .file-item:first-child{border-top:none;}
+  .file-item .fname{color:var(--ink); font-weight:600; display:block; margin-bottom:2px; font-family:'Inter',sans-serif; font-size:12.5px;}
+  .end-note{text-align:center; padding:30px 0 0; color:var(--muted); font-size:12px;}
+
+  @media (max-width:600px){
+    .hero{padding:44px 18px 28px;}
+    section.module{padding:36px 0 4px;}
+    .toc{gap:5px; padding:14px;}
+    .toc a{padding:5px 10px; font-size:11px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <span class="eyebrow">Wedding Academy · Formation Wedding Planner</span>
+    <h1>Cahier Wedding Planner</h1>
+    <p class="lead">Les 6 modules complets et le process de A à Z — toute la formation Wedding Planner réunie pour Maison Reveal Impact.</p>
+    <div class="meta">
+      <span class="meta-chip">Karine Pochot</span>
+      <span class="meta-chip">6 modules · M1 à M6</span>
+      <span class="meta-chip">Process complet A à Z</span>
+      <span class="meta-chip">Checklists Jour J</span>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <a href="#m1">M1 · Le métier</a>
+    <a href="#m2">M2 · Créer son entreprise</a>
+    <a href="#m3">M3 · Organisation mariage</a>
+    <a href="#m4">M4 · Cérémonies</a>
+    <a href="#m5">M5 · Image de la mariée</a>
+    <a href="#m6">M6 · Aménagement & déco</a>
+    <a href="#process">Process A à Z</a>
+    <a href="#sources">Fichiers sources</a>
+  </nav>
+
+  <div class="shell">
+
+    <!-- MODULE 1 -->
+    <section class="module" id="m1">
+      <div class="mod-head">
+        <span class="mod-num">Module 1</span>
+        <h2>Introduction au métier de Wedding Planner</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>Support de cours - Module 1 WP.pdf</strong>
+            <span class="path mono">…\WEDDING ACADEMY\Wedding Planner\M1\Support de cours - Module 1 WP.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Le marché du mariage en France</h3>
+        <ul>
+          <li>Années 1970 : forte hausse ; après 1980 : baisse continue ; milieu 1990 : retour du mariage « de princesse »</li>
+          <li>Depuis 2010 : baisse annuelle de 2 à 3% · 2020 : chute d'environ 30% (COVID)</li>
+          <li>2019 : <strong>224 000 mariages</strong> vs 196 000 PACS — les pacsés sont un vivier de prospection à moyen terme</li>
+          <li>Mariages de même sexe (loi 2013) : pas un marché de niche — les couples veulent être traités comme tout couple</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Région</th><th>Taux de recours à un WP</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Île-de-France</strong></td><td>15% — 1ère région en volume</td></tr>
+              <tr><td><strong>PACA</strong></td><td>15% — villes moyennes dispersées</td></tr>
+              <tr><td><strong>Autres régions</strong></td><td>10%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>Calcul de la cible commerciale</h4>
+        <ol>
+          <li>Mariages région × taux de recours WP (10% ou 15%) = couples adressables</li>
+          <li>(Couples adressables − agences concurrentes réellement actives) ÷ 15 mariages/an = places disponibles</li>
+        </ol>
+      </div>
+
+      <div class="chapter">
+        <h3>Mon projet entrepreneurial</h3>
+        <p>Un projet = un problème à résoudre + une transformation à offrir. L'émotion est centrale : les clients paient pour une expérience.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type de projet</th><th>Nature</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Vital</strong></td><td>Activité principale, revenu, identité pro</td></tr>
+              <tr><td><strong>Complément</strong></td><td>Revenu additionnel sans pression</td></tr>
+              <tr><td><strong>Pivot</strong></td><td>Tremplin sur 6 à 24 mois</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Les 6 profils RIASEC et alignement métier</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Profil</th><th>Tendance</th><th>Application</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Réaliste</strong></td><td>Concret, orienté action</td><td>Offres tangibles, ateliers, preuves</td></tr>
+              <tr><td><strong>Investigateur</strong></td><td>Analytique, logique</td><td>Audits, diagnostics</td></tr>
+              <tr><td><strong>Artistique</strong></td><td>Créatif, esthétique</td><td>Identité visuelle, storytelling</td></tr>
+              <tr><td><strong>Social</strong></td><td>Écoute, empathie, lien</td><td>Accompagnement transformationnel</td></tr>
+              <tr><td><strong>Entreprenant</strong></td><td>Leadership, persuasion</td><td>Prospection directe, haut de gamme</td></tr>
+              <tr><td><strong>Conventionnel</strong></td><td>Structure, process</td><td>Méthodes, automatisations</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Le métier de Wedding Planner</h3>
+        <ul>
+          <li>Origines : USA années 1950 (~50% des couples au Canada) · France : premières agences en <strong>2002</strong></li>
+          <li>Taux de recours : 10% en province, 4% Paris/PACA</li>
+          <li>Rôle : conseil, choix des prestataires, communication (mise en copie systématique), formalités, pilotage budget, co-construction du thème</li>
+        </ul>
+        <h4>Qualités et compétences</h4>
+        <ul><li>Empathie, écoute active, anticipation, énergie pro, force de conviction, créativité, rigueur</li><li>Outils : Word, Excel, Outlook, bases Adobe · Indispensables : voiture + ordinateur</li></ul>
+        <h4>Lieu des rendez-vous</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Lieu</th><th>Contexte</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Chez le client</strong></td><td>Recommandé pour le 1er RDV — client plus à l'aise</td></tr>
+              <tr><td><strong>Chez soi</strong></td><td>Couleurs claires, lumière douce, bureau ordonné</td></tr>
+              <tr><td><strong>Local commercial</strong></td><td>Pour gros volumes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Les traditions du mariage</h3>
+        <ul>
+          <li>Alliance à l'annulaire gauche (veine de l'amour, Égypte ancienne) · robe blanche généralisée au XIXe (Reine Victoria, 1848)</li>
+          <li>Voile = protection contre le mauvais œil · bouquet = origine croisades (fleurs d'oranger, pureté)</li>
+          <li>« Something old, new, borrowed, blue » · dragées en nombre impair (5) = indivisibilité</li>
+          <li><strong>EVJF</strong> (tradition française) ≠ <strong>Bridal shower</strong> (USA, ~8 semaines avant, femmes uniquement)</li>
+          <li>Gâteau : hauteur = symbole de prospérité ; en France le layer cake remplace la pièce montée</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>L'étiquette du mariage</h3>
+        <ul>
+          <li>Relance téléphonique (pas email) si pas de réponse 1 semaine après la date limite RSVP</li>
+          <li>Politique « sans enfants » : ne <strong>jamais</strong> l'écrire sur l'invitation — indiquer uniquement les noms des adultes</li>
+          <li>Liste de mariage : ne pas l'inclure sur le faire-part (usage français) — jamais demander explicitement de l'argent</li>
+          <li>Plan de table : parents des 2 familles à la même table</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Répartition traditionnelle des coûts</th><th>Famille</th></tr></thead>
+            <tbody>
+              <tr><td>Réception, musique, lieu de culte, invitations, fleurs</td><td>Famille de la mariée</td></tr>
+              <tr><td>Bague, bouquet de la mariée, boutonnières, clergé</td><td>Famille du marié</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="keypoints">
+        <h4>Points clés pour le test</h4>
+        <ol>
+          <li>France : WP apparus en 2002 · taux de recours 10% province / 4% Paris-PACA</li>
+          <li>Calcul de cible : mariages région × taux recours ÷ 15 mariages/an</li>
+          <li>Politique « sans enfants » jamais écrite noir sur blanc</li>
+          <li>Placement mairie : témoins mariée à gauche, témoins marié à droite</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- MODULE 2 -->
+    <section class="module" id="m2">
+      <div class="mod-head">
+        <span class="mod-num">Module 2</span>
+        <h2>Créer son entreprise — marché, PESTEL, prestataires</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>Module 2 - Créer son carnet d'adresse.pdf</strong>
+            <span class="path mono">…\WEDDING ACADEMY\Wedding Planner\M2\Module 2 - Crer son carnet d_adresse.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Définir son marché</h3>
+        <blockquote>Le marketing n'est pas la communication : la communication vient après la décision stratégique.</blockquote>
+        <p>4 questions clés : Qui est mon client ? Quel problème je résous ? Pourquoi ça compte ? Pourquoi moi ?</p>
+        <p>Ne plus dire « je fais du wedding planning » → dire « j'accompagne des couples haut de gamme en Guadeloupe pour la coordination et le choix de prestataires d'exception ». Cible floue = entreprise invisible.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Zone</th><th>Politique tarifaire</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Zone 1</strong> (&lt; 30 km)</td><td>Tarif standard</td></tr>
+              <tr><td><strong>Zone 2</strong> (30–60 km)</td><td>Supplément au-delà de 40 km</td></tr>
+              <tr><td><strong>Zone 3</strong> (&gt; 2h, lieux iconiques)</td><td>Offre haut de gamme uniquement</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Analyse PESTEL du marché du mariage</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Facteur</th><th>Application</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Politique</strong></td><td>Réglementations locales, fiscalité indépendants</td></tr>
+              <tr><td><strong>Économique</strong></td><td>Polarisation mini-mariages vs ultra haut de gamme</td></tr>
+              <tr><td><strong>Social</strong></td><td>Mariages tardifs, diversité LGBTQ+, essor des officiants</td></tr>
+              <tr><td><strong>Technologique</strong></td><td>IA et automatisation (Canva, workflows) pour scaler</td></tr>
+              <tr><td><strong>Environnemental</strong></td><td>Écoresponsabilité = critère d'achat</td></tr>
+              <tr><td><strong>Légal</strong></td><td>RC Pro obligatoire, conformité RGPD</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Tendances majeures : mini-mariages intimes <strong>et</strong> offres ultra premium · mariages sur 3 jours · personnalisation extrême · transition durable.</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Constituer son carnet d'adresses prestataires</h3>
+        <ul>
+          <li><strong>Fleuristes/décorateurs :</strong> privilégier la proximité (15-30 min) ; au-delà de 45-60 min, coordination difficile ; maintenir 2 profils (haut budget / budget serré)</li>
+          <li><strong>Créateurs de faire-part :</strong> exiger une déclinaison cohérente (invitation, menu, marque-places, livret) ; délai post-validation &lt; 1 mois</li>
+          <li><strong>Musique live :</strong> gospel (cérémonie), soul/funk (vin d'honneur), rock/pop (soirée) ; modèle 1h-1h30 puis relais DJ</li>
+          <li><strong>Animations enfants :</strong> sociétés à partir de 15 enfants ; nounous pour petits effectifs — le WP propose des profils mais ne contracte pas</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>SWOT et 5 forces de Porter</h3>
+        <blockquote>Une décision sans date n'est qu'un rêve.</blockquote>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Force de Porter</th><th>Réalité du marché mariage</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. Rivalité</strong></td><td>Marché fragmenté — se démarquer par la personnalité, pas les prix</td></tr>
+              <tr><td><strong>2. Nouveaux entrants</strong></td><td>Barrières faibles — beaucoup entrent après leur mariage, sortent après 2-3 saisons</td></tr>
+              <tr><td><strong>3. Pouvoir des clients</strong></td><td>Repositionner comme investissement rentable (temps, stress)</td></tr>
+              <tr><td><strong>4. Pouvoir des fournisseurs</strong></td><td>Construire des relations long terme — les considérer comme alliés</td></tr>
+              <tr><td><strong>5. Substituts</strong></td><td>Blogs, applis, DIY — limites réelles (stress, temps, qualité)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 3 -->
+    <section class="module" id="m3">
+      <div class="mod-head">
+        <span class="mod-num">Module 3</span>
+        <h2>Organisation de mariage — structure, prestataires, Jour J</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>COURS PDF - MODULE 3 - Organisation de mariage.pdf</strong>
+            <span class="path mono">…\WEDDING ACADEMY\Wedding Planner\M3\COURS PDF - MODULE 3 - Organisation de mariage.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Premier contact, devis et contrat</h3>
+        <ul>
+          <li>Fiche premier contact (1 page) : date, lieu, invités, budget, prestations recherchées, contraintes</li>
+          <li><strong>Ne jamais</strong> envoyer de devis froid par mail sans premier RDV ; confirmer chaque RDV 2 jours avant</li>
+          <li>Devis sous <strong>2 semaines max</strong> : proposer 5 à 7 lieux décrits sans nommer, 1 à 3 menus traiteur ; décoration estimée à 10-15% du budget global</li>
+          <li>Contrat : identification complète, mandat précis, liste des prestataires effectivement engagés, extension par avenant écrit</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Organisation de A à Z</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Niveau</th><th>Contenu</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Assistance complète</strong></td><td>Traiteur, DJ, fleuriste, photographe, vidéaste, loueur, animation, mise en beauté</td></tr>
+              <tr><td><strong>Assistance relative</strong></td><td>Boutiques robes/alliances, voyage de noces — liste fournie mais pas d'accompagnement</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Le WP organise son année en 3 grandes périodes : <strong>janvier-mai</strong> (salons, devis, signatures) · <strong>juin-août</strong> (mariages de la saison) · <strong>octobre-décembre</strong> (RDV prestataires + 2-3 mois creux pour shootings/blog).</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Visite et réservation du lieu de réception</h3>
+        <ul>
+          <li>Carnet d'adresses : <strong>minimum 25 lieux</strong> présélectionnés ; montrer distance/taille/chambres — jamais le nom</li>
+          <li>Critères : esthétique, plan B météo aussi qualitatif que le plan A, rayon de 45 min, budget max</li>
+          <li>Capacités annoncées (1 m²/personne) <strong>irréalistes</strong> : DJ ~8 m², piste de danse 2-2,5 m²/pers., buffets ~10 m² → 100 personnes = viser 200-250 m²</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Le traiteur : sélection, dégustation, menu, boissons</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Élément</th><th>Repère</th></tr></thead>
+            <tbody>
+              <tr><td>Contact traiteur</td><td>8 à 10 mois avant — short-list 3, retenir 2</td></tr>
+              <tr><td>Cocktail</td><td>1h-1h30 (2h-2h30 l'été) · 10-15€/pers (classique), 14-20€/pers (long)</td></tr>
+              <tr><td>Champagne</td><td>1 bouteille pour 4-6 personnes</td></tr>
+              <tr><td>Gâteau</td><td>Arrivée visée 23h30-minuit</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Coordination prestataires (DJ, photo, fleuriste)</h3>
+        <ul>
+          <li>DJ : 2 RDV (intro puis détails musique) ; installation 3h avant ; piste de danse ~1 m²/4 invités</li>
+          <li>Programme enfants : ratios 1/3 (&lt;3 ans), 1/5 (4-6 ans), 1/8 (7-11 ans) — à partir de 5 enfants, 2 baby-sitters mini</li>
+          <li>Chronologie musicale : cérémonie (tempo marche) → vin d'honneur (discret) → dîner (max 2-3 animations, 10 min max) → ouverture de bal (choix 100% mariés)</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Coordination Jour J</h3>
+        <ul>
+          <li>RDV coordination ~2h, idéalement J-30 : planning minute par minute avec marges de 15 min</li>
+          <li><strong>Règle de calcul :</strong> toujours remonter de la fin vers le début — et <strong>doubler systématiquement</strong> le temps Mappy</li>
+          <li>3 documents essentiels : plan de salle, plan de table (code couleur), liste invités Excel (2 versions)</li>
+        </ul>
+        <blockquote>Le manque de professionnalisme n'est pas l'apparition d'un imprévu, mais l'incapacité à y réagir.</blockquote>
+      </div>
+
+      <div class="keypoints">
+        <h4>Points clés pour le test</h4>
+        <ol>
+          <li>Devis envoyé sous 2 semaines max, jamais de devis froid sans 1er RDV</li>
+          <li>Carnet d'adresses lieux : minimum 25 préselectionnés</li>
+          <li>Planning Jour J : toujours remonter de la fin vers le début, doubler le temps Mappy</li>
+          <li>Ne jamais laisser les invités modifier le plan de table</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- MODULE 4 -->
+    <section class="module" id="m4">
+      <div class="mod-head">
+        <span class="mod-num">Module 4</span>
+        <h2>Les types de cérémonies</h2>
+        <div class="source-badge">
+          <span class="tag">Support PDF</span>
+          <div class="src-body">
+            <strong>COURS PDF - MODULE 4 - Les cérémonies.pdf</strong>
+            <span class="path mono">…\WEDDING ACADEMY\Wedding Planner\M4\COURS PDF - MODULE 4 - Les ceremonies.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>La cérémonie civile (mairie)</h3>
+        <ul>
+          <li>Dossier déposé <strong>10 jours max avant</strong> (publication des bans) · durée 15-20 min</li>
+          <li>Placement : témoins mariée à <strong>gauche</strong>, témoins marié à <strong>droite</strong> — inverse de l'église</li>
+          <li>Mariage hors commune possible avec attestation d'hébergement &gt;1 mois, sinon dérogation au maire — atout de différenciation WP</li>
+        </ul>
+      </div>
+
+      <div class="chapter">
+        <h3>Les régimes matrimoniaux</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Régime</th><th>Principe</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Communauté réduite aux acquêts</strong></td><td>Régime légal par défaut (80% des mariages)</td></tr>
+              <tr><td><strong>Séparation de biens</strong></td><td>Chacun conserve ses biens</td></tr>
+              <tr><td><strong>Communauté universelle</strong></td><td>Tous biens en commun, solidaires de toutes dettes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Coût du contrat : 500 € devant notaire. Rôle du WP : expliquer les régimes et orienter vers un notaire.</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Les mariages religieux</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Culte</th><th>Repères clés</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Catholique</strong> (28% en France)</td><td>Contacter le prêtre ~1 an avant ; placement mariée à gauche de l'autel (inverse mairie)</td></tr>
+              <tr><td><strong>Protestant</strong></td><td>Temple ou plein air ; le mariage n'est pas un sacrement</td></tr>
+              <tr><td><strong>Musulman</strong></td><td>Contrat « nika » du mardi au jeudi ; walima 200-500 personnes</td></tr>
+              <tr><td><strong>Juif</strong></td><td>Sous la houppa, verre brisé « Mazeltov » ; casherout = traiteur 30-60% plus cher</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>La cérémonie laïque</h3>
+        <ul>
+          <li>Sans valeur légale, mot clé : personnalisation · déroulé 30-45 min, max 6 intervenants (jamais plus de 12)</li>
+          <li>Sonorisation indispensable dès 40 invités · <strong>plan B météo obligatoire</strong></li>
+          <li>Disposition : mariés <strong>face</strong> aux invités (inverse de l'église) — allée 2-3 m de large</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MODULE 5 -->
+    <section class="module" id="m5">
+      <div class="mod-head">
+        <span class="mod-num">Module 5</span>
+        <h2>Conseil en image de la mariée</h2>
+        <div class="source-badge">
+          <span class="tag">Transcripts</span>
+          <div class="src-body">
+            <strong>Conseil en Image de la Mariée — Essayages, Coupes, Maquillage</strong>
+            <span class="path mono">…\WEDDING ACADEMY\Wedding Planner\M5\</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Les 5 rendez-vous d'essayage</h3>
+        <ol>
+          <li>Tour des boutiques, premier repérage</li>
+          <li>Achat de la robe, premières mesures</li>
+          <li>Réception robe retouchée, vérification</li>
+          <li>Dernier essai de validation (avec chaussures, faire marcher la mariée)</li>
+          <li>Récupération (15 jours à 1 semaine avant)</li>
+        </ol>
+        <blockquote>Signe de la bonne robe : la mariée sort de la cabine les larmes aux yeux.</blockquote>
+      </div>
+
+      <div class="chapter">
+        <h3>Coupes de robes par morphologie</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Morphologie</th><th>Coupes recommandées</th><th>À éviter</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Petite taille</strong></td><td>Droite, empire, sirène</td><td>Princesse (rapetisse)</td></tr>
+              <tr><td><strong>Ronde</strong></td><td>Coupes A et évasées + corset + décolleté en V</td><td>Princesse trop volumineuse</td></tr>
+              <tr><td><strong>Grande et mince</strong></td><td>Tout convient</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Règles église : robes courtes refusées ; certains prêtres exigent la couverture des épaules.</p>
+      </div>
+
+      <div class="chapter">
+        <h3>Compte à rebours beauté</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Délai</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>3 semaines avant</td><td>UV léger (espacer 48h min)</td></tr>
+              <tr><td>15 jours avant</td><td>Mèches/balayage</td></tr>
+              <tr><td>1 semaine avant</td><td>Coloration unie</td></tr>
+              <tr><td>5 jours avant</td><td>Faux ongles</td></tr>
+              <tr><td>3 jours avant</td><td>Soin visage + épilation</td></tr>
+              <tr><td>Veille</td><td>French manucure</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tip">Maquillage : nude, sourcils épilés 6 mois avant si nécessaire. À ne pas faire : se maquiller soi-même, faux cils imposants, paillettes, rien de nouveau le jour J.</div>
+      </div>
+    </section>
+
+    <!-- MODULE 6 -->
+    <section class="module" id="m6">
+      <div class="mod-head">
+        <span class="mod-num">Module 6</span>
+        <h2>Aménagement de l'espace et décoration</h2>
+        <div class="source-badge">
+          <span class="tag">Transcripts</span>
+          <div class="src-body">
+            <strong>Organisation de l'espace, disposition des tables, RDV décoration</strong>
+            <span class="path mono">…\WEDDING ACADEMY\Wedding Planner\M6\</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Organisation de l'espace</h3>
+        <p>Densité idéale : <strong>2,5 m²</strong> par personne (acceptable 1,5-2 m²) — déduire buffet, urne, piste de danse, DJ.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type de table</th><th>Dimensions</th><th>Capacité</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Rectangulaire standard</strong></td><td>80 × 180 cm</td><td>60-70 cm linéaires/pers.</td></tr>
+              <tr><td><strong>Table d'honneur</strong></td><td>160 × 360 cm</td><td>—</td></tr>
+              <tr><td><strong>Ronde 150-160 cm</strong></td><td>—</td><td>6-8 personnes</td></tr>
+              <tr><td><strong>Ronde 170-180 cm</strong></td><td>—</td><td>8-10 personnes (max 11)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <h3>Les 10 règles du plan de table</h3>
+        <ol>
+          <li>Piste de danse plutôt trop petite (convivialité)</li>
+          <li>Au moins 50 cm entre chaises</li>
+          <li>Accès serveurs dégagé autour de chaque table</li>
+          <li>Jeunes adultes devant la piste de danse</li>
+          <li>Enfants sur les côtés ou au fond</li>
+          <li>Personnes âgées loin des baffles</li>
+          <li>Table d'honneur au milieu de la salle</li>
+          <li>DJ dans la même salle que le repas</li>
+          <li>Éviter : entrée, toilettes, buffet, recoins</li>
+          <li>Large périmètre de circulation autour du buffet</li>
+        </ol>
+      </div>
+
+      <div class="chapter">
+        <h3>RDV client décoration et scénographie</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Cas</th><th>Approche</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Décoration seule</strong></td><td>Devis très détaillé, élément par élément</td></tr>
+              <tr><td><strong>Organisation A à Z</strong></td><td>Devis moins détaillé, style + budget global</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Collaboration fleuriste conseillée pour les compositions complexes. Pivoines : mai-juin uniquement (rares et coûteuses au-delà). Outil recommandé : <strong>3D Event Designer</strong>.</p>
+      </div>
+    </section>
+
+    <!-- PROCESS COMPLET -->
+    <section class="module" id="process">
+      <div class="mod-head">
+        <span class="mod-num">Synthèse transversale</span>
+        <h2>Le process complet, de A à Z</h2>
+        <p class="sub">10 workflows opérationnels reliant les modules M1 à M6 — du premier contact au suivi post-mariage.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Workflow</th><th>Déclencheur → Sortie</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1 — Pipeline client</strong></td><td>Nouveau prospect → témoignage + recommandation</td></tr>
+            <tr><td><strong>2 — Rétroplanning 18 mois</strong></td><td>Contrat signé → tous prestataires réservés</td></tr>
+            <tr><td><strong>3 — Visite et réservation du lieu</strong></td><td>Contrat signé → lieu + mairie/église réservés</td></tr>
+            <tr><td><strong>4 — Sélection du traiteur</strong></td><td>Lieu réservé → traiteur + menu + boissons validés</td></tr>
+            <tr><td><strong>5 — Coordination prestataires</strong></td><td>DJ, photo, fleuriste briefés et coordonnés</td></tr>
+            <tr><td><strong>6 — Checklist cérémonies</strong></td><td>Civile, religieuse, laïque — dossiers complets</td></tr>
+            <tr><td><strong>7 — Coordination Jour J</strong></td><td>J-30 → mariage exécuté, désinstallation terminée</td></tr>
+            <tr><td><strong>8 — Plan de table & aménagement</strong></td><td>10 règles + calculs d'espace</td></tr>
+            <tr><td><strong>9 — Gestion des imprévus</strong></td><td>3 outils d'anticipation + matrice risques/réponses</td></tr>
+            <tr><td><strong>10 — Conseil image de la mariée</strong></td><td>5 RDV essayage + compte à rebours beauté</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:19px;margin:32px 0 12px;">Rétroplanning 18 mois</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Jalon</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td><strong>J-18 mois</strong></td><td>Liste invités + budget + réserver salle</td></tr>
+            <tr><td><strong>J-12 mois</strong></td><td>Dossier mairie + maître de cérémonie + save the date + témoins</td></tr>
+            <tr><td><strong>J-10 mois</strong></td><td>Traiteur (idéalement octobre) + robe + DJ + orchestre</td></tr>
+            <tr><td><strong>J-8 mois</strong></td><td>Dégustation traiteur + photographe/vidéaste + décorateur + faire-part + hébergements + alliances</td></tr>
+            <tr><td><strong>J-6 mois</strong></td><td>Mairie (petites villes) + dress code + faire-part + liste de mariage</td></tr>
+            <tr><td><strong>J-4 mois</strong></td><td>Envoyer faire-part + costumes + tenues demoiselles d'honneur</td></tr>
+            <tr><td><strong>J-3 mois</strong></td><td>Dossier mairie complet + relancer invités + nounous + menus/marque-places</td></tr>
+            <tr><td><strong>J-2 mois</strong></td><td>Essai coiffure-maquillage + dernier essayage + voyage de noces + notaire</td></tr>
+            <tr><td><strong>J-1 mois</strong></td><td>Dernier RDV tous prestataires + checklist traiteur + plan de table</td></tr>
+            <tr><td><strong>J+1 mois</strong></td><td>Remerciements + vérifier livraison photos/vidéos</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="keypoints">
+        <h4>Checklist Jour J — kit du Wedding Planner</h4>
+        <ul class="checklist">
+          <li><b>Tenue</b> — robe noire sobre, pas de blanc, talons compensés ou ballerines</li>
+          <li><b>Plannings imprimés</b> — distribués à tous les prestataires 1 semaine avant</li>
+          <li><b>Trousse à outils</b> — colle, ruban, ficelle, agrafes, kit couture</li>
+          <li><b>Trousse cosmétique</b> — maquillage retouche, déodorant, épingles, pansements ampoules</li>
+          <li><b>2e paire de chaussures</b> — confort en fin de journée</li>
+          <li><b>1-2 parapluies</b> — dont 1 transparent blanc pour la mariée</li>
+          <li><b>Eau pour la mariée</b> + téléphone chargé</li>
+          <li><b>Règle absolue</b> — ne jamais laisser les invités modifier le plan de table</li>
+        </ul>
+      </div>
+
+      <div class="tip">Méthode planning Jour J : toujours remonter de la fin vers le début (entrée en salle → vin d'honneur → cocktail → photos → cérémonie → mairie → préparatifs), et <strong>doubler systématiquement</strong> le temps Mappy.</div>
+    </section>
+
+    <footer class="sources" id="sources">
+      <h2>Fichiers sources</h2>
+      <div class="sub">Emplacements complets pour ouvrir les supports originaux dans l'Explorateur Windows. Dossier de travail : <span class="mono">C:\Users\karin\iCloudDrive\REVEAL IMPACT\FORMATIONS PRO REVEAL IMPACT\WEDDING ACADEMY\Wedding Planner\</span></div>
+
+      <div class="file-group">
+        <h4>Synthèses (6 modules + process)</h4>
+        <div class="file-item"><span class="fname">SYNTHESE-M1 à M6 (.docx)</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\M{1-6}\SYNTHESE-M{X}-*.docx</span></div>
+        <div class="file-item"><span class="fname">PROCESS-WP-Workflows-Organisation-Mariage.docx</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\PROCESS-WP-Workflows-Organisation-Mariage.docx</span></div>
+      </div>
+
+      <div class="file-group">
+        <h4>Supports de cours PDF</h4>
+        <div class="file-item"><span class="fname">M1 — Support de cours - Module 1 WP.pdf</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\M1\Support de cours - Module 1 WP.pdf</span></div>
+        <div class="file-item"><span class="fname">M2 — Module 2 - Créer son carnet d'adresse.pdf</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\M2\Module 2 - Crer son carnet d_adresse.pdf</span></div>
+        <div class="file-item"><span class="fname">M3 — COURS PDF - MODULE 3 - Organisation de mariage.pdf</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\M3\COURS PDF - MODULE 3 - Organisation de mariage.pdf</span></div>
+        <div class="file-item"><span class="fname">M3 — Fiches outils (poste équipe, coordination JJ, planning JJ, gestion risques)</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\M3\16 à 21-*.pdf</span></div>
+        <div class="file-item"><span class="fname">M4 — COURS PDF - MODULE 4 - Les cérémonies.pdf</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\M4\COURS PDF - MODULE 4 - Les ceremonies.pdf</span></div>
+        <div class="file-item"><span class="fname">Fiches prestataires (DJ, Photographe, Traiteur, Vidéaste, Décorateur-fleuriste)</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\Fiche-*.pdf</span></div>
+        <div class="file-item"><span class="fname">Budget prévisionnel + Retro Planning + Contrat Mariés</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\9-Budget prvisionnel.xls / 13- Le Retro Planning Mariage.pptx / 10 -Contrat _Mariés_.pdf</span></div>
+      </div>
+
+      <div class="file-group">
+        <h4>Transcripts bruts (Notta)</h4>
+        <div class="file-item"><span class="fname">M1 à M6 — .txt et .docx par chapitre</span><span class="mono">…\WEDDING ACADEMY\Wedding Planner\M{1-6}\</span></div>
+      </div>
+
+      <div class="end-note">Cahier compilé pour Karine Pochot — Maison Reveal Impact · Wedding Academy, formation Wedding Planner (Modules 1 à 6)</div>
+    </footer>
+
+  </div>
+</div>
+</body>
+</html>
